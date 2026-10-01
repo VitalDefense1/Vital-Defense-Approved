@@ -94,7 +94,7 @@ export function SiteHeader() {
         <SheetTrigger
           ref={menuTriggerRef}
           className={cn(
-            "inline-flex size-11 items-center justify-center rounded-full text-[#1A1917] hover:text-gold",
+            "inline-flex size-11 cursor-pointer items-center justify-center rounded-full text-[#1A1917] hover:text-gold [&_*]:cursor-pointer",
             iconHalo,
           )}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -338,7 +338,7 @@ function UtilityButton({
     <button
       type="button"
       className={cn(
-        "relative inline-flex size-11 items-center justify-center rounded-full text-[#1A1917] hover:text-gold",
+        "relative inline-flex size-11 cursor-pointer items-center justify-center rounded-full text-[#1A1917] hover:text-gold [&_*]:cursor-pointer",
         iconHalo,
         className,
       )}
