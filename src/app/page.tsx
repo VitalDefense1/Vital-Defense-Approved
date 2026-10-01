@@ -32,11 +32,7 @@ export default function HomePage() {
           height={1024}
           quality={90}
           sizes="(min-width: 768px) 1100px, 175vw"
-          className="pointer-events-none absolute top-1/2 left-0 z-[1] h-auto w-[175vw] max-w-none -translate-x-[46.8%] -translate-y-1/2 opacity-[0.16] md:w-[1100px]"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute top-10 right-8 z-0 h-72 w-[46%] bg-[#ebe4d8] sm:h-96 md:top-16 md:h-[28rem] md:w-[32%]"
+          className="pointer-events-none absolute top-1/2 left-0 z-[1] h-auto w-[175vw] max-w-none -translate-x-[39.5%] -translate-y-1/2 opacity-[0.16] md:w-[1100px]"
         />
         <div
           aria-hidden="true"
