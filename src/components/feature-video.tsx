@@ -50,7 +50,7 @@ export function FeatureVideo({
 
   return (
     <section
-      aria-label="Opening photograph"
+      aria-label="Opening video"
       className="relative w-full bg-white"
     >
       <div className="px-3 pt-5 pb-16 sm:px-8 sm:pt-8" aria-hidden="true">
@@ -86,7 +86,7 @@ export function FeatureVideo({
       <div className="absolute inset-x-0 bottom-0 z-10 px-4 pt-4 pb-4 sm:px-6">
         <div className="flex items-end justify-between gap-4">
           <p className="max-w-xs pb-3 text-sm leading-5 text-[#1A1917]">
-            Still photograph. Your video replaces this frame.
+            Opening footage from the supplied file.
           </p>
           {src ? (
             <button
