@@ -13,8 +13,7 @@
 			<p class="vd-footer-label">Categories</p>
 			<ul>
 				<?php foreach ( vd_top_terms() as $term ) : ?>
-					<?php $path = (string) get_term_meta( $term->term_id, '_vd_path', true ); ?>
-					<li><a class="vd-link" href="<?php echo esc_url( home_url( '/' . $path . '/' ) ); ?>"><?php echo esc_html( $term->name ); ?></a></li>
+					<li><a class="vd-link" href="<?php echo esc_url( vd_term_url( $term ) ); ?>"><?php echo esc_html( $term->name ); ?></a></li>
 				<?php endforeach; ?>
 			</ul>
 		</nav>

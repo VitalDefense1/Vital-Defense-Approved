@@ -16,6 +16,16 @@ function vd_after_switch() {
 }
 add_action( 'after_switch_theme', 'vd_after_switch' );
 
+function vd_sync_catalog() {
+	if ( '3' === get_option( 'vd_catalog_ver' ) ) {
+		return;
+	}
+	vd_seed_catalog();
+	update_option( 'vd_catalog_ver', '3' );
+	delete_transient( 'vd_catalog_index' );
+}
+add_action( 'init', 'vd_sync_catalog', 20 );
+
 function vd_seed_catalog() {
 	$order = 0;
 	foreach ( vd_catalog_tree() as $node ) {

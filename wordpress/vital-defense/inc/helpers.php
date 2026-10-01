@@ -146,3 +146,25 @@ function vd_term_children( $parent_id ) {
 function vd_top_terms() {
 	return vd_term_children( 0 );
 }
+
+function vd_term_url( $term ) {
+	if ( ! $term || is_wp_error( $term ) ) {
+		return home_url( '/' );
+	}
+	$segments = array();
+	$guard    = 0;
+	$current  = $term;
+	while ( $current && ! is_wp_error( $current ) && $guard < 8 ) {
+		$path = (string) get_term_meta( $current->term_id, '_vd_path', true );
+		if ( '' === $path ) {
+			$path = $current->slug;
+		}
+		array_unshift( $segments, $path );
+		if ( ! $current->parent ) {
+			break;
+		}
+		$current = get_term( (int) $current->parent, 'vd_catalog' );
+		$guard++;
+	}
+	return home_url( '/' . implode( '/', $segments ) . '/' );
+}

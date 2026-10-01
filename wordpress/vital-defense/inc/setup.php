@@ -54,22 +54,28 @@ add_action( 'init', 'vd_register_types' );
 function vd_rewrite_rules() {
 	$tops = array( 'rifles', 'handguns', 'shotguns', 'optics', 'accessories', 'parts', 'ammo', 'services', 'merch', 'extras' );
 	$top  = implode( '|', $tops );
-	add_rewrite_rule( '^(' . $top . ')/([^/]+)/?$', 'index.php?vd_catalog=$matches[1]&vd_group=$matches[2]', 'top' );
+	add_rewrite_rule( '^(' . $top . ')/(.+)/?$', 'index.php?vd_catalog=$matches[1]&vd_trail=$matches[2]', 'top' );
 	add_rewrite_rule( '^(' . $top . ')/?$', 'index.php?vd_catalog=$matches[1]', 'top' );
 }
 add_action( 'init', 'vd_rewrite_rules' );
 
 function vd_query_vars( $vars ) {
 	$vars[] = 'vd_catalog';
-	$vars[] = 'vd_group';
+	$vars[] = 'vd_trail';
 	return $vars;
 }
+
+function vd_flush_catalog_rewrites() {
+	if ( '3' === get_option( 'vd_rewrite_ver' ) ) {
+		return;
+	}
+	flush_rewrite_rules( false );
+	update_option( 'vd_rewrite_ver', '3' );
+}
+add_action( 'init', 'vd_flush_catalog_rewrites', 99 );
 add_filter( 'query_vars', 'vd_query_vars' );
 
 function vd_template_include( $template ) {
-	if ( get_query_var( 'vd_group' ) ) {
-		return get_template_directory() . '/group.php';
-	}
 	if ( get_query_var( 'vd_catalog' ) ) {
 		return get_template_directory() . '/catalog.php';
 	}
@@ -87,8 +93,8 @@ function vd_assets() {
 		array(),
 		null
 	);
-	wp_enqueue_style( 'vd-theme', get_template_directory_uri() . '/assets/css/theme.css', array( 'vd-fonts' ), '1.1.1' );
-	wp_enqueue_script( 'vd-theme', get_template_directory_uri() . '/assets/js/theme.js', array(), '1.1.1', true );
+	wp_enqueue_style( 'vd-theme', get_template_directory_uri() . '/assets/css/theme.css', array( 'vd-fonts' ), '1.1.2' );
+	wp_enqueue_script( 'vd-theme', get_template_directory_uri() . '/assets/js/theme.js', array(), '1.1.2', true );
 	wp_localize_script(
 		'vd-theme',
 		'vdPreview',
@@ -107,18 +113,9 @@ function vd_robots( $robots ) {
 add_filter( 'wp_robots', 'vd_robots' );
 
 function vd_document_title( $parts ) {
-	$catalog = get_query_var( 'vd_catalog' );
-	$group   = get_query_var( 'vd_group' );
-	if ( $group && $catalog ) {
-		$match = vd_find_group( $catalog, $group );
-		if ( $match ) {
-			$parts['title'] = $match->name;
-		}
-	} elseif ( $catalog ) {
-		$term = vd_find_top( $catalog );
-		if ( $term ) {
-			$parts['title'] = $term->name;
-		}
+	$term = vd_resolve_catalog_term();
+	if ( $term ) {
+		$parts['title'] = $term->name;
 	}
 	return $parts;
 }
@@ -140,26 +137,44 @@ function vd_find_top( $path ) {
 	return $terms[0];
 }
 
-function vd_find_group( $parent_path, $group_path ) {
-	$parent = vd_find_top( $parent_path );
-	if ( ! $parent ) {
-		return null;
-	}
+function vd_find_child_path( $parent_id, $path ) {
 	$terms = get_terms(
 		array(
 			'taxonomy'   => 'vd_catalog',
-			'parent'     => $parent->term_id,
+			'parent'     => (int) $parent_id,
 			'hide_empty' => false,
 			'meta_key'   => '_vd_path',
-			'meta_value' => $group_path,
+			'meta_value' => $path,
 		)
 	);
 	if ( is_wp_error( $terms ) || ! $terms ) {
 		return null;
 	}
-	$term = $terms[0];
-	if ( '1' !== (string) get_term_meta( $term->term_id, '_vd_public', true ) ) {
+	return $terms[0];
+}
+
+function vd_resolve_catalog_term() {
+	$top = (string) get_query_var( 'vd_catalog' );
+	if ( '' === $top ) {
 		return null;
+	}
+	$term = vd_find_top( $top );
+	if ( ! $term ) {
+		return null;
+	}
+	$trail = trim( (string) get_query_var( 'vd_trail' ), '/' );
+	if ( '' === $trail ) {
+		return $term;
+	}
+	foreach ( explode( '/', $trail ) as $segment ) {
+		$segment = trim( $segment );
+		if ( '' === $segment ) {
+			continue;
+		}
+		$term = vd_find_child_path( $term->term_id, $segment );
+		if ( ! $term ) {
+			return null;
+		}
 	}
 	return $term;
 }

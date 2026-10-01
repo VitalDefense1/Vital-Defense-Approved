@@ -10,50 +10,27 @@ function vd_render_catalog_menu() {
 
 function vd_render_term( $term, $depth ) {
 	$children = vd_term_children( $term->term_id );
-	$public   = '1' === (string) get_term_meta( $term->term_id, '_vd_public', true );
-	$path     = (string) get_term_meta( $term->term_id, '_vd_path', true );
-	$url      = '';
-	if ( 0 === $depth ) {
-		$url = home_url( '/' . $path . '/' );
-	} elseif ( $public ) {
-		$parent = get_term( $term->parent, 'vd_catalog' );
-		$parent_path = $parent && ! is_wp_error( $parent ) ? (string) get_term_meta( $parent->term_id, '_vd_path', true ) : '';
-		$url = home_url( '/' . $parent_path . '/' . $path . '/' );
-	}
-
-	if ( 0 === $depth ) {
-		echo '<li class="vd-nav-item">';
-		echo '<a class="vd-link vd-nav-top" href="' . esc_url( $url ) . '">' . esc_html( $term->name ) . '</a>';
-		if ( $children ) {
-			echo '<details class="vd-disclosure">';
-			echo '<summary class="vd-nav-toggle" aria-label="' . esc_attr( 'Show ' . $term->name . ' subcategories' ) . '"><span class="vd-plus">+</span></summary>';
-			echo '<ul class="vd-nav-sub">';
-			if ( $public ) {
-				echo '<li><a class="vd-link vd-nav-child" href="' . esc_url( $url ) . '">All ' . esc_html( strtolower( $term->name ) ) . '</a></li>';
-			}
-			foreach ( $children as $child ) {
-				vd_render_term( $child, $depth + 1 );
-			}
-			echo '</ul></details>';
-		}
-		echo '</li>';
-		return;
-	}
+	$url      = vd_term_url( $term );
 
 	if ( ! $children ) {
 		echo '<li>';
-		if ( $url ) {
-			echo '<a class="vd-link vd-nav-child" href="' . esc_url( $url ) . '">' . esc_html( $term->name ) . '</a>';
-		} else {
-			echo '<span class="vd-nav-label">' . esc_html( $term->name ) . '</span>';
-		}
+		echo '<a class="vd-link vd-nav-child" href="' . esc_url( $url ) . '">' . esc_html( $term->name ) . '</a>';
 		echo '</li>';
 		return;
 	}
 
-	echo '<li><details class="vd-disclosure">';
-	echo '<summary class="vd-nav-nested"><span>' . esc_html( $term->name ) . '</span><span class="vd-plus">+</span></summary>';
-	echo '<ul class="vd-nav-nested-list">';
+	$item_class = 0 === $depth ? 'vd-nav-item' : 'vd-nav-branch';
+	$link_class = 0 === $depth ? 'vd-link vd-nav-top' : 'vd-link vd-nav-nested-link';
+	$list_class = 0 === $depth ? 'vd-nav-sub' : 'vd-nav-nested-list';
+
+	echo '<li class="' . esc_attr( $item_class ) . '">';
+	echo '<a class="' . esc_attr( $link_class ) . '" href="' . esc_url( $url ) . '">' . esc_html( $term->name ) . '</a>';
+	echo '<details class="vd-disclosure">';
+	echo '<summary class="vd-nav-toggle" aria-label="' . esc_attr( 'Show ' . $term->name . ' subcategories' ) . '"><span class="vd-plus" aria-hidden="true">+</span></summary>';
+	echo '<ul class="' . esc_attr( $list_class ) . '">';
+	if ( 0 === $depth ) {
+		echo '<li><a class="vd-link vd-nav-child" href="' . esc_url( $url ) . '">All ' . esc_html( strtolower( $term->name ) ) . '</a></li>';
+	}
 	foreach ( $children as $child ) {
 		vd_render_term( $child, $depth + 1 );
 	}
@@ -64,8 +41,7 @@ function vd_render_category_strip() {
 	echo '<nav class="vd-strip" aria-label="Categories"><ul>';
 	$terms = vd_top_terms();
 	foreach ( $terms as $term ) {
-		$path = (string) get_term_meta( $term->term_id, '_vd_path', true );
-		echo '<li><a class="vd-link" href="' . esc_url( home_url( '/' . $path . '/' ) ) . '">' . esc_html( $term->name ) . '</a></li>';
+		echo '<li><a class="vd-link" href="' . esc_url( vd_term_url( $term ) ) . '">' . esc_html( $term->name ) . '</a></li>';
 	}
 	echo '</ul></nav>';
 }
