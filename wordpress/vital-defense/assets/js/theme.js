@@ -398,8 +398,6 @@
     var maxLift = Math.max(0, shieldTop - (headerRect.top + 2));
     var dy = desired < 0 ? Math.max(desired, -maxLift) : desired;
     frame.top += dy;
-    var shieldViewportX = stageRect.left + frame.left + (832 + 254 / 2) * scale;
-    frame.left += window.innerWidth / 2 - shieldViewportX;
     var shieldW = 254 * scale;
     var imgW = shieldW * (293 / 288);
     var imgH = imgW * (248 / 293);
@@ -525,9 +523,6 @@
     var desired = header / 2 - (shieldTop + shieldH / 2);
     var maxLift = Math.max(0, shieldTop - 2);
     top += desired < 0 ? Math.max(desired, -maxLift) : desired;
-    var view = window.innerWidth || width;
-    var visibleCenter = left + (4 / 293) * imgW + visibleW / 2;
-    left += view / 2 - visibleCenter;
     logo.style.setProperty("left", left + "px", "important");
     logo.style.setProperty("top", top + "px", "important");
     logo.style.setProperty("width", imgW + "px", "important");
