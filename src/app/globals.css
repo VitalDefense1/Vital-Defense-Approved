@@ -214,11 +214,6 @@ summary:focus-visible {
       animation-timeline: view();
       animation-range: entry 0% cover 28%;
     }
-    .showcase-frame {
-      animation: showcase-settle linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 36%;
-    }
   }
 }
 
@@ -228,14 +223,5 @@ summary:focus-visible {
   }
   to {
     transform: translateY(0);
-  }
-}
-
-@keyframes showcase-settle {
-  from {
-    transform: translateY(28px) scale(0.975);
-  }
-  to {
-    transform: translateY(0) scale(1);
   }
 }
