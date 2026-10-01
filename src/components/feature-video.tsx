@@ -66,26 +66,28 @@ export function FeatureVideo({
         <p className="max-w-xs text-sm leading-5 text-[#1A1917]">
           Still photograph. Your video replaces this frame.
         </p>
-        <button
-          type="button"
-          className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-border bg-white text-[#1A1917] disabled:cursor-not-allowed disabled:opacity-70"
-          aria-pressed={holding}
-          disabled={motionOff}
-          onClick={() => setPaused((value) => !value)}
-        >
-          {holding ? (
-            <Play className="size-[18px]" strokeWidth={1.5} aria-hidden />
-          ) : (
-            <Pause className="size-[18px]" strokeWidth={1.5} aria-hidden />
-          )}
-          <span className="sr-only">
-            {motionOff
-              ? "Motion is off because reduced motion is enabled"
-              : paused
-                ? "Play motion"
-                : "Pause motion"}
-          </span>
-        </button>
+        {src ? (
+          <button
+            type="button"
+            className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-border bg-white text-[#1A1917] disabled:cursor-not-allowed disabled:opacity-70"
+            aria-pressed={holding}
+            disabled={motionOff}
+            onClick={() => setPaused((value) => !value)}
+          >
+            {holding ? (
+              <Play className="size-[18px]" strokeWidth={1.5} aria-hidden />
+            ) : (
+              <Pause className="size-[18px]" strokeWidth={1.5} aria-hidden />
+            )}
+            <span className="sr-only">
+              {motionOff
+                ? "Motion is off because reduced motion is enabled"
+                : paused
+                  ? "Play motion"
+                  : "Pause motion"}
+            </span>
+          </button>
+        ) : null}
         </div>
       </div>
     </section>

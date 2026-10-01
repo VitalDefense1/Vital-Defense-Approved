@@ -8,11 +8,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-white">
       <div className="px-6 pt-14">
-        <div className="relative mx-auto w-fit">
-          <div
-            aria-hidden="true"
-            className="absolute -top-3 -right-3 -bottom-3 left-5 bg-[#ebe4d8] sm:-right-8"
-          />
+        <div className="mx-auto w-fit">
           <Image
             src="/photos/illustration-rifle.png"
             alt="Still drawing of a rifle. The file is a picture, not an animation."

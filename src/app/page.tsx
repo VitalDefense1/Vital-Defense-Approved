@@ -11,7 +11,50 @@ import { departments, proposedHome } from "@/lib/navigation"
  * Do not redraw the logo, the firearms, or the accessories.
  */
 
-const brandSlots = ["01", "02", "03", "04", "05", "06"]
+const featuredBrands = [
+  {
+    src: "/brands/hk.png",
+    alt: "HK",
+    width: 3840,
+    height: 2630,
+    frame: "max-h-[4.25rem] lg:max-h-20",
+  },
+  {
+    src: "/brands/radian.png",
+    alt: "Radian",
+    width: 1904,
+    height: 1326,
+    frame: "max-h-[4.5rem] lg:max-h-20",
+  },
+  {
+    src: "/brands/iray.png",
+    alt: "InfiRay Outdoor, iRayUSA",
+    width: 556,
+    height: 338,
+    frame: "max-h-16 lg:max-h-[4.75rem]",
+  },
+  {
+    src: "/brands/surefire.png",
+    alt: "SureFire",
+    width: 1266,
+    height: 373,
+    frame: "max-h-[2.85rem] max-w-full lg:max-h-16 lg:max-w-[13.5rem]",
+  },
+  {
+    src: "/brands/dark-forge.png",
+    alt: "Dark Forge",
+    width: 463,
+    height: 373,
+    frame: "max-h-20 lg:max-h-[5.75rem]",
+  },
+  {
+    src: "/brands/atlas-gunworks.png",
+    alt: "Atlas Gunworks",
+    width: 303,
+    height: 205,
+    frame: "max-h-[4.75rem] lg:max-h-[5.5rem]",
+  },
+]
 
 const departmentLines: Record<string, string> = {
   rifles: "Semi-auto through single shot.",
@@ -78,36 +121,31 @@ export default function HomePage() {
             brands
           </h2>
           <p className="mx-auto mt-5 max-w-md text-base leading-7 text-muted-foreground">
-            These marks are placeholders. No brand is shown as a partner, and no
-            logo file has been authorized yet.
+            Logo files supplied for this preview, shown in their original colors.
           </p>
         </div>
         <div className="relative mx-auto mt-16 max-w-6xl lg:mt-20">
           <div
             aria-hidden="true"
-            className="absolute top-2 right-[6%] hidden h-28 w-[42%] bg-[#ebe4d8] lg:block"
+            className="absolute top-0 right-0 left-0 hidden h-px bg-border lg:block"
           />
-          <div
-            aria-hidden="true"
-            className="absolute top-10 right-0 left-0 hidden h-px bg-border lg:block"
-          />
-          <ul className="relative grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-6 lg:gap-0">
-            {brandSlots.map((slot) => (
-              <li key={slot} className="flex flex-col items-center">
-                <span className="relative z-10 flex size-20 items-center justify-center rounded-full border border-border bg-white font-heading text-xl transition-colors hover:border-gold">
-                  {slot}
-                </span>
-                <span className="mt-4 text-sm text-muted-foreground">Placeholder</span>
+          <ul className="relative grid grid-cols-2 items-center justify-items-center gap-x-8 gap-y-10 pt-8 sm:grid-cols-3 lg:flex lg:flex-nowrap lg:justify-between lg:gap-x-8 lg:pt-10">
+            {featuredBrands.map((brand) => (
+              <li key={brand.src} className="flex h-24 w-full items-center justify-center lg:h-28 lg:w-auto">
+                <Image
+                  src={brand.src}
+                  alt={brand.alt}
+                  width={brand.width}
+                  height={brand.height}
+                  quality={90}
+                  className={`relative z-10 h-auto w-auto object-contain ${brand.frame}`}
+                />
               </li>
             ))}
           </ul>
         </div>
 
         <div className="relative z-10 mx-auto mt-20 max-w-6xl md:mt-28">
-          <div
-            aria-hidden="true"
-            className="absolute top-[18%] right-[2%] -bottom-8 left-[16%] bg-[#ebe4d8] md:right-[6%] md:-bottom-16 md:left-[30%]"
-          />
           <div
             aria-hidden="true"
             className="absolute top-[18%] left-[18%] h-px w-14 bg-gold md:left-[32%]"
