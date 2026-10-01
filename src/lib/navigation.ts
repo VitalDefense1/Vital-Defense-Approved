@@ -134,6 +134,11 @@ export type CatalogNode = {
   children?: CatalogNode[]
 }
 
+export type MainCategory = {
+  label: string
+  href?: string
+}
+
 export const catalog: CatalogNode[] = [
   {
     label: "Optics",
@@ -143,9 +148,6 @@ export const catalog: CatalogNode[] = [
       { label: "Magnifiers" },
       { label: "Iron & Other Sights" },
       { label: "LPVO, MPVO, HPVO" },
-      { label: "Scope Bases" },
-      { label: "Scope Mounts" },
-      { label: "Scope Rings" },
       { label: "Spotting Scopes" },
       { label: "Binos" },
       { label: "Range Finders" },
@@ -162,6 +164,9 @@ export const catalog: CatalogNode[] = [
       { label: "Magazines" },
       { label: "Bipods / Tripods" },
       { label: "Targets" },
+      { label: "Scope Bases" },
+      { label: "Scope Mounts" },
+      { label: "Scope Rings" },
     ],
   },
   {
@@ -227,5 +232,14 @@ export const catalog: CatalogNode[] = [
       { label: "Less Lethal" },
     ],
   },
+]
+
+/** Every top-level category, in menu order. Firearm entries keep their pages. */
+export const mainCategories: MainCategory[] = [
+  ...departments.map((department) => ({
+    label: department.label,
+    href: `/${department.slug}`,
+  })),
+  ...catalog.map((item) => ({ label: item.label })),
 ]
 

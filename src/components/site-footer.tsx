@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Logo } from "@/components/logo"
-import { departments } from "@/lib/navigation"
+import { mainCategories } from "@/lib/navigation"
 import { site } from "@/lib/site"
 
 export function SiteFooter() {
@@ -34,11 +34,15 @@ export function SiteFooter() {
         <nav aria-label="Footer">
           <p className="font-semibold text-lg tracking-[0.06em]">Categories</p>
           <ul className="mt-4 space-y-2">
-            {departments.map((department) => (
-              <li key={department.slug}>
-                <Link href={`/${department.slug}`} className="vd-link text-sm">
-                  {department.label}
-                </Link>
+            {mainCategories.map((category) => (
+              <li key={category.label}>
+                {category.href ? (
+                  <Link href={category.href} className="vd-link text-sm">
+                    {category.label}
+                  </Link>
+                ) : (
+                  <span className="text-sm">{category.label}</span>
+                )}
               </li>
             ))}
             <li>

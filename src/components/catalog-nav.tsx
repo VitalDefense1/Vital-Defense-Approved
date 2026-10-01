@@ -1,16 +1,23 @@
-import { catalog, type CatalogNode } from "@/lib/navigation"
+import Link from "next/link"
+import { catalog, mainCategories, type CatalogNode } from "@/lib/navigation"
 import { cn } from "@/lib/utils"
 
 export function CatalogStrip() {
   return (
-    <nav aria-label="Shop categories" className="px-6 py-12 md:py-16">
-      <ul className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-y-3">
-        {catalog.map((item) => (
+    <nav aria-label="Categories" className="px-6 py-12 md:py-16">
+      <ul className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-y-3">
+        {mainCategories.map((item) => (
           <li
             key={item.label}
             className="font-heading px-2 text-sm leading-none font-bold tracking-[0.12em] whitespace-nowrap after:ml-4 after:text-gold after:content-['·'] last:after:ml-0 last:after:content-none sm:px-2.5 sm:text-base"
           >
-            {item.label}
+            {item.href ? (
+              <Link href={item.href} className="vd-link">
+                {item.label}
+              </Link>
+            ) : (
+              item.label
+            )}
           </li>
         ))}
       </ul>
