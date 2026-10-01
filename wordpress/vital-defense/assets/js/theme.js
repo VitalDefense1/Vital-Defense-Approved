@@ -398,6 +398,8 @@
     var maxLift = Math.max(0, shieldTop - (headerRect.top + 2));
     var dy = desired < 0 ? Math.max(desired, -maxLift) : desired;
     frame.top += dy;
+    var shieldViewportX = stageRect.left + frame.left + (832 + 254 / 2) * scale;
+    frame.left += window.innerWidth / 2 - shieldViewportX;
     var shieldW = 254 * scale;
     var imgW = shieldW * (293 / 288);
     var imgH = imgW * (248 / 293);
@@ -411,10 +413,12 @@
       width: imgW,
       height: imgH
     };
-    logo.style.left = box.left + "px";
-    logo.style.top = box.top + "px";
-    logo.style.width = box.width + "px";
-    logo.style.height = box.height + "px";
+    logo.style.setProperty("left", box.left + "px", "important");
+    logo.style.setProperty("top", box.top + "px", "important");
+    logo.style.setProperty("width", box.width + "px", "important");
+    logo.style.setProperty("height", box.height + "px", "important");
+    logo.style.setProperty("transform", "none", "important");
+    logo.style.setProperty("translate", "none", "important");
     var section = stage.parentElement.getBoundingClientRect();
     var visibleBottom = headerRect.top + box.top + (3 / 248) * imgH + visibleH;
     var room = section.bottom - visibleBottom;
@@ -463,7 +467,6 @@
   function startIntro() {
     if (!document.body.classList.contains("vd-home")) {
       measureOtherPageLogo();
-      window.addEventListener("resize", measureOtherPageLogo);
       return;
     }
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -496,10 +499,6 @@
     if (skip) skip.addEventListener("click", finishIntro);
     var pending = video.play();
     if (pending) pending.catch(finishIntro);
-    window.addEventListener("resize", function () {
-      var next = measureLogo();
-      placeVideo(next);
-    });
   }
   function measureOtherPageLogo() {
     var logo = document.querySelector("[data-intro-logo]");
@@ -598,6 +597,12 @@
   if (ageOk()) startIntro();
   else measureOtherPageLogo();
   window.addEventListener("resize", function () {
-    if (!document.body.classList.contains("vd-home")) measureOtherPageLogo();
+    if (document.body.classList.contains("vd-home")) {
+      var next = measureLogo();
+      var section = document.querySelector(".vd-opening");
+      if (section && section.getAttribute("data-intro") === "playing") placeVideo(next);
+    } else {
+      measureOtherPageLogo();
+    }
   });
 })();
