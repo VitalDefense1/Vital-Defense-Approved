@@ -225,7 +225,7 @@ summary:focus-visible {
   transition: transform 160ms ease;
 }
 
-.vd-disclosure[open] .vd-plus {
+.vd-disclosure[open] > summary .vd-plus {
   transform: rotate(45deg);
 }
 

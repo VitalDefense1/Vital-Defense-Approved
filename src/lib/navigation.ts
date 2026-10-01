@@ -128,3 +128,104 @@ export function getGroup(departmentSlug: string, groupSlug: string) {
   return { department, group }
 }
 
+/** Shop categories that do not have pages yet. Names only — no destinations. */
+export type CatalogNode = {
+  label: string
+  children?: CatalogNode[]
+}
+
+export const catalog: CatalogNode[] = [
+  {
+    label: "Optics",
+    children: [
+      { label: "Red Dots and Holographics" },
+      { label: "Mounts and Risers" },
+      { label: "Magnifiers" },
+      { label: "Iron & Other Sights" },
+      { label: "LPVO, MPVO, HPVO" },
+      { label: "Scope Bases" },
+      { label: "Scope Mounts" },
+      { label: "Scope Rings" },
+      { label: "Spotting Scopes" },
+      { label: "Binos" },
+      { label: "Range Finders" },
+      { label: "Night Vision" },
+      { label: "Thermal" },
+    ],
+  },
+  {
+    label: "Accessories",
+    children: [
+      { label: "Lights and Lasers" },
+      { label: "Slings" },
+      { label: "Ear Pro / Eye Pro" },
+      { label: "Magazines" },
+      { label: "Bipods / Tripods" },
+      { label: "Targets" },
+    ],
+  },
+  {
+    label: "Parts",
+    children: [
+      {
+        label: "Handgun Parts",
+        children: [
+          { label: "Triggers" },
+          { label: "Frames" },
+          { label: "Barrels" },
+          { label: "Slides" },
+        ],
+      },
+      {
+        label: "Long Gun Parts",
+        children: [
+          { label: "Triggers" },
+          { label: "Barrels" },
+          { label: "AR Upper Parts" },
+          { label: "Stocks/Braces" },
+          { label: "Bolts / BCGs" },
+          { label: "Rails" },
+          { label: "Lower Parts" },
+          { label: "Lower Receivers" },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Ammo",
+    children: [
+      { label: "Handgun" },
+      { label: "Rifle" },
+      { label: "Shotgun" },
+      { label: "Rimfire" },
+    ],
+  },
+  {
+    label: "Services",
+    children: [
+      { label: "Transfers" },
+      { label: "Laser Engraving" },
+      { label: "Cerakote" },
+    ],
+  },
+  {
+    label: "Merch",
+    children: [
+      { label: "Hats" },
+      { label: "Shirts" },
+      { label: "Hoodies" },
+      { label: "Patches" },
+      { label: "Stickers" },
+      { label: "Magazines" },
+    ],
+  },
+  {
+    label: "Extras",
+    children: [
+      { label: "Range Bags" },
+      { label: "Gun Cleaning" },
+      { label: "Less Lethal" },
+    ],
+  },
+]
+

@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { CatalogStrip } from "@/components/catalog-nav"
 import { ContactPanel } from "@/components/contact-panel"
 import { FeatureVideo } from "@/components/feature-video"
 import { ProductShowcase } from "@/components/product-showcase"
@@ -139,6 +140,7 @@ export default function HomePage() {
 
       <ContactPanel titleAs="h2" />
       <ProductShowcase />
+      <CatalogStrip />
     </main>
   )
 }

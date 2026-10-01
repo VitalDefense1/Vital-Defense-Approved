@@ -22,6 +22,7 @@ import {
 import { formatPrice, useCart } from "@/components/cart-state"
 import { useIntro } from "@/components/intro-state"
 import { Logo } from "@/components/logo"
+import { CatalogMenu } from "@/components/catalog-nav"
 import { departments } from "@/lib/navigation"
 import { cn } from "@/lib/utils"
 
@@ -109,24 +110,26 @@ export function SiteHeader() {
             </SheetDescription>
             <Logo mark className="h-20 w-auto max-w-none self-start" />
           </SheetHeader>
-          <div className="flex-1 overflow-y-auto px-6 py-2">
+          <div className="min-h-0 flex-1 overflow-y-auto px-6 py-2">
             <nav aria-label="Categories">
               {departments.map((department) => (
                 <details
                   key={department.slug}
                   className="vd-disclosure border-b border-border"
                 >
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 [&::-webkit-details-marker]:hidden">
-                    <span className="font-semibold text-xl tracking-[0.06em]">{department.label}</span>
+                  <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 [&::-webkit-details-marker]:hidden">
+                    <span className="font-heading text-xl font-bold tracking-[0.06em]">
+                      {department.label}
+                    </span>
                     <span className="vd-plus text-2xl leading-none text-gold" aria-hidden="true">
                       +
                     </span>
                   </summary>
-                  <ul className="pb-4">
+                  <ul className="pb-3">
                     <li>
                       <Link
                         href={`/${department.slug}`}
-                        className="vd-link inline-flex py-2 text-sm"
+                        className="vd-link flex min-h-11 items-center text-sm"
                         onClick={() => setMenuOpen(false)}
                       >
                         All {department.label.toLowerCase()}
@@ -136,7 +139,7 @@ export function SiteHeader() {
                       <li key={group.slug}>
                         <Link
                           href={`/${department.slug}/${group.slug}`}
-                          className="vd-link inline-flex py-2 text-sm text-muted-foreground"
+                          className="vd-link flex min-h-11 items-center text-sm"
                           onClick={() => setMenuOpen(false)}
                         >
                           {group.label}
@@ -146,11 +149,12 @@ export function SiteHeader() {
                   </ul>
                 </details>
               ))}
+              <CatalogMenu />
             </nav>
             <div className="mt-6 border-t border-border pt-6 pb-10">
               <Link
                 href="/contact"
-                className="vd-link font-semibold text-xl tracking-[0.06em]"
+                className="vd-link font-heading text-xl font-bold tracking-[0.06em]"
                 onClick={() => setMenuOpen(false)}
               >
                 Contact
@@ -171,10 +175,6 @@ export function SiteHeader() {
                   Account
                 </button>
               </div>
-              <p className="mt-5 max-w-xs text-sm leading-6 text-muted-foreground">
-                Optics, ammunition, and other departments can be added when you
-                send the full list.
-              </p>
             </div>
           </div>
         </SheetContent>
