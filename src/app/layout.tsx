@@ -3,6 +3,7 @@ import { Oswald, Rajdhani } from "next/font/google"
 import Script from "next/script"
 import { AgeGate } from "@/components/age-gate"
 import { CartProvider } from "@/components/cart-state"
+import { FavoritesProvider } from "@/components/favorites-state"
 import { IntroProvider } from "@/components/intro-state"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
@@ -59,11 +60,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               Skip to content
             </a>
             <CartProvider>
-              <SiteHeader />
-              <div id="content" className="flex-1">
-                {children}
-              </div>
-              <SiteFooter />
+              <FavoritesProvider>
+                <SiteHeader />
+                <div id="content" className="flex-1">
+                  {children}
+                </div>
+                <SiteFooter />
+              </FavoritesProvider>
             </CartProvider>
           </IntroProvider>
         </AgeGate>

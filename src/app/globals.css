@@ -254,6 +254,33 @@ summary:focus-visible {
     width 220ms ease;
 }
 
+.vd-favorites-grid {
+  --vd-fav-row: 11.5rem;
+  --vd-fav-gap: 0.75rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  gap: var(--vd-fav-gap);
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  max-height: min(
+    calc(3 * var(--vd-fav-row) + 2 * var(--vd-fav-gap)),
+    calc(100dvh - 10rem)
+  );
+}
+
+.vd-favorites-item {
+  height: var(--vd-fav-row);
+}
+
+@media (min-width: 768px) {
+  .vd-favorites-grid {
+    --vd-fav-gap: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .vd-plus,
   [data-intro-fade] [data-intro-wordmark],
@@ -263,6 +290,12 @@ summary:focus-visible {
 
   .vd-type-char[data-revealed="false"] {
     color: inherit;
+  }
+
+  .vd-favorites-panel,
+  .vd-favorites-overlay {
+    animation: none;
+    transition: none;
   }
 }
 

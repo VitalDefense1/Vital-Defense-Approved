@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { formatPrice } from "@/components/cart-state"
+import { FavoriteHeart } from "@/components/favorite-heart"
 import { productPath, type SampleProduct } from "@/lib/sample-products"
 
 const MOBILE_PAGE_SIZE = 12
@@ -90,7 +91,12 @@ function ProductGrid({
     <div ref={topRef} tabIndex={-1} className="outline-none">
       <ul className={listClassName}>
         {visible.map((product) => (
-          <li key={product.id} className="min-w-0">
+          <li key={product.id} className="relative min-w-0">
+            <FavoriteHeart
+              productId={product.id}
+              title={product.title}
+              className="absolute top-1 right-1 z-10"
+            />
             <Link href={productPath(product.id)} className="vd-product-card flex h-full flex-col">
               <div className="flex aspect-[4/3] items-center justify-center bg-[#f7f5f1] p-3 sm:p-4">
                 <Image

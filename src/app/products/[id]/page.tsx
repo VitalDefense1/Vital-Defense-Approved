@@ -48,7 +48,7 @@ export default async function ProductPage({
     <main className="px-4 pt-16 pb-24 sm:px-6 md:pt-24">
       <div className="mx-auto max-w-5xl">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
-          <ProductGallery images={images} title={product.title} />
+          <ProductGallery images={images} title={product.title} productId={product.id} />
           <div>
             <Link href={`/${product.category}`} className="vd-link text-sm tracking-wide text-gold">
               {label}

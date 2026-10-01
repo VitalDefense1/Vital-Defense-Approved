@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
+import { FavoriteHeart } from "@/components/favorite-heart"
 
 export type GalleryImage = {
   src: string
@@ -16,9 +17,11 @@ export const PRODUCT_IMAGE_DISCLAIMER =
 export function ProductGallery({
   images,
   title,
+  productId,
 }: {
   images: GalleryImage[]
   title: string
+  productId: string
 }) {
   const [active, setActive] = useState(0)
   const frames = images.length > 0 ? images : []
@@ -29,7 +32,7 @@ export function ProductGallery({
 
   return (
     <div>
-      <GalleryFrame image={image} title={title} priority={index === 0} />
+      <GalleryFrame image={image} title={title} productId={productId} priority={index === 0} />
       {frames.length > 1 ? (
         <div className="mt-3 flex gap-2" role="group" aria-label="More product images">
           {frames.map((frame, frameIndex) => (
@@ -63,10 +66,12 @@ export function ProductGallery({
 function GalleryFrame({
   image,
   title,
+  productId,
   priority,
 }: {
   image: GalleryImage
   title: string
+  productId: string
   priority: boolean
 }) {
   return (
@@ -79,6 +84,11 @@ function GalleryFrame({
         priority={priority}
         sizes="(min-width: 768px) 40vw, 100vw"
         className="object-contain"
+      />
+      <FavoriteHeart
+        productId={productId}
+        title={title}
+        className="absolute top-1 right-1 z-10"
       />
       <p className="pointer-events-none absolute inset-x-2 bottom-0.5 text-center font-sans text-[0.65rem] leading-none font-semibold text-[#1a1917] [text-shadow:0_0_2px_#fff,0_0_3px_#fff] sm:inset-x-3 sm:text-xs">
         {PRODUCT_IMAGE_DISCLAIMER}

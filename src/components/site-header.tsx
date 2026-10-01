@@ -1,6 +1,6 @@
 "use client"
 
-import { useLayoutEffect, useState, type ReactNode } from "react"
+import { useLayoutEffect, useRef, useState, type MouseEvent, type ReactNode } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Heart, Search, ShoppingBag, User } from "lucide-react"
@@ -20,22 +20,19 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { formatPrice, useCart } from "@/components/cart-state"
+import { FavoritesOverlay } from "@/components/favorites-overlay"
 import { useIntro } from "@/components/intro-state"
 import { Logo } from "@/components/logo"
 import { CatalogMenu } from "@/components/catalog-nav"
 import { departments } from "@/lib/navigation"
 import { cn } from "@/lib/utils"
 
-type Panel = "search" | "favorites" | "account" | "cart"
+type Panel = "search" | "account" | "cart"
 
 const panels: Record<Panel, { title: string; body: string }> = {
   search: {
     title: "Search",
     body: "Search does not run in this preview. There is no catalog to query.",
-  },
-  favorites: {
-    title: "Favorites",
-    body: "Favorites are not saved in this preview.",
   },
   account: {
     title: "Account",
@@ -55,6 +52,9 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [panel, setPanel] = useState<Panel>("search")
   const [panelOpen, setPanelOpen] = useState(false)
+  const [favoritesOpen, setFavoritesOpen] = useState(false)
+  const menuTriggerRef = useRef<HTMLButtonElement>(null)
+  const favoritesOpenerRef = useRef<HTMLElement | null>(null)
   const pathname = usePathname()
   const { phase, logoBox } = useIntro()
   const home = pathname === "/"
@@ -70,8 +70,16 @@ export function SiteHeader() {
 
   function openPanel(next: Panel) {
     setMenuOpen(false)
+    setFavoritesOpen(false)
     setPanel(next)
     setPanelOpen(true)
+  }
+
+  function openFavorites(event: MouseEvent<HTMLButtonElement>) {
+    favoritesOpenerRef.current = event.currentTarget
+    setMenuOpen(false)
+    setPanelOpen(false)
+    setFavoritesOpen(true)
   }
 
   const { items, count, subtotal, removeItem } = useCart()
@@ -84,6 +92,7 @@ export function SiteHeader() {
     >
       <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
         <SheetTrigger
+          ref={menuTriggerRef}
           className={cn(
             "inline-flex size-11 items-center justify-center rounded-full text-[#1A1917] hover:text-gold",
             iconHalo,
@@ -171,7 +180,10 @@ export function SiteHeader() {
                 <button
                   type="button"
                   className="py-2 text-sm"
-                  onClick={() => openPanel("favorites")}
+                  aria-haspopup="dialog"
+                  aria-expanded={favoritesOpen}
+                  aria-controls={favoritesOpen ? "favorites-overlay" : undefined}
+                  onClick={openFavorites}
                 >
                   Favorites
                 </button>
@@ -224,7 +236,9 @@ export function SiteHeader() {
         <UtilityButton
           label="Favorites"
           className="hidden min-[480px]:inline-flex"
-          onClick={() => openPanel("favorites")}
+          expanded={favoritesOpen}
+          controls={favoritesOpen ? "favorites-overlay" : undefined}
+          onClick={openFavorites}
         >
           <Heart className={iconClass} strokeWidth={1.5} aria-hidden />
         </UtilityButton>
@@ -247,6 +261,16 @@ export function SiteHeader() {
           ) : null}
         </UtilityButton>
       </div>
+
+      <FavoritesOverlay
+        open={favoritesOpen}
+        onOpenChange={setFavoritesOpen}
+        resolveOpener={() => {
+          const opener = favoritesOpenerRef.current
+          if (opener?.isConnected) return opener
+          return menuTriggerRef.current
+        }}
+      />
 
       <Dialog open={panelOpen} onOpenChange={setPanelOpen}>
         <DialogContent className="bg-white sm:max-w-md">
@@ -299,11 +323,15 @@ function UtilityButton({
   label,
   onClick,
   className,
+  expanded,
+  controls,
   children,
 }: {
   label: string
-  onClick: () => void
+  onClick: (event: MouseEvent<HTMLButtonElement>) => void
   className?: string
+  expanded?: boolean
+  controls?: string
   children: ReactNode
 }) {
   return (
@@ -315,6 +343,8 @@ function UtilityButton({
         className,
       )}
       aria-haspopup="dialog"
+      aria-expanded={expanded}
+      aria-controls={controls}
       aria-label={label}
       onClick={onClick}
     >
