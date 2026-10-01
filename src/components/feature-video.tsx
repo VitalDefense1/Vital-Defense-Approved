@@ -182,8 +182,8 @@ export function FeatureVideo({ src }: { src: string }) {
         <img
           src="/brand/vital-defense-stacked.png"
           alt="Vital Defense"
-          width={1467}
-          height={824}
+          width={1945}
+          height={809}
           draggable={false}
           className="max-h-full max-w-full object-contain"
         />
