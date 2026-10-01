@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 import { Barlow } from "next/font/google"
+import Script from "next/script"
+import { AgeGate } from "@/components/age-gate"
 import { CartProvider } from "@/components/cart-state"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
@@ -36,16 +38,21 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${barlow.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
-        <a className="skip-link" href="#content">
-          Skip to content
-        </a>
-        <CartProvider>
-          <SiteHeader />
-          <div id="content" className="flex-1">
-            {children}
-          </div>
-          <SiteFooter />
-        </CartProvider>
+        <Script id="vd-age-session" strategy="beforeInteractive">
+          {`try{if(sessionStorage.getItem("vd-age-confirmed")==="1"){var s=document.createElement("style");s.id="vd-age-pending";s.textContent="[data-age-gate]{display:none!important}html,body{overflow:visible!important}";document.head.appendChild(s)}}catch(e){}`}
+        </Script>
+        <AgeGate>
+          <a className="skip-link" href="#content">
+            Skip to content
+          </a>
+          <CartProvider>
+            <SiteHeader />
+            <div id="content" className="flex-1">
+              {children}
+            </div>
+            <SiteFooter />
+          </CartProvider>
+        </AgeGate>
       </body>
     </html>
   )

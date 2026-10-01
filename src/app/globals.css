@@ -142,6 +142,15 @@
   }
 }
 
+html:not([data-age="ok"]),
+html:not([data-age="ok"]) body {
+  overflow: hidden;
+}
+
+html[data-age="ok"] [data-age-gate] {
+  display: none;
+}
+
 .skip-link {
   position: absolute;
   left: 1rem;

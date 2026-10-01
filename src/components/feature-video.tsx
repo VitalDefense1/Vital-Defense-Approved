@@ -1,8 +1,9 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { Pause, Play } from "lucide-react"
+import { useAgeConfirmed } from "@/components/age-gate"
 
 const DEFAULT_STILL = "/photos/rifle-scoped.png"
 
@@ -21,6 +22,8 @@ export function FeatureVideo({
 }) {
   const [paused, setPaused] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
+  const ageConfirmed = useAgeConfirmed()
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)")
@@ -32,6 +35,18 @@ export function FeatureVideo({
 
   const motionOff = reduceMotion
   const holding = paused || motionOff
+  const canPlay = Boolean(src) && ageConfirmed && !holding
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+    if (!canPlay) {
+      video.pause()
+      return
+    }
+    const pending = video.play()
+    if (pending) pending.catch(() => {})
+  }, [canPlay])
 
   return (
     <section
@@ -55,14 +70,15 @@ export function FeatureVideo({
         </div>
         {src ? (
           <video
+            ref={videoRef}
             className="absolute inset-0 h-full w-full object-cover object-center"
             src={src}
             poster={poster}
             muted
             loop
             playsInline
-            autoPlay={!motionOff && !paused}
-            preload="metadata"
+            autoPlay={canPlay}
+            preload={ageConfirmed ? "metadata" : "none"}
           />
         ) : null}
         <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/80 via-white/35 to-transparent sm:h-36 lg:h-44" />
