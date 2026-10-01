@@ -10,47 +10,47 @@ import { cn } from "@/lib/utils"
 const slides = [
   {
     id: "scoped-rifle",
-    src: "/photos/rifle-scoped.png",
-    width: 1180,
+    src: "/photos/showcase/rifle-scoped.png",
+    width: 1163,
     height: 563,
     title: "Scoped rifle, camouflage sling",
     price: 2450,
   },
   {
     id: "camo-rifle",
-    src: "/photos/rifle-camo.png",
-    width: 1197,
+    src: "/photos/showcase/rifle-camo.png",
+    width: 1169,
     height: 575,
     title: "Camouflage rifle, desert sling",
     price: 2180,
   },
   {
     id: "dot-rifle",
-    src: "/photos/rifle-dot.jpg",
-    width: 1512,
-    height: 2016,
+    src: "/photos/showcase/rifle-dot.png",
+    width: 1107,
+    height: 404,
     title: "Black rifle with a dot sight",
     price: 1640,
   },
   {
     id: "rail-rifle",
-    src: "/photos/rifle-rail.jpg",
-    width: 1512,
-    height: 2016,
+    src: "/photos/showcase/rifle-rail.png",
+    width: 1177,
+    height: 442,
     title: "Black rifle with optic and light",
     price: 1890,
   },
   {
     id: "compact",
-    src: "/photos/pdw.png",
-    width: 1140,
+    src: "/photos/showcase/pdw.png",
+    width: 1136,
     height: 496,
     title: "Compact firearm with an optic",
     price: 1520,
   },
   {
     id: "pistol-optic",
-    src: "/photos/pistol-optic.png",
+    src: "/photos/showcase/pistol-optic.png",
     width: 760,
     height: 695,
     title: "Pistol with a red-dot optic",
@@ -58,7 +58,7 @@ const slides = [
   },
   {
     id: "pistol-chevron",
-    src: "/photos/pistol-chevron.png",
+    src: "/photos/showcase/pistol-chevron.png",
     width: 760,
     height: 641,
     title: "Pistol with chevron slide cuts",
@@ -66,9 +66,9 @@ const slides = [
   },
   {
     id: "pistol-mag",
-    src: "/photos/pistol-mag.jpg",
-    width: 1320,
-    height: 1320,
+    src: "/photos/showcase/pistol-mag.png",
+    width: 770,
+    height: 688,
     title: "Pistol with an extended magazine",
     price: 1410,
   },
@@ -262,10 +262,10 @@ export function ProductShowcase() {
         </p>
       </div>
 
-      <div className="relative mt-12 md:mt-16">
+      <div className="relative mt-12 [--vd-slide:min(64vw,38rem)] md:mt-16">
         <button
           type="button"
-          className="absolute top-[22%] left-4 z-20 hidden size-11 items-center justify-center rounded-full border border-border bg-white text-[#1A1917] hover:text-gold md:inline-flex"
+          className="absolute top-[calc(0.5rem+var(--vd-slide)*5/16)] left-4 z-20 hidden size-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-white text-[#1A1917] hover:text-gold md:inline-flex"
           aria-label="Previous photograph"
           onClick={() => go(-1)}
         >
@@ -273,7 +273,7 @@ export function ProductShowcase() {
         </button>
         <button
           type="button"
-          className="absolute top-[22%] right-4 z-20 hidden size-11 items-center justify-center rounded-full border border-border bg-white text-[#1A1917] hover:text-gold md:inline-flex"
+          className="absolute top-[calc(0.5rem+var(--vd-slide)*5/16)] right-4 z-20 hidden size-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-white text-[#1A1917] hover:text-gold md:inline-flex"
           aria-label="Next photograph"
           onClick={() => go(1)}
         >
@@ -284,7 +284,7 @@ export function ProductShowcase() {
           ref={trackRef}
           tabIndex={0}
           className={cn(
-            "vd-showcase relative flex snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain py-2 outline-none [--vd-slide:min(64vw,38rem)] [--vd-peek:calc((100%_-_var(--vd-slide))_/_2)] scroll-px-[var(--vd-peek)] px-[var(--vd-peek)] md:gap-10",
+            "vd-showcase relative flex snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain py-2 outline-none [--vd-peek:calc((100%_-_var(--vd-slide))_/_2)] scroll-px-[var(--vd-peek)] px-[var(--vd-peek)] md:gap-10",
             reduceMotion ? "scroll-auto" : "scroll-smooth",
           )}
           aria-label="Photograph showcase"
@@ -328,7 +328,7 @@ export function ProductShowcase() {
                   data-copy={slide.copy}
                   className="origin-center text-center will-change-[transform,filter,opacity]"
                 >
-                  <div className="flex h-52 items-center justify-center sm:h-64 md:h-72">
+                  <div className="flex aspect-[8/5] items-center justify-center">
                     <Image
                       src={slide.src}
                       alt={hiddenCopy ? "" : slide.title}
