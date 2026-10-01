@@ -63,6 +63,11 @@ export function FeatureVideo({ src }: { src: string }) {
   }, [setLogoBox])
 
   useEffect(() => {
+    if (phase !== "playing") return
+    stageRef.current?.parentElement?.setAttribute("data-intro-fade", "")
+  }, [phase])
+
+  useEffect(() => {
     const video = videoRef.current
     if (!video || !playing) return
     noteStarted()
@@ -142,7 +147,6 @@ export function FeatureVideo({ src }: { src: string }) {
         data-intro-wordmark=""
         className={cn(
           "pointer-events-none absolute inset-x-0 z-[5] flex min-h-0 items-center justify-center px-5 sm:px-12",
-          "transition-opacity duration-700 ease-out motion-reduce:transition-none",
           phase === "done" ? "opacity-100" : "opacity-0",
         )}
         style={band ? { top: band.top, bottom: band.bottom } : undefined}

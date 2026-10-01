@@ -199,8 +199,13 @@ summary:focus-visible {
   transform: rotate(45deg);
 }
 
+[data-intro-fade] [data-intro-wordmark] {
+  transition: opacity 700ms ease-out;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .vd-plus {
+  .vd-plus,
+  [data-intro-fade] [data-intro-wordmark] {
     transition: none;
   }
 }
