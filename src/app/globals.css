@@ -426,3 +426,108 @@ summary:focus-visible {
     transform: translateY(0);
   }
 }
+
+/*
+ * Custom cursors are 32×32 PNG. The arrow hotspot is the tip pixel.
+ * The hand hotspot is the center of the fingertip.
+ * pointer: none still matches, so a desktop preview that does not report
+ * a fine pointer is not left on the system cursor. Coarse touch keeps
+ * the browser defaults. If an image fails to load, auto / pointer apply.
+ */
+@media not (pointer: coarse) {
+  :root {
+    --vd-cursor-arrow: url("/cursors/arrow.png") 0 0, auto;
+    --vd-cursor-pointer: url("/cursors/pointer.png") 13 1, pointer;
+  }
+
+  html,
+  body,
+  body * {
+    cursor: var(--vd-cursor-arrow);
+  }
+
+  a,
+  a *,
+  button,
+  button *,
+  summary,
+  summary *,
+  label,
+  label *,
+  select,
+  select *,
+  [role="button"],
+  [role="button"] *,
+  [role="link"],
+  [role="link"] *,
+  [role="tab"],
+  [role="tab"] *,
+  [role="slider"],
+  [role="slider"] *,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="file"],
+  input[type="image"],
+  .cursor-pointer,
+  .cursor-pointer * {
+    cursor: var(--vd-cursor-pointer);
+  }
+
+  input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="image"]):not([type="range"]),
+  textarea,
+  [contenteditable="true"],
+  [contenteditable=""] {
+    cursor: text;
+  }
+
+  input:disabled,
+  textarea:disabled,
+  button:disabled,
+  select:disabled,
+  :disabled,
+  [aria-disabled="true"],
+  .cursor-not-allowed,
+  .cursor-not-allowed * {
+    cursor: not-allowed;
+  }
+
+  .cursor-text,
+  .cursor-text * {
+    cursor: text;
+  }
+
+  .cursor-grab,
+  .cursor-grab * {
+    cursor: grab;
+  }
+
+  .cursor-grabbing,
+  .cursor-grabbing * {
+    cursor: grabbing;
+  }
+
+  .cursor-ew-resize,
+  .cursor-col-resize {
+    cursor: ew-resize;
+  }
+
+  .cursor-ns-resize,
+  .cursor-row-resize {
+    cursor: ns-resize;
+  }
+
+  .cursor-nwse-resize {
+    cursor: nwse-resize;
+  }
+
+  .cursor-nesw-resize {
+    cursor: nesw-resize;
+  }
+
+  .cursor-move {
+    cursor: move;
+  }
+}
