@@ -61,7 +61,7 @@ export function SiteHeader() {
   const active = panels[panel]
 
   return (
-    <header className="relative z-30 flex h-[4.75rem] items-center justify-between bg-white px-2 sm:h-28 sm:px-5 lg:h-36">
+    <header className="relative z-30 flex h-[4.75rem] items-center justify-between bg-transparent px-2 [filter:drop-shadow(0_0_2px_rgb(255_255_255))_drop-shadow(0_0_12px_rgb(255_255_255/0.92))] sm:h-28 sm:px-5 lg:h-36">
       <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
         <SheetTrigger
           className="inline-flex size-11 items-center justify-center rounded-full text-[#1A1917] hover:text-gold"
