@@ -160,7 +160,11 @@ export function SiteHeader() {
         href="/"
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-sm"
       >
-        <Logo priority className="h-14 min-[480px]:h-16 sm:h-[4.5rem] lg:h-24" />
+        <Logo
+          mark
+          priority
+          className="h-16 sm:h-24 lg:h-[7.5rem]"
+        />
       </Link>
 
       <div className="ml-auto flex items-center">
