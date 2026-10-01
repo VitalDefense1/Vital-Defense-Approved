@@ -33,7 +33,7 @@
     var maxLift = Math.max(0, shieldTopPx - 2);
     var dy = desired < 0 ? Math.max(desired, -maxLift) : desired;
     top += dy;
-    var css = "[data-intro-logo]{translate:none!important;transform:none!important;left:" + left + "px!important;top:" + top + "px!important;width:" + imgW + "px!important;height:" + imgH + "px!important}[data-intro-logo] img{width:100%!important;height:100%!important;max-width:none!important}";
+    var css = "[data-intro-logo]{top:" + top + "px!important;width:" + imgW + "px!important;height:" + imgH + "px!important}[data-intro-logo] img{width:100%!important;height:100%!important;max-width:none!important}";
     if (home) {
       var visibleBottom = top + (3 / 248) * imgH + visibleH;
       var room = stageH - visibleBottom;

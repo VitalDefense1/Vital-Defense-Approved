@@ -411,12 +411,16 @@
       width: imgW,
       height: imgH
     };
-    logo.style.setProperty("left", box.left + "px", "important");
     logo.style.setProperty("top", box.top + "px", "important");
     logo.style.setProperty("width", box.width + "px", "important");
     logo.style.setProperty("height", box.height + "px", "important");
-    logo.style.setProperty("transform", "none", "important");
-    logo.style.setProperty("translate", "none", "important");
+    logo.style.removeProperty("left");
+    logo.style.removeProperty("transform");
+    logo.style.removeProperty("translate");
+    var placed = logo.getBoundingClientRect();
+    var visibleCx = placed.left + placed.width * (148 / 293);
+    var shieldCx = stageRect.left + frame.left + (832 + 254 / 2) * scale;
+    frame.left += visibleCx - shieldCx;
     var section = stage.parentElement.getBoundingClientRect();
     var visibleBottom = headerRect.top + box.top + (3 / 248) * imgH + visibleH;
     var room = section.bottom - visibleBottom;
@@ -523,11 +527,12 @@
     var desired = header / 2 - (shieldTop + shieldH / 2);
     var maxLift = Math.max(0, shieldTop - 2);
     top += desired < 0 ? Math.max(desired, -maxLift) : desired;
-    logo.style.setProperty("left", left + "px", "important");
     logo.style.setProperty("top", top + "px", "important");
     logo.style.setProperty("width", imgW + "px", "important");
     logo.style.setProperty("height", imgH + "px", "important");
-    logo.style.setProperty("transform", "none", "important");
+    logo.style.removeProperty("left");
+    logo.style.removeProperty("transform");
+    logo.style.removeProperty("translate");
     logo.classList.add("is-shown");
   }
 

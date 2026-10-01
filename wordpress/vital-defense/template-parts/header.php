@@ -7,8 +7,8 @@
 	</a>
 	<div class="vd-utilities">
 		<button type="button" class="vd-icon-button" data-open-dialog="search" aria-label="Search"><?php echo vd_icon( 'search' ); ?></button>
-		<button type="button" class="vd-icon-button vd-desktop-only" data-open-dialog="favorites" aria-label="Favorites"><?php echo vd_icon( 'heart' ); ?></button>
-		<button type="button" class="vd-icon-button vd-desktop-only" data-open-dialog="account" aria-label="Account"><?php echo vd_icon( 'user' ); ?></button>
+		<button type="button" class="vd-icon-button" data-open-dialog="favorites" aria-label="Favorites"><?php echo vd_icon( 'heart' ); ?></button>
+		<button type="button" class="vd-icon-button" data-open-dialog="account" aria-label="Account"><?php echo vd_icon( 'user' ); ?></button>
 		<button type="button" class="vd-icon-button" data-open-dialog="cart" aria-label="Cart">
 			<?php echo vd_icon( 'bag' ); ?>
 			<span class="vd-cart-count" data-cart-count hidden>0</span>

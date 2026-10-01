@@ -8,6 +8,10 @@
 	<script>
 	try{if(sessionStorage.getItem("vd-age-confirmed")==="1"){var s=document.createElement("style");s.id="vd-age-pending";s.textContent="[data-age-gate]{display:none!important}html,body{overflow:visible!important}";document.head.appendChild(s);document.documentElement.dataset.age="ok"}}catch(e){}
 	</script>
+	<style>
+	html { scrollbar-gutter: stable; }
+	[data-intro-logo] { position: absolute; left: 50%; transform: translateX(calc(-50% - (150% / 293))); }
+	</style>
 	<script>
 	<?php echo file_get_contents( get_template_directory() . '/assets/js/logo-boot.js' ); ?>
 	</script>
