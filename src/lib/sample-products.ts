@@ -1,4 +1,5 @@
 import { mainCategories } from "@/lib/navigation"
+import { summaryFromDescription } from "@/lib/product-summary"
 
 /**
  * Sample catalog for the design preview.
@@ -10,6 +11,18 @@ export type ProductImage = {
   src: string
   width: number
   height: number
+  alt?: string
+}
+
+export type ProductSpecification = {
+  label: string
+  value: string
+}
+
+export type ProductReview = {
+  id: string
+  author: string
+  body: string
 }
 
 export type SampleProduct = {
@@ -17,8 +30,16 @@ export type SampleProduct = {
   category: string
   title: string
   description: string
+  /** Saved at import time. Absent when the description cannot be summarized from its own text. */
+  summary?: string
   price: number
   image: ProductImage
+  /** Longer copy for the description tab. */
+  details?: string
+  specifications?: ProductSpecification[]
+  reviews?: ProductReview[]
+  /** Extra gallery frames. Listing cards keep using `image`. */
+  images?: ProductImage[]
 }
 
 const images = {
@@ -54,14 +75,18 @@ const handgunPhotos: ProductImage[] = [images.optic, images.chevron, images.mag]
 const opticPhotos: ProductImage[] = [images.scoped, images.optic, images.rail, images.dot]
 
 function build(category: string, pool: ProductImage[], seeds: Seed[]): SampleProduct[] {
-  return seeds.map((seed, index) => ({
-    id: seed.id ?? `${category}-${String(index + 1).padStart(2, "0")}`,
-    category,
-    title: seed.title,
-    description: seed.description,
-    price: seed.price,
-    image: seed.image ?? pool[index % pool.length],
-  }))
+  return seeds.map((seed, index) => {
+    const summary = summaryFromDescription(seed.description)
+    return {
+      id: seed.id ?? `${category}-${String(index + 1).padStart(2, "0")}`,
+      category,
+      title: seed.title,
+      description: seed.description,
+      ...(summary ? { summary } : {}),
+      price: seed.price,
+      image: seed.image ?? pool[index % pool.length],
+    }
+  })
 }
 
 const rifles = build("rifles", longGuns, [

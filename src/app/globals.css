@@ -244,10 +244,25 @@ summary:focus-visible {
   transition: opacity 2.4s ease-out;
 }
 
+.vd-type-char[data-revealed="false"] {
+  color: transparent;
+}
+
+.vd-tab-indicator.vd-tab-indicator-ready {
+  transition:
+    transform 220ms ease,
+    width 220ms ease;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .vd-plus,
-  [data-intro-fade] [data-intro-wordmark] {
+  [data-intro-fade] [data-intro-wordmark],
+  .vd-tab-indicator.vd-tab-indicator-ready {
     transition: none;
+  }
+
+  .vd-type-char[data-revealed="false"] {
+    color: inherit;
   }
 }
 
