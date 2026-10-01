@@ -134,13 +134,18 @@ export type CatalogNode = {
   children?: CatalogNode[]
 }
 
-export type MainCategory = {
-  label: string
-  href?: string
+export type CatalogCategory = CatalogNode & {
+  slug: string
 }
 
-export const catalog: CatalogNode[] = [
+export type MainCategory = {
+  label: string
+  href: string
+}
+
+export const catalog: CatalogCategory[] = [
   {
+    slug: "optics",
     label: "Optics",
     children: [
       { label: "Red Dots and Holographics" },
@@ -156,6 +161,7 @@ export const catalog: CatalogNode[] = [
     ],
   },
   {
+    slug: "accessories",
     label: "Accessories",
     children: [
       { label: "Lights and Lasers" },
@@ -170,6 +176,7 @@ export const catalog: CatalogNode[] = [
     ],
   },
   {
+    slug: "parts",
     label: "Parts",
     children: [
       {
@@ -197,6 +204,7 @@ export const catalog: CatalogNode[] = [
     ],
   },
   {
+    slug: "ammo",
     label: "Ammo",
     children: [
       { label: "Handgun" },
@@ -206,6 +214,7 @@ export const catalog: CatalogNode[] = [
     ],
   },
   {
+    slug: "services",
     label: "Services",
     children: [
       { label: "Transfers" },
@@ -214,6 +223,7 @@ export const catalog: CatalogNode[] = [
     ],
   },
   {
+    slug: "merch",
     label: "Merch",
     children: [
       { label: "Hats" },
@@ -225,6 +235,7 @@ export const catalog: CatalogNode[] = [
     ],
   },
   {
+    slug: "extras",
     label: "Extras",
     children: [
       { label: "Range Bags" },
@@ -234,12 +245,19 @@ export const catalog: CatalogNode[] = [
   },
 ]
 
-/** Every top-level category, in menu order. Firearm entries keep their pages. */
+/** Every top-level category, in menu order, with its page route. */
 export const mainCategories: MainCategory[] = [
   ...departments.map((department) => ({
     label: department.label,
     href: `/${department.slug}`,
   })),
-  ...catalog.map((item) => ({ label: item.label })),
+  ...catalog.map((item) => ({
+    label: item.label,
+    href: `/${item.slug}`,
+  })),
 ]
+
+export function getCatalogCategory(slug: string) {
+  return catalog.find((item) => item.slug === slug)
+}
 

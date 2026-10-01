@@ -36,19 +36,9 @@ export function SiteFooter() {
           <ul className="mt-4 space-y-2">
             {mainCategories.map((category) => (
               <li key={category.label}>
-                {category.href ? (
-                  <Link
-                    href={category.href}
-                    className="vd-link text-sm font-medium hover:text-gold focus-visible:text-gold"
-                  >
-                    {category.label}
-                  </Link>
-                ) : (
-                  <span className="inline-flex flex-wrap items-baseline gap-x-2 text-sm font-medium">
-                    {category.label}
-                    <span className="text-xs tracking-[0.14em] text-gold">Pending</span>
-                  </span>
-                )}
+                <Link href={category.href} className="vd-link text-sm font-medium">
+                  {category.label}
+                </Link>
               </li>
             ))}
           </ul>

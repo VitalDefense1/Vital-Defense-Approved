@@ -201,7 +201,8 @@ html[data-age="ok"] [data-age-gate] {
   text-underline-offset: 0.22em;
 }
 
-.vd-link:hover {
+.vd-link:hover,
+.vd-link:focus-visible {
   text-decoration-line: underline;
   text-decoration-color: var(--gold);
 }

@@ -1,10 +1,14 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
+import { CatalogCategoryView } from "@/components/catalog-category-view"
 import { DepartmentView } from "@/components/department-view"
-import { departments, getDepartment } from "@/lib/navigation"
+import { catalog, departments, getCatalogCategory, getDepartment } from "@/lib/navigation"
 
 export function generateStaticParams() {
-  return departments.map((department) => ({ department: department.slug }))
+  return [
+    ...departments.map((department) => ({ department: department.slug })),
+    ...catalog.map((category) => ({ department: category.slug })),
+  ]
 }
 
 export const dynamicParams = false
@@ -16,11 +20,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { department: slug } = await params
   const department = getDepartment(slug)
-  if (!department) return { title: "Not found" }
-  return {
-    title: department.label,
-    description: department.summary,
+  if (department) {
+    return {
+      title: department.label,
+      description: department.summary,
+    }
   }
+  const category = getCatalogCategory(slug)
+  if (!category) return { title: "Not found" }
+  return { title: category.label }
 }
 
 export default async function DepartmentPage({
@@ -30,6 +38,8 @@ export default async function DepartmentPage({
 }) {
   const { department: slug } = await params
   const department = getDepartment(slug)
-  if (!department) notFound()
-  return <DepartmentView department={department} />
+  if (department) return <DepartmentView department={department} />
+  const category = getCatalogCategory(slug)
+  if (!category) notFound()
+  return <CatalogCategoryView category={category} />
 }

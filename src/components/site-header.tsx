@@ -112,19 +112,25 @@ export function SiteHeader() {
           </SheetHeader>
           <div className="min-h-0 flex-1 overflow-y-auto px-6 py-2">
             <nav aria-label="Categories">
+              <ul>
               {departments.map((department) => (
-                <details
-                  key={department.slug}
-                  className="vd-disclosure border-b border-border"
-                >
-                  <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 [&::-webkit-details-marker]:hidden">
-                    <span className="font-heading text-xl font-bold tracking-[0.06em]">
-                      {department.label}
-                    </span>
-                    <span className="vd-plus text-2xl leading-none text-gold" aria-hidden="true">
-                      +
-                    </span>
-                  </summary>
+                <li key={department.slug} className="relative list-none border-b border-border">
+                  <Link
+                    href={`/${department.slug}`}
+                    className="vd-link inline-flex min-h-14 items-center py-3 pr-14 font-heading text-xl font-bold tracking-[0.06em]"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {department.label}
+                  </Link>
+                  <details className="vd-disclosure">
+                    <summary
+                      className="absolute top-0 right-0 flex size-14 cursor-pointer list-none items-center justify-center [&::-webkit-details-marker]:hidden"
+                      aria-label={`Show ${department.label} subcategories`}
+                    >
+                      <span className="vd-plus text-2xl leading-none text-gold" aria-hidden="true">
+                        +
+                      </span>
+                    </summary>
                   <ul className="pb-3">
                     <li>
                       <Link
@@ -147,9 +153,11 @@ export function SiteHeader() {
                       </li>
                     ))}
                   </ul>
-                </details>
+                  </details>
+                </li>
               ))}
-              <CatalogMenu />
+              </ul>
+              <CatalogMenu onNavigate={() => setMenuOpen(false)} />
             </nav>
             <div className="mt-6 border-t border-border pt-6 pb-10">
               <Link
