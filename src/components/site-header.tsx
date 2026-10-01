@@ -207,7 +207,7 @@ export function SiteHeader() {
         aria-hidden={!shown && home ? true : undefined}
         tabIndex={!shown && home ? -1 : undefined}
         className={cn(
-          "vd-mark-link absolute rounded-sm transition-none",
+          "absolute rounded-sm transition-none",
           !shown && "pointer-events-none opacity-0",
           !placed && "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
         )}

@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { CatalogStrip } from "@/components/catalog-nav"
 import { ContactPanel } from "@/components/contact-panel"
 import { FeatureVideo } from "@/components/feature-video"
@@ -141,6 +142,14 @@ export default function HomePage() {
       <ContactPanel titleAs="h2" />
       <ProductShowcase />
       <CatalogStrip />
+      <div className="flex justify-center px-6 pt-2 pb-16 md:pb-20">
+        <Link
+          href="/contact"
+          className="inline-flex h-11 items-center justify-center rounded-lg bg-gold px-5 text-sm font-semibold tracking-[0.07em] whitespace-nowrap text-white transition-colors hover:bg-[#7a623c]"
+        >
+          Contact us
+        </Link>
+      </div>
     </main>
   )
 }
