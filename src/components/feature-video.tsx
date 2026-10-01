@@ -1,117 +1,131 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import Image from "next/image"
-import { Pause, Play } from "lucide-react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { useAgeConfirmed } from "@/components/age-gate"
-
-const DEFAULT_STILL = "/photos/rifle-scoped.png"
+import { useIntro } from "@/components/intro-state"
+import { containedFrame, logoBoxInHeader, type FrameBox } from "@/lib/intro-logo"
 
 /**
- * The opening frame holds a supplied still. Pass `src` when there is real
- * footage. Nothing here is a generated firearm video.
- * The frame reaches the top of the page, under the header, without moving
- * the sections below.
+ * Plays the opening film once, after age confirmation.
+ * The stage stays white until the first frame, then gives the header its logo.
  */
-export function FeatureVideo({
-  src,
-  poster = DEFAULT_STILL,
-}: {
-  src?: string
-  poster?: string
-}) {
-  const [paused, setPaused] = useState(false)
-  const [reduceMotion, setReduceMotion] = useState(false)
+export function FeatureVideo({ src }: { src: string }) {
+  const { phase, finish, setLogoBox, noteStarted } = useIntro()
   const ageConfirmed = useAgeConfirmed()
+  const stageRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [frame, setFrame] = useState<FrameBox | null>(null)
+  const [ready, setReady] = useState(false)
+  const playing = phase === "playing" && ageConfirmed
 
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)")
-    const apply = () => setReduceMotion(media.matches)
-    apply()
-    media.addEventListener("change", apply)
-    return () => media.removeEventListener("change", apply)
-  }, [])
+  useLayoutEffect(() => {
+    const stage = stageRef.current
+    if (!stage) return
 
-  const motionOff = reduceMotion
-  const holding = paused || motionOff
-  const canPlay = Boolean(src) && ageConfirmed && !holding
+    const measure = () => {
+      const header = document.querySelector("[data-site-header]")
+      if (!header) return
+      const stageRect = stage.getBoundingClientRect()
+      setFrame(containedFrame(stageRect.width, stageRect.height))
+      setLogoBox(logoBoxInHeader(stageRect, header.getBoundingClientRect()))
+    }
+
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(stage)
+    window.addEventListener("resize", measure)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener("resize", measure)
+      setLogoBox(null)
+    }
+  }, [setLogoBox])
 
   useEffect(() => {
     const video = videoRef.current
-    if (!video) return
-    if (!canPlay) {
-      video.pause()
-      return
-    }
+    if (!video || !playing) return
+    noteStarted()
+    let cancelled = false
     const pending = video.play()
-    if (pending) pending.catch(() => {})
-  }, [canPlay])
+    if (pending) {
+      pending.catch((error: unknown) => {
+        if (cancelled) return
+        if (error instanceof DOMException && error.name === "AbortError") return
+        finish()
+      })
+    }
+    return () => {
+      cancelled = true
+    }
+  }, [playing, finish, noteStarted])
+
+  const edge = frame ? Math.min(14, frame.height * (12 / 512)) : 8
 
   return (
-    <section
-      aria-label="Opening video"
-      className="relative w-full bg-white"
-    >
+    <section aria-label="Opening" data-intro={phase} className="relative w-full bg-white">
       <div className="px-3 pt-5 pb-16 sm:px-8 sm:pt-8" aria-hidden="true">
         <div className="mx-auto aspect-[1180/563] w-full max-w-6xl" />
       </div>
-      <div className="pointer-events-none absolute inset-x-0 -top-[4.75rem] bottom-0 overflow-hidden sm:-top-28 lg:-top-36">
-        <div className={`vd-still absolute inset-0${holding ? " vd-still-paused" : ""}`}>
-          <Image
-            src={poster}
-            alt="Black scoped rifle with a camouflage sling, from the supplied photographs."
-            fill
-            quality={90}
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-        </div>
-        {src ? (
+      <div
+        ref={stageRef}
+        data-intro-stage=""
+        className="pointer-events-none absolute inset-x-0 -top-[4.75rem] bottom-0 overflow-hidden bg-white sm:-top-28 lg:-top-36"
+      >
+        {playing ? (
           <video
             ref={videoRef}
-            className="absolute inset-0 h-full w-full object-cover object-center"
+            className="absolute bg-white object-fill"
+            style={
+              frame
+                ? {
+                    left: frame.left,
+                    top: frame.top,
+                    width: frame.width,
+                    height: frame.height,
+                    opacity: ready ? 1 : 0,
+                  }
+                : {
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                    opacity: ready ? 1 : 0,
+                  }
+            }
             src={src}
-            poster={poster}
             muted
-            loop
             playsInline
-            autoPlay={canPlay}
-            preload={ageConfirmed ? "metadata" : "none"}
+            autoPlay
+            preload="auto"
+            aria-hidden="true"
+            onCanPlay={() => setReady(true)}
+            onEnded={() => finish()}
+            onError={() => finish()}
           />
         ) : null}
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/80 via-white/35 to-transparent sm:h-36 lg:h-44" />
+        {playing && ready && frame ? (
+          <div
+            aria-hidden="true"
+            className="absolute"
+            style={{
+              left: frame.left,
+              top: frame.top,
+              width: frame.width,
+              height: frame.height,
+              boxShadow: `inset 0 0 ${edge}px ${Math.max(2, edge / 3)}px #fff`,
+            }}
+          />
+        ) : null}
       </div>
-      <div className="absolute inset-x-0 bottom-0 z-10 px-4 pt-4 pb-4 sm:px-6">
-        <div className="flex items-end justify-between gap-4">
-          <p className="max-w-xs pb-3 text-sm leading-5 text-[#1A1917]">
-            Opening footage from the supplied file.
-          </p>
-          {src ? (
-            <button
-              type="button"
-              className="mb-3 inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-border bg-white text-[#1A1917] disabled:cursor-not-allowed disabled:opacity-70"
-              aria-pressed={holding}
-              disabled={motionOff}
-              onClick={() => setPaused((value) => !value)}
-            >
-              {holding ? (
-                <Play className="size-[18px]" strokeWidth={1.5} aria-hidden />
-              ) : (
-                <Pause className="size-[18px]" strokeWidth={1.5} aria-hidden />
-              )}
-              <span className="sr-only">
-                {motionOff
-                  ? "Motion is off because reduced motion is enabled"
-                  : paused
-                    ? "Play motion"
-                    : "Pause motion"}
-              </span>
-            </button>
-          ) : null}
-        </div>
-      </div>
+      {playing ? (
+        <button
+          type="button"
+          className="absolute right-4 bottom-3 z-20 bg-transparent text-[11px] tracking-[0.16em] text-[#1A1917]/50 uppercase hover:text-gold"
+          onClick={() => finish()}
+        >
+          Skip intro
+        </button>
+      ) : null}
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 z-10 h-px bg-gold" />
     </section>
   )

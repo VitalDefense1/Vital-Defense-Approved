@@ -1,7 +1,8 @@
 "use client"
 
-import { useState, type ReactNode } from "react"
+import { useLayoutEffect, useState, type ReactNode } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Heart, Search, ShoppingBag, User } from "lucide-react"
 import {
   Dialog,
@@ -19,6 +20,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { formatPrice, useCart } from "@/components/cart-state"
+import { useIntro } from "@/components/intro-state"
 import { Logo } from "@/components/logo"
 import { departments } from "@/lib/navigation"
 import { cn } from "@/lib/utils"
@@ -45,11 +47,25 @@ const panels: Record<Panel, { title: string; body: string }> = {
 }
 
 const iconClass = "size-[22px]"
+const iconHalo =
+  "[filter:drop-shadow(0_0_2px_rgb(255_255_255))_drop-shadow(0_0_12px_rgb(255_255_255/0.92))]"
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [panel, setPanel] = useState<Panel>("search")
   const [panelOpen, setPanelOpen] = useState(false)
+  const pathname = usePathname()
+  const { phase, logoBox } = useIntro()
+  const home = pathname === "/"
+  // Keep the mark at its final rectangle during playback so the handoff
+  // only changes opacity. It stays invisible until the intro is finished.
+  const placed = home && logoBox ? logoBox : null
+  const shown = !home || phase === "done"
+
+  useLayoutEffect(() => {
+    if (!shown || !placed) return
+    document.getElementById("vd-intro-pending")?.remove()
+  }, [shown, placed])
 
   function openPanel(next: Panel) {
     setMenuOpen(false)
@@ -61,10 +77,16 @@ export function SiteHeader() {
   const active = panels[panel]
 
   return (
-    <header className="relative z-30 flex h-[4.75rem] items-center justify-between bg-transparent px-2 [filter:drop-shadow(0_0_2px_rgb(255_255_255))_drop-shadow(0_0_12px_rgb(255_255_255/0.92))] sm:h-28 sm:px-5 lg:h-36">
+    <header
+      data-site-header=""
+      className="relative z-30 flex h-[4.75rem] items-center justify-between overflow-visible bg-transparent px-2 sm:h-28 sm:px-5 lg:h-36"
+    >
       <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
         <SheetTrigger
-          className="inline-flex size-11 items-center justify-center rounded-full text-[#1A1917] hover:text-gold"
+          className={cn(
+            "inline-flex size-11 items-center justify-center rounded-full text-[#1A1917] hover:text-gold",
+            iconHalo,
+          )}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
           aria-controls="site-navigation"
@@ -160,12 +182,30 @@ export function SiteHeader() {
 
       <Link
         href="/"
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-sm"
+        data-intro-logo=""
+        aria-label="Vital Defense"
+        aria-hidden={!shown && home ? true : undefined}
+        tabIndex={!shown && home ? -1 : undefined}
+        className={cn(
+          "absolute rounded-sm transition-none",
+          !shown && "pointer-events-none opacity-0",
+          !placed && "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+        )}
+        style={
+          placed
+            ? {
+                left: placed.left,
+                top: placed.top,
+                width: placed.width,
+                height: placed.height,
+              }
+            : undefined
+        }
       >
         <Logo
           mark
           priority
-          className="h-16 sm:h-24 lg:h-[7.5rem]"
+          className={placed ? "h-full w-full" : "h-16 sm:h-24 lg:h-[7.5rem]"}
         />
       </Link>
 
@@ -263,6 +303,7 @@ function UtilityButton({
       type="button"
       className={cn(
         "relative inline-flex size-11 items-center justify-center rounded-full text-[#1A1917] hover:text-gold",
+        iconHalo,
         className,
       )}
       aria-haspopup="dialog"

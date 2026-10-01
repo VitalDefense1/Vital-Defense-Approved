@@ -3,8 +3,10 @@ import { Barlow } from "next/font/google"
 import Script from "next/script"
 import { AgeGate } from "@/components/age-gate"
 import { CartProvider } from "@/components/cart-state"
+import { IntroProvider } from "@/components/intro-state"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
+import { introLogoBootScript } from "@/lib/intro-logo"
 import "./globals.css"
 
 const barlow = Barlow({
@@ -41,17 +43,22 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Script id="vd-age-session" strategy="beforeInteractive">
           {`try{if(sessionStorage.getItem("vd-age-confirmed")==="1"){var s=document.createElement("style");s.id="vd-age-pending";s.textContent="[data-age-gate]{display:none!important}html,body{overflow:visible!important}";document.head.appendChild(s)}}catch(e){}`}
         </Script>
+        <Script id="vd-intro-session" strategy="beforeInteractive">
+          {introLogoBootScript}
+        </Script>
         <AgeGate>
-          <a className="skip-link" href="#content">
-            Skip to content
-          </a>
-          <CartProvider>
-            <SiteHeader />
-            <div id="content" className="flex-1">
-              {children}
-            </div>
-            <SiteFooter />
-          </CartProvider>
+          <IntroProvider>
+            <a className="skip-link" href="#content">
+              Skip to content
+            </a>
+            <CartProvider>
+              <SiteHeader />
+              <div id="content" className="flex-1">
+                {children}
+              </div>
+              <SiteFooter />
+            </CartProvider>
+          </IntroProvider>
         </AgeGate>
       </body>
     </html>

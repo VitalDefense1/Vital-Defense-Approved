@@ -191,23 +191,6 @@ summary:focus-visible {
   display: none;
 }
 
-.vd-still {
-  animation: vd-ken 32s ease-in-out infinite alternate;
-}
-
-.vd-still-paused {
-  animation-play-state: paused;
-}
-
-@keyframes vd-ken {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.06);
-  }
-}
-
 .vd-plus {
   transition: transform 160ms ease;
 }
@@ -217,9 +200,7 @@ summary:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .vd-still,
   .vd-plus {
-    animation: none;
     transition: none;
   }
 }
