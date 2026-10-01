@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 
-const REVEAL_MS = 1250
+const REVEAL_MS = 1438
 
 export function ProductSummary({ text }: { text: string }) {
   const [shown, setShown] = useState(0)
