@@ -1,6 +1,8 @@
 "use client"
 
 import { useLayoutEffect, useRef, useState, type KeyboardEvent } from "react"
+import { ReviewForm } from "@/components/review-form"
+import { StarReadout } from "@/components/star-rating"
 import type { ProductReview, ProductSpecification } from "@/lib/sample-products"
 
 const tabs = [
@@ -156,14 +158,41 @@ export function ProductInformation({
             <ul className="max-w-3xl space-y-8">
               {reviews.map((review) => (
                 <li key={review.id}>
-                  <p className="font-semibold">{review.author}</p>
-                  <p className="mt-2 text-base leading-7 text-muted-foreground">{review.body}</p>
+                  <p className="font-semibold">{reviewName(review)}</p>
+                  {review.verifiedPurchaser ? (
+                    <p className="mt-1 text-sm text-muted-foreground">Verified purchaser</p>
+                  ) : null}
+                  {typeof review.rating === "number" ? (
+                    <div className="mt-2">
+                      <StarReadout rating={review.rating} />
+                    </div>
+                  ) : null}
+                  <p className="mt-2 max-w-3xl text-base leading-7 whitespace-pre-wrap text-muted-foreground">
+                    {review.body}
+                  </p>
                 </li>
               ))}
             </ul>
           )}
+          <ReviewForm productId={productId} />
         </div>
       </div>
     </section>
   )
+}
+
+function reviewName(review: ProductReview) {
+  const first = review.firstName?.trim() ?? ""
+  const initial = (review.lastInitial ?? "").trim().replace(/\.$/, "").charAt(0)
+  if (first) {
+    if (!/^[A-Za-z]$/.test(initial)) return first
+    return `${first} ${initial}.`
+  }
+  const author = review.author?.trim() ?? ""
+  if (!author || author.includes("@")) return ""
+  const parts = author.split(/\s+/).filter(Boolean)
+  if (parts.length === 1) return parts[0]
+  const last = parts[parts.length - 1].replace(/\.$/, "")
+  if (last.length === 1 && /^[A-Za-z]$/.test(last)) return `${parts[0]} ${last}.`
+  return parts[0]
 }

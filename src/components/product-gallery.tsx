@@ -113,7 +113,7 @@ function GalleryFrame({
         data-gallery-overlay=""
         className="pointer-events-none invisible absolute"
       >
-        <p className="absolute inset-x-2 bottom-2 bg-white/80 px-2 py-1.5 text-center text-[0.65rem] leading-snug font-semibold text-[#1a1917] sm:text-xs">
+        <p className="absolute inset-x-1.5 bottom-1 text-center font-sans text-[0.65rem] leading-snug font-semibold text-[#1a1917] [text-shadow:0_0_2px_#fff,0_0_3px_#fff] sm:inset-x-2 sm:text-xs">
           {PRODUCT_IMAGE_DISCLAIMER}
         </p>
       </div>

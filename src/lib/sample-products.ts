@@ -21,8 +21,13 @@ export type ProductSpecification = {
 
 export type ProductReview = {
   id: string
-  author: string
   body: string
+  firstName?: string
+  lastInitial?: string
+  /** Used only when a record has a display name and no separate initial. */
+  author?: string
+  rating?: number
+  verifiedPurchaser?: boolean
 }
 
 export type SampleProduct = {
