@@ -1,9 +1,7 @@
 import Image from "next/image"
-import Link from "next/link"
 import { ContactPanel } from "@/components/contact-panel"
 import { FeatureVideo } from "@/components/feature-video"
 import { ProductShowcase } from "@/components/product-showcase"
-import { departments, proposedHome } from "@/lib/navigation"
 
 /**
  * Layered composition is a lasting requirement for this preview.
@@ -57,18 +55,12 @@ const featuredBrands = [
   },
 ]
 
-const departmentLines: Record<string, string> = {
-  rifles: "Semi-auto through single shot.",
-  handguns: "Pistols, revolvers, derringers.",
-  shotguns: "Pumps, pairs, and over-unders.",
-}
-
 export default function HomePage() {
   return (
     <main>
       <FeatureVideo src="/video/opening.mp4?v=3" />
 
-      <section className="relative overflow-x-clip px-6 pt-16 pb-8 md:pt-24 md:pb-14">
+      <section className="relative overflow-x-clip px-6 py-20 md:py-28 lg:py-32">
         <Image
           src="/photos/shield-rifle.jpg"
           alt=""
@@ -78,32 +70,18 @@ export default function HomePage() {
           sizes="(min-width: 768px) 1100px, 175vw"
           className="pointer-events-none absolute top-1/2 left-0 z-[1] h-auto w-[175vw] max-w-none -translate-x-[39.5%] -translate-y-1/2 opacity-[0.16] md:w-[1100px]"
         />
-        <div className="opening-copy relative z-20 mx-auto max-w-5xl text-center">
-          <p className="text-sm tracking-wide text-gold">Lake City, Florida</p>
-          <span className="mx-auto mt-6 block h-px w-12 bg-gold" aria-hidden="true" />
-          <h1 className="mt-7 font-heading text-[2.15rem] leading-[1.02] font-medium sm:text-6xl lg:text-[4.75rem] lg:leading-[0.96]">
-            Rifles, handguns,
+        <div className="opening-copy relative z-20 mx-auto max-w-4xl text-center">
+          <h1 className="font-oswald text-[2.05rem] leading-[1.08] font-bold tracking-[0.045em] uppercase sm:text-5xl lg:text-[3.55rem] lg:leading-[1.02] lg:tracking-[0.06em]">
+            Vital Defense.
             <br />
-            and shotguns.
+            Built on experience.
           </h1>
-          <p className="mx-auto mt-7 max-w-xl text-lg leading-8">{proposedHome.deck}</p>
-          <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-muted-foreground">
-            {proposedHome.support}
+          <span className="mx-auto mt-8 block h-px w-12 bg-gold md:mt-10" aria-hidden="true" />
+          <p className="mx-auto mt-8 max-w-2xl font-rajdhani text-[0.95rem] leading-7 font-medium tracking-[0.11em] uppercase sm:text-lg sm:leading-8 md:mt-10 lg:text-xl lg:leading-9 lg:tracking-[0.12em]">
+            Veteran-owned and based in Lake City, Florida. Vital Defense brings a
+            personal approach to a broad selection of firearms, optics, and
+            accessories.
           </p>
-          <ul className="mt-10 flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-16">
-            {departments.map((department) => (
-              <li key={department.slug}>
-                <Link href={`/${department.slug}`} className="group block text-center">
-                  <span className="block font-heading text-2xl group-hover:text-gold">
-                    {department.label}
-                  </span>
-                  <span className="mt-1 block text-sm text-muted-foreground">
-                    {departmentLines[department.slug]}
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
@@ -117,9 +95,6 @@ export default function HomePage() {
             <br />
             brands
           </h2>
-          <p className="mx-auto mt-5 max-w-md text-base leading-7 text-muted-foreground">
-            Logo files supplied for this preview, shown in their original colors.
-          </p>
         </div>
         <div className="relative mx-auto mt-16 max-w-6xl lg:mt-20">
           <div

@@ -128,10 +128,3 @@ export function getGroup(departmentSlug: string, groupSlug: string) {
   return { department, group }
 }
 
-/** Proposed homepage wording. Review before it is treated as final. */
-export const proposedHome = {
-  headline: "Rifles, handguns, and shotguns.",
-  deck: "Vital Defense in Lake City, Florida.",
-  support:
-    "Ammunition and accessories are part of the shop. The links below are the category navigation for this preview. Purchasing is not connected.",
-}

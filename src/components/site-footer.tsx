@@ -19,9 +19,6 @@ export function SiteFooter() {
             className="relative z-10 h-auto w-40 sm:w-52"
           />
         </div>
-        <p className="mx-auto mt-5 max-w-sm text-center text-sm leading-6 text-muted-foreground">
-          Still drawing from the supplied files.
-        </p>
       </div>
       <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-[1.3fr_1fr_1fr]">
         <div>

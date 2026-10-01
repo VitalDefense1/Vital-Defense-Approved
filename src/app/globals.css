@@ -10,6 +10,8 @@
   --font-sans: var(--font-barlow);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-barlow);
+  --font-oswald: var(--font-oswald-face), sans-serif;
+  --font-rajdhani: var(--font-rajdhani-face), sans-serif;
   --color-gold: var(--gold);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
