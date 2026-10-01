@@ -86,13 +86,21 @@ export default function HomePage() {
       </section>
 
       <section className="relative px-6 pt-10 pb-12 md:pt-16 md:pb-16" aria-labelledby="featured-brands">
-        <div className="relative z-20 mx-auto max-w-3xl text-center @container">
+        <div className="relative z-20 mx-auto flex w-full max-w-3xl items-center justify-center gap-3 @container sm:gap-4">
+          <span
+            aria-hidden="true"
+            className="h-px w-[clamp(1.25rem,7cqi,4rem)] shrink-0 bg-gold"
+          />
           <h2
             id="featured-brands"
-            className="font-heading text-[clamp(1.7rem,11.5cqi,3rem)] leading-[1.1] font-bold whitespace-nowrap"
+            className="font-heading text-[clamp(1.2rem,8.6cqi,2.5rem)] leading-[1.15] font-bold whitespace-nowrap"
           >
             Featured brands
           </h2>
+          <span
+            aria-hidden="true"
+            className="h-px w-[clamp(1.25rem,7cqi,4rem)] shrink-0 bg-gold"
+          />
         </div>
         <div className="relative mx-auto mt-16 max-w-6xl lg:mt-20">
           <div

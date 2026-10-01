@@ -256,10 +256,6 @@ export function ProductShowcase() {
         >
           FEATURED ITEMS
         </h2>
-        <p className="mx-auto mt-5 max-w-md text-base leading-7 text-muted-foreground">
-          Photographs from the supplied files. Prices are for this preview, not a
-          published list.
-        </p>
       </div>
 
       <div className="relative mt-12 [--vd-slide:min(64vw,38rem)] md:mt-16">

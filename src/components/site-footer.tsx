@@ -61,20 +61,7 @@ export function SiteFooter() {
                 {site.email}
               </a>
             </li>
-            <li>
-              <a
-                href={site.currentWebsite}
-                className="vd-link"
-                rel="noreferrer"
-              >
-                Current website
-              </a>
-            </li>
           </ul>
-          <p className="mt-4 max-w-xs text-sm leading-6 text-muted-foreground">
-            Phone and email are the details on the current public contact page.
-            Confirm them before launch.
-          </p>
         </div>
       </div>
       <div className="border-t border-border px-6 py-6 text-center">

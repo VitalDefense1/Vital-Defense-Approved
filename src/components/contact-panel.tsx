@@ -18,10 +18,6 @@ export function ContactPanel({ titleAs }: { titleAs: "h1" | "h2" }) {
         <Title className="font-heading text-[2rem] leading-[1.12] font-bold sm:text-5xl">
           Contact
         </Title>
-        <p className="mt-5 text-base leading-7 text-muted-foreground">
-          {site.name} is in {site.place}. Street address and opening hours are
-          not listed in this preview.
-        </p>
         <div className="mt-8 space-y-2 text-base">
           <p>
             <a href={site.phoneHref} className="vd-link">
@@ -34,10 +30,6 @@ export function ContactPanel({ titleAs }: { titleAs: "h1" | "h2" }) {
             </a>
           </p>
         </div>
-        <p className="mt-4 text-sm leading-6 text-muted-foreground">
-          Phone and email are the details published on the current website.
-          Confirm them before launch.
-        </p>
         <form
           className="mt-12 grid gap-5 text-left"
           onSubmit={(event) => {
