@@ -8,6 +8,7 @@ $line2 = vd_mod( 'headline_2' );
 		<div class="vd-opening-spacer" aria-hidden="true"><div></div></div>
 		<div class="vd-opening-stage" data-intro-stage>
 			<video class="vd-opening-video" muted playsinline preload="auto" aria-hidden="true" data-intro-video src="<?php echo esc_url( vd_video_url() ); ?>"></video>
+			<div class="vd-opening-feather" data-intro-feather aria-hidden="true"></div>
 		</div>
 		<div class="vd-wordmark" data-intro-wordmark>
 			<img src="<?php echo esc_url( vd_asset( '/brand/vital-defense-stacked.png' ) ); ?>" alt="Vital Defense" width="1945" height="809" draggable="false">

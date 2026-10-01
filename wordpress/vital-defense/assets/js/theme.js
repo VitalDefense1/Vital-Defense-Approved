@@ -433,6 +433,14 @@
     video.style.top = frame.top + "px";
     video.style.width = frame.width + "px";
     video.style.height = frame.height + "px";
+    var feather = document.querySelector("[data-intro-feather]");
+    if (!feather) return;
+    var edge = Math.min(14, frame.height * (12 / 512));
+    feather.style.left = frame.left + "px";
+    feather.style.top = frame.top + "px";
+    feather.style.width = frame.width + "px";
+    feather.style.height = frame.height + "px";
+    feather.style.boxShadow = "inset 0 0 0 8px #fff, inset 0 0 " + (edge + 8) + "px " + Math.max(8, edge) + "px #fff";
   }
   function finishIntro() {
     try { sessionStorage.setItem("vd-intro-seen", "1"); } catch (error) {}
