@@ -18,16 +18,10 @@ if ( ! $group || ! $parent ) {
 	get_footer();
 	return;
 }
-$photo = (string) get_term_meta( $parent->term_id, '_vd_photo', true );
-$wide  = '1' === (string) get_term_meta( $parent->term_id, '_vd_photo_wide', true );
 ?>
 <main>
 	<header class="vd-group">
-		<div class="vd-group-panel" aria-hidden="true"></div>
 		<span class="vd-group-tick" aria-hidden="true"></span>
-		<?php if ( $photo ) : ?>
-			<img class="vd-group-photo <?php echo $wide ? 'is-wide' : 'is-narrow'; ?>" src="<?php echo esc_url( vd_asset( $photo ) ); ?>" alt="<?php echo esc_attr( (string) get_term_meta( $parent->term_id, '_vd_photo_alt', true ) ); ?>" width="<?php echo esc_attr( (string) get_term_meta( $parent->term_id, '_vd_photo_w', true ) ); ?>" height="<?php echo esc_attr( (string) get_term_meta( $parent->term_id, '_vd_photo_h', true ) ); ?>">
-		<?php endif; ?>
 		<div class="vd-group-copy">
 			<p class="vd-kicker"><a class="vd-link" href="<?php echo esc_url( home_url( '/' . $parent_path . '/' ) ); ?>"><?php echo esc_html( $parent->name ); ?></a></p>
 			<h1><?php echo esc_html( $group->name ); ?></h1>
@@ -35,12 +29,6 @@ $wide  = '1' === (string) get_term_meta( $parent->term_id, '_vd_photo_wide', tru
 				<p class="vd-muted"><?php echo esc_html( $group->description ); ?></p>
 			<?php endif; ?>
 		</div>
-		<?php if ( $photo ) : ?>
-			<div class="vd-group-photo-mobile">
-				<div aria-hidden="true"></div>
-				<img src="<?php echo esc_url( vd_asset( $photo ) ); ?>" alt="<?php echo esc_attr( (string) get_term_meta( $parent->term_id, '_vd_photo_alt', true ) ); ?>">
-			</div>
-		<?php endif; ?>
 	</header>
 	<div class="vd-group-space"></div>
 </main>

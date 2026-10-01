@@ -110,12 +110,19 @@ html[data-age="ok"] .vd-home .vd-logo-link.is-shown { opacity: 1; pointer-events
 
 .vd-sheet[hidden], .vd-dialog[hidden], .vd-age[hidden] { display: none; }
 .vd-sheet, .vd-dialog, .vd-age { position: fixed; inset: 0; z-index: 60; }
-.vd-sheet-backdrop, .vd-dialog-backdrop, .vd-age-backdrop { position: absolute; inset: 0; background: rgb(26 25 23 / 0.45); }
+.vd-sheet-backdrop, .vd-dialog-backdrop, .vd-age-backdrop { position: absolute; inset: 0; }
+.vd-sheet-backdrop {
+  background: rgb(255 255 255 / 0.04);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.vd-dialog-backdrop, .vd-age-backdrop { background: rgb(26 25 23 / 0.45); }
 .vd-age { z-index: 90; }
 .vd-age-backdrop { background: rgb(26 25 23 / 0.5); }
 .vd-sheet-panel {
   position: absolute; inset: 0 auto 0 0; width: min(100%, 28rem); background: #fff;
   display: flex; flex-direction: column; box-shadow: 0 16px 50px rgb(26 25 23 / 0.12);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
 }
 .vd-sheet-close, .vd-dialog-close { position: absolute; top: 0.5rem; right: 0.5rem; z-index: 2; }
 .vd-sheet-head { border-bottom: 1px solid var(--border); padding: 1.5rem; }
@@ -155,14 +162,18 @@ html[data-age="ok"] .vd-home .vd-logo-link.is-shown { opacity: 1; pointer-events
 .vd-age-actions { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 2rem; }
 .vd-age-actions .vd-button { width: 100%; }
 
-.vd-opening { position: relative; width: 100%; background: #fff; }
+.vd-opening { position: relative; width: 100%; background: #fff; border: 0; outline: none; box-shadow: none; }
 .vd-opening-spacer { padding: 1.25rem 0.75rem 4rem; }
 .vd-opening-spacer div { margin: 0 auto; aspect-ratio: 1180 / 563; width: 100%; max-width: 72rem; }
 .vd-opening-stage {
   pointer-events: none; position: absolute; left: 0; right: 0; top: calc(var(--header) * -1); bottom: 0;
-  overflow: hidden; background: #fff;
+  overflow: hidden; background: #fff; border: 0; outline: none; box-shadow: none;
 }
-.vd-opening-video { position: absolute; background: #fff; object-fit: fill; opacity: 0; }
+.vd-opening-video {
+  position: absolute; background: #fff; object-fit: fill; opacity: 0;
+  border: 0; outline: none; box-shadow: none;
+}
+.vd-opening[data-intro="done"] .vd-opening-video { opacity: 0 !important; visibility: hidden; }
 .vd-wordmark {
   pointer-events: none; position: absolute; left: 0; right: 0; z-index: 5; display: flex;
   align-items: center; justify-content: center; padding: 0 1.25rem; opacity: 0;
@@ -177,7 +188,7 @@ html[data-age="ok"] .vd-home .vd-logo-link.is-shown { opacity: 1; pointer-events
 .vd-skip:hover { color: var(--gold); }
 .vd-opening-gold { position: absolute; bottom: 0; left: 50%; z-index: 10; height: 1px; width: 100vw; transform: translateX(-50%); background: var(--gold); }
 
-.vd-hero { position: relative; overflow: clip; padding: 5rem 1.5rem; }
+.vd-hero { position: relative; z-index: 1; overflow-x: clip; overflow-y: visible; padding: 5rem 1.5rem; }
 .vd-hero-watermark {
   pointer-events: none; position: absolute; top: 50%; left: 0; z-index: 1; width: 175vw; max-width: none;
   height: auto; transform: translate(-39.5%, -50%); opacity: 0.16;

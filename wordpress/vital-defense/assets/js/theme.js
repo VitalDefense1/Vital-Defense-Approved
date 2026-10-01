@@ -444,7 +444,10 @@
     var skip = document.querySelector("[data-intro-skip]");
     if (skip) skip.hidden = true;
     var video = document.querySelector("[data-intro-video]");
-    if (video) video.pause();
+    if (video) {
+      video.pause();
+      video.style.setProperty("opacity", "0", "important");
+    }
     var wordmark = document.querySelector("[data-intro-wordmark]");
     if (wordmark) wordmark.classList.add("is-shown");
     measureLogo();
@@ -452,6 +455,7 @@
   function startIntro() {
     if (!document.body.classList.contains("vd-home")) {
       measureOtherPageLogo();
+      window.addEventListener("resize", measureOtherPageLogo);
       return;
     }
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -514,10 +518,14 @@
     var desired = header / 2 - (shieldTop + shieldH / 2);
     var maxLift = Math.max(0, shieldTop - 2);
     top += desired < 0 ? Math.max(desired, -maxLift) : desired;
-    logo.style.left = left + "px";
-    logo.style.top = top + "px";
-    logo.style.width = imgW + "px";
-    logo.style.height = imgH + "px";
+    var view = window.innerWidth || width;
+    var visibleCenter = left + (4 / 293) * imgW + visibleW / 2;
+    left += view / 2 - visibleCenter;
+    logo.style.setProperty("left", left + "px", "important");
+    logo.style.setProperty("top", top + "px", "important");
+    logo.style.setProperty("width", imgW + "px", "important");
+    logo.style.setProperty("height", imgH + "px", "important");
+    logo.style.setProperty("transform", "none", "important");
     logo.classList.add("is-shown");
   }
 
