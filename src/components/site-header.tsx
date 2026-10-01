@@ -313,6 +313,17 @@ export function SiteHeader() {
               </p>
             </div>
           ) : null}
+          {panel === "cart" ? (
+            <p className="mt-5">
+              <Link
+                href="/cart"
+                className="vd-text-link text-sm font-semibold tracking-[0.07em] text-gold"
+                onClick={() => setPanelOpen(false)}
+              >
+                View cart
+              </Link>
+            </p>
+          ) : null}
         </DialogContent>
       </Dialog>
     </header>

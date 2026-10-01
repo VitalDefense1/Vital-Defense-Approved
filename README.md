@@ -57,7 +57,7 @@ The logo on the site is `public/brand/vital-defense-logo.png`. White was removed
 
 Phone and email are the ones published on the current contact page. Street address and hours are left off on purpose.
 
-Search, favorites, account, and cart open short notices. They do not save anything or sell anything. The contact form explains that it does not send.
+Search, favorites, and account open short notices. The cart icon opens a short overlay. “View cart” in that overlay opens the cart page, which is a layout preview filled with sample products unless this browser already has items. Quantity, remove, the promo field, and checkout on that page do not take payment, apply a discount, or place an order. Shipping and tax stay as placeholders. The contact form explains that it does not send.
 
 ## Packages
 

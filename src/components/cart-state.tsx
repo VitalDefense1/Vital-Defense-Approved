@@ -20,6 +20,7 @@ type CartContextValue = {
   count: number
   subtotal: number
   addItem: (item: { id: string; title: string; price: number }) => void
+  setQty: (id: string, qty: number) => void
   removeItem: (id: string) => void
 }
 
@@ -43,6 +44,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
             line.id === item.id ? { ...line, qty: line.qty + 1 } : line,
           )
         })
+      },
+      setQty(id, qty) {
+        const next = Math.max(1, Math.floor(qty))
+        setItems((current) =>
+          current.map((line) => (line.id === id ? { ...line, qty: next } : line)),
+        )
       },
       removeItem(id) {
         setItems((current) => current.filter((line) => line.id !== id))
