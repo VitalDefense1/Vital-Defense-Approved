@@ -74,21 +74,6 @@ Every page sends `noindex`. `robots.txt` also asks crawlers not to index the pre
 
 Before a real launch, remove the `noindex` metadata in `src/app/layout.tsx` and replace `src/app/robots.ts`. Then review the host’s own “discourage search engines” switch, whether that is WordPress Reading settings or the host panel. Do that review before submitting a sitemap.
 
-## Adapting this to a WordPress theme later
+## WordPress theme
 
-This project is a Next.js site. Copying the folder into WordPress will not turn it into a theme.
-
-What can move across:
-
-- The section order, spacing, colors, and type choices.
-- The logo crop, which is ordinary CSS.
-- The category labels in `src/lib/navigation.ts`.
-
-What has to be rebuilt in the theme:
-
-- Pages and routes. WordPress uses templates and permalinks, not the App Router files in `src/app`.
-- The menu, search, account, cart, and pause button. Those are React components and would become theme markup plus a small script, or blocks.
-- Fonts. Next.js downloads Syne and Outfit for you. A theme would load those same families itself.
-- Products, checkout, and FFL Cockpit. They are not in this preview. A later theme would connect them in WordPress, not by extending these placeholder buttons.
-
-The approved design can be followed closely. The React code itself is not the WordPress theme.
+The installable theme that follows this preview is in `wordpress/vital-defense/`. Setup notes are in `wordpress/README.md`. It is a separate local preview. It does not replace vitaldefenseco.com and it does not connect to FFL Cockpit.

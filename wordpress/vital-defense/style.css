@@ -1,0 +1,15 @@
+/*
+Theme Name: Vital Defense
+Theme URI: https://github.com/VitalDefense1/Vital-Defense-Approved
+Author: Vital Defense
+Description: Installable design theme matching the approved Vital Defense preview. It does not process payments or connect to FFL Cockpit.
+Version: 1.0.0
+Requires at least: 6.4
+Tested up to: 7.1
+Requires PHP: 8.0
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: vital-defense
+*/
+
+/* Visual styles live in assets/css/theme.css so this header stays the theme identity file. */
