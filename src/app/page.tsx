@@ -143,6 +143,7 @@ export default function HomePage() {
         </div>
 
         <div className="relative z-10 mx-auto mt-20 max-w-6xl md:mt-28">
+          {/* 2.105% is how far the firearm sits right of center inside the file. */}
           <Image
             src="/photos/pdw.png"
             alt="Black compact firearm with an optic, from the supplied photographs."
@@ -150,7 +151,7 @@ export default function HomePage() {
             height={496}
             quality={90}
             sizes="(min-width: 768px) 780px, 100vw"
-            className="relative z-10 h-auto w-full md:w-[70%]"
+            className="relative z-10 h-auto w-full md:mx-auto md:w-[70%] md:-translate-x-[2.105%]"
           />
         </div>
       </section>
