@@ -80,7 +80,7 @@ export function AgeGate({ children }: { children: React.ReactNode }) {
             className="fixed top-1/2 left-1/2 z-[90] w-[min(28rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 border border-border bg-white px-6 py-8 text-center text-[#1A1917] outline-none sm:px-10 sm:py-10"
           >
             <span className="mx-auto mb-6 block h-px w-12 bg-gold" aria-hidden="true" />
-            <Dialog.Title className="font-heading text-[1.65rem] leading-tight font-medium sm:text-[2rem]">
+            <Dialog.Title className="font-heading text-[1.45rem] leading-[1.15] font-bold text-balance sm:text-[1.85rem]">
               Are you 21 years of age or older?
             </Dialog.Title>
             <Dialog.Description className="mx-auto mt-4 max-w-xs text-sm leading-6 text-muted-foreground">

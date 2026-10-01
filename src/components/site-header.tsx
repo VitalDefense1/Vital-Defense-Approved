@@ -117,7 +117,7 @@ export function SiteHeader() {
                   className="vd-disclosure border-b border-border"
                 >
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 [&::-webkit-details-marker]:hidden">
-                    <span className="font-heading text-xl">{department.label}</span>
+                    <span className="font-semibold text-xl tracking-[0.06em]">{department.label}</span>
                     <span className="vd-plus text-2xl leading-none text-gold" aria-hidden="true">
                       +
                     </span>
@@ -150,7 +150,7 @@ export function SiteHeader() {
             <div className="mt-6 border-t border-border pt-6 pb-10">
               <Link
                 href="/contact"
-                className="vd-link font-heading text-xl"
+                className="vd-link font-semibold text-xl tracking-[0.06em]"
                 onClick={() => setMenuOpen(false)}
               >
                 Contact
@@ -243,7 +243,7 @@ export function SiteHeader() {
       <Dialog open={panelOpen} onOpenChange={setPanelOpen}>
         <DialogContent className="bg-white sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="font-heading text-2xl font-medium">
+            <DialogTitle className="pr-8 font-heading text-2xl leading-tight font-bold">
               {active.title}
             </DialogTitle>
             <DialogDescription className="text-base leading-6 text-muted-foreground">
@@ -261,7 +261,7 @@ export function SiteHeader() {
                     className="flex items-start justify-between gap-4 border-b border-border py-3"
                   >
                     <div>
-                      <p className="font-heading text-base">{item.title}</p>
+                      <p className="font-semibold tracking-[0.04em]">{item.title}</p>
                       <p className="mt-1 text-sm text-muted-foreground">
                         {formatPrice(item.price)} · {item.qty}
                       </p>
@@ -276,7 +276,7 @@ export function SiteHeader() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-4 font-heading text-lg">
+              <p className="mt-4 font-semibold text-lg tracking-[0.05em]">
                 Subtotal {formatPrice(subtotal)}
               </p>
             </div>

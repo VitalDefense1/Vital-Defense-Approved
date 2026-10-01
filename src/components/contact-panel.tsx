@@ -15,7 +15,7 @@ export function ContactPanel({ titleAs }: { titleAs: "h1" | "h2" }) {
     <section className="relative px-6 pt-16 pb-20 md:pt-24 md:pb-28">
       <div className="relative z-10 mx-auto max-w-xl text-center">
         <span className="mx-auto mb-6 block h-px w-12 bg-gold" aria-hidden="true" />
-        <Title className="font-heading text-4xl leading-tight md:text-5xl">
+        <Title className="font-heading text-[2rem] leading-[1.12] font-bold sm:text-5xl">
           Contact
         </Title>
         <p className="mt-5 text-base leading-7 text-muted-foreground">
@@ -49,7 +49,13 @@ export function ContactPanel({ titleAs }: { titleAs: "h1" | "h2" }) {
         >
           <div className="grid gap-2">
             <Label htmlFor="contact-name">Name</Label>
-            <Input id="contact-name" name="name" autoComplete="name" className="h-11 bg-white" />
+            <Input
+              id="contact-name"
+              name="name"
+              autoComplete="name"
+              placeholder="Full name"
+              className="h-11 bg-white"
+            />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="contact-email">Email</Label>
@@ -58,12 +64,18 @@ export function ContactPanel({ titleAs }: { titleAs: "h1" | "h2" }) {
               name="email"
               type="email"
               autoComplete="email"
+              placeholder="name@email.com"
               className="h-11 bg-white"
             />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="contact-message">Message</Label>
-            <Textarea id="contact-message" name="message" className="min-h-32 bg-white" />
+            <Textarea
+              id="contact-message"
+              name="message"
+              placeholder="How can we help?"
+              className="min-h-32 bg-white"
+            />
           </div>
           <Button type="submit" className="h-11 px-5">
             Send message

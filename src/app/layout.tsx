@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Barlow, Oswald, Rajdhani } from "next/font/google"
+import { Oswald, Rajdhani } from "next/font/google"
 import Script from "next/script"
 import { AgeGate } from "@/components/age-gate"
 import { CartProvider } from "@/components/cart-state"
@@ -8,13 +8,6 @@ import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { introLogoBootScript } from "@/lib/intro-logo"
 import "./globals.css"
-
-const barlow = Barlow({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-barlow",
-  display: "swap",
-})
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -25,7 +18,7 @@ const oswald = Oswald({
 
 const rajdhani = Rajdhani({
   subsets: ["latin"],
-  weight: ["500"],
+  weight: ["500", "600"],
   variable: "--font-rajdhani-face",
   display: "swap",
 })
@@ -51,7 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${barlow.variable} ${oswald.variable} ${rajdhani.variable} h-full antialiased`}
+      className={`${oswald.variable} ${rajdhani.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <Script id="vd-age-session" strategy="beforeInteractive">

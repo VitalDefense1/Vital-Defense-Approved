@@ -32,7 +32,7 @@ export function SiteFooter() {
           </p>
         </div>
         <nav aria-label="Footer">
-          <p className="font-heading text-lg">Categories</p>
+          <p className="font-semibold text-lg tracking-[0.06em]">Categories</p>
           <ul className="mt-4 space-y-2">
             {departments.map((department) => (
               <li key={department.slug}>
@@ -49,7 +49,7 @@ export function SiteFooter() {
           </ul>
         </nav>
         <div>
-          <p className="font-heading text-lg">Published contact</p>
+          <p className="font-semibold text-lg tracking-[0.06em]">Published contact</p>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
               <a href={site.phoneHref} className="vd-link">
@@ -78,7 +78,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-border px-6 py-6 text-center">
-        <p className="mx-auto max-w-2xl text-sm leading-6 text-muted-foreground">
+        <p className="mx-auto max-w-2xl text-sm leading-7 text-muted-foreground">
           Design preview for Vital Defense. This does not replace{" "}
           {site.currentWebsite.replace("https://", "")}. Search engines are asked
           to skip this preview. That request is not a password.

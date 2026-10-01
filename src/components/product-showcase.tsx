@@ -252,7 +252,7 @@ export function ProductShowcase() {
         <span className="mx-auto mb-6 block h-px w-12 bg-gold" aria-hidden="true" />
         <h2
           id="product-showcase"
-          className="font-heading text-[2.15rem] leading-[1.02] font-medium sm:text-5xl"
+          className="font-heading text-[2rem] leading-[1.1] font-bold sm:text-5xl"
         >
           FEATURED ITEMS
         </h2>
@@ -339,7 +339,7 @@ export function ProductShowcase() {
                       className="h-full w-full object-contain"
                     />
                   </div>
-                  <h3 className="mt-6 font-heading text-xl font-medium tracking-[0.06em] uppercase sm:text-2xl">
+                  <h3 className="mt-6 min-h-[2.4em] font-heading text-lg leading-tight font-bold tracking-[0.04em] text-balance sm:text-2xl">
                     {slide.title}
                   </h3>
                   <p className="mt-2 text-sm tracking-wide text-gold">

@@ -59,7 +59,9 @@ function LayeredIntro({
       ) : null}
       <div className="relative z-20 mx-auto max-w-3xl text-center">
         <p className="text-sm tracking-wide text-gold">{kicker}</p>
-        <h1 className="mt-4 font-heading text-4xl leading-[1.05] md:text-6xl">{title}</h1>
+        <h1 className="mt-4 font-heading text-[2rem] leading-[1.12] font-bold text-balance sm:text-5xl md:text-6xl">
+          {title}
+        </h1>
         <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-muted-foreground">{summary}</p>
       </div>
       {photo ? (
@@ -100,7 +102,7 @@ export function DepartmentView({ department }: { department: Department }) {
             <li key={group.slug} className="border-b border-border last:border-b-0">
               <Link
                 href={`/${department.slug}/${group.slug}`}
-                className="vd-link flex py-5 font-heading text-2xl"
+                className="vd-link flex py-5 font-semibold text-xl leading-snug tracking-[0.05em] sm:text-2xl"
               >
                 {group.label}
               </Link>

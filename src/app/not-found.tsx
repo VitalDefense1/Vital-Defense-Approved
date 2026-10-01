@@ -3,7 +3,7 @@ import Link from "next/link"
 export default function NotFound() {
   return (
     <main className="mx-auto max-w-xl px-6 py-24 text-center">
-      <h1 className="font-heading text-4xl leading-tight md:text-5xl">
+      <h1 className="font-heading text-[2rem] leading-[1.12] font-bold text-balance sm:text-5xl">
         That page is not in this preview.
       </h1>
       <p className="mt-5 text-base leading-7 text-muted-foreground">

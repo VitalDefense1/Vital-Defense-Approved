@@ -7,9 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-barlow);
+  --font-sans: var(--font-rajdhani-face), sans-serif;
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-barlow);
+  --font-heading: var(--font-oswald-face), sans-serif;
   --font-oswald: var(--font-oswald-face), sans-serif;
   --font-rajdhani: var(--font-rajdhani-face), sans-serif;
   --color-gold: var(--gold);
@@ -131,13 +131,41 @@
   }
   body {
     @apply overflow-x-clip bg-background text-foreground;
+    font-weight: 500;
+    letter-spacing: 0.045em;
+    line-height: 1.55;
+    text-transform: uppercase;
   }
   h1,
   h2,
-  h3 {
-    font-family: var(--font-barlow), ui-sans-serif, sans-serif;
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-oswald-face), sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+  button,
+  [data-slot="button"] {
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  /* Typed values stay in the case the visitor entered. */
+  input,
+  textarea,
+  select {
     font-weight: 500;
-    letter-spacing: -0.018em;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
   ::selection {
     background: rgba(140, 112, 68, 0.22);
