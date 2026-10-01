@@ -37,19 +37,20 @@ export function SiteFooter() {
             {mainCategories.map((category) => (
               <li key={category.label}>
                 {category.href ? (
-                  <Link href={category.href} className="vd-link text-sm">
+                  <Link
+                    href={category.href}
+                    className="vd-link text-sm font-medium hover:text-gold focus-visible:text-gold"
+                  >
                     {category.label}
                   </Link>
                 ) : (
-                  <span className="text-sm">{category.label}</span>
+                  <span className="inline-flex flex-wrap items-baseline gap-x-2 text-sm font-medium">
+                    {category.label}
+                    <span className="text-xs tracking-[0.14em] text-gold">Pending</span>
+                  </span>
                 )}
               </li>
             ))}
-            <li>
-              <Link href="/contact" className="vd-link text-sm">
-                Contact
-              </Link>
-            </li>
           </ul>
         </nav>
         <div>
