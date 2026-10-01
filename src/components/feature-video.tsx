@@ -18,7 +18,9 @@ export function FeatureVideo({ src }: { src: string }) {
   const [frame, setFrame] = useState<FrameBox | null>(null)
   const [ready, setReady] = useState(false)
   const [band, setBand] = useState<{ top: number; bottom: number } | null>(null)
+  const [wordmarkCue, setWordmarkCue] = useState(false)
   const playing = phase === "playing" && ageConfirmed
+  const wordmarkVisible = phase === "done" || wordmarkCue
 
   useLayoutEffect(() => {
     const stage = stageRef.current
@@ -66,6 +68,31 @@ export function FeatureVideo({ src }: { src: string }) {
     if (phase !== "playing") return
     stageRef.current?.parentElement?.setAttribute("data-intro-fade", "")
   }, [phase])
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video || !playing) return
+    const lead = 1.8
+    let frameId = 0
+    let cued = false
+    const check = () => {
+      if (cued || !Number.isFinite(video.duration) || video.duration <= lead) return
+      if (video.currentTime < video.duration - lead) return
+      cued = true
+      window.cancelAnimationFrame(frameId)
+      setWordmarkCue(true)
+    }
+    const tick = () => {
+      check()
+      if (!cued) frameId = window.requestAnimationFrame(tick)
+    }
+    tick()
+    video.addEventListener("timeupdate", check)
+    return () => {
+      window.cancelAnimationFrame(frameId)
+      video.removeEventListener("timeupdate", check)
+    }
+  }, [playing])
 
   useEffect(() => {
     const video = videoRef.current
@@ -147,7 +174,7 @@ export function FeatureVideo({ src }: { src: string }) {
         data-intro-wordmark=""
         className={cn(
           "pointer-events-none absolute inset-x-0 z-[5] flex min-h-0 items-center justify-center px-5 sm:px-12",
-          phase === "done" ? "opacity-100" : "opacity-0",
+          wordmarkVisible ? "opacity-100" : "opacity-0",
         )}
         style={band ? { top: band.top, bottom: band.bottom } : undefined}
       >
