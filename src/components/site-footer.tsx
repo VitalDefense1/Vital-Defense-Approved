@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { Logo } from "@/components/logo"
 import { departments } from "@/lib/navigation"
@@ -6,6 +7,26 @@ import { site } from "@/lib/site"
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-white">
+      <div className="px-6 pt-14">
+        <div className="relative mx-auto w-fit">
+          <div
+            aria-hidden="true"
+            className="absolute -top-3 -right-3 -bottom-3 left-5 bg-[#ebe4d8] sm:-right-8"
+          />
+          <Image
+            src="/photos/illustration-rifle.png"
+            alt="Still drawing of a rifle. The file is a picture, not an animation."
+            width={996}
+            height={400}
+            quality={90}
+            sizes="240px"
+            className="relative z-10 h-auto w-40 sm:w-52"
+          />
+        </div>
+        <p className="mx-auto mt-5 max-w-sm text-center text-sm leading-6 text-muted-foreground">
+          Still drawing from the supplied files.
+        </p>
+      </div>
       <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-[1.3fr_1fr_1fr]">
         <div>
           <div className="mb-6 h-px w-10 bg-gold" aria-hidden="true" />

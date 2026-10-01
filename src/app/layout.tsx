@@ -1,20 +1,13 @@
 import type { Metadata } from "next"
-import { Archivo, Outfit } from "next/font/google"
+import { Barlow } from "next/font/google"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import "./globals.css"
 
-const outfit = Outfit({
+const barlow = Barlow({
   subsets: ["latin"],
   weight: ["400", "500"],
-  variable: "--font-outfit",
-  display: "swap",
-})
-
-const archivo = Archivo({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-archivo",
+  variable: "--font-barlow",
   display: "swap",
 })
 
@@ -39,7 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${archivo.variable} h-full antialiased`}
+      className={`${barlow.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <a className="skip-link" href="#content">

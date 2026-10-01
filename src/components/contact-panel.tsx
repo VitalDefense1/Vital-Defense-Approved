@@ -12,16 +12,9 @@ export function ContactPanel({ titleAs }: { titleAs: "h1" | "h2" }) {
   const [notice, setNotice] = useState("")
 
   return (
-    <section className="relative px-6 pt-24 pb-20 md:pt-36 md:pb-28">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-14 right-[8%] bottom-10 left-[8%] bg-[#ebe4d8] md:top-20 md:right-[14%] md:left-[16%]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-14 left-[10%] h-px w-14 bg-gold md:top-20 md:left-[18%]"
-      />
+    <section className="relative px-6 pt-16 pb-20 md:pt-24 md:pb-28">
       <div className="relative z-10 mx-auto max-w-xl text-center">
+        <span className="mx-auto mb-6 block h-px w-12 bg-gold" aria-hidden="true" />
         <Title className="font-heading text-4xl leading-tight md:text-5xl">
           Contact
         </Title>

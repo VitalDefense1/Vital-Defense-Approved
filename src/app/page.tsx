@@ -90,7 +90,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative px-6 pt-20 pb-4 md:pt-28" aria-labelledby="featured-brands">
+      <section className="relative px-0 pt-8 md:px-8 md:pt-14" aria-label="Shield and rifle">
+        <Image
+          src="/photos/shield-rifle.jpg"
+          alt="Supplied composition of a rifle passing through the Vital Defense shield and skull."
+          width={1536}
+          height={1024}
+          quality={90}
+          sizes="(min-width: 1280px) 1152px, 100vw"
+          className="mx-auto h-auto w-full max-w-6xl"
+        />
+      </section>
+
+      <section className="relative px-6 pt-16 pb-4 md:pt-24" aria-labelledby="featured-brands">
         <div className="relative z-20 mx-auto max-w-3xl text-center">
           <h2
             id="featured-brands"
@@ -197,27 +209,6 @@ export default function HomePage() {
               </span>
             </figcaption>
           </figure>
-        </div>
-
-        <div className="relative z-20 mx-auto -mb-16 mt-12 max-w-6xl md:-mb-28 md:mt-16 md:ml-[8%]">
-          <div
-            aria-hidden="true"
-            className="absolute -top-3 right-[12%] -bottom-3 left-[18%] bg-[#ebe4d8] sm:right-[36%]"
-          />
-          <div className="relative flex flex-col items-start gap-4 sm:flex-row sm:items-end">
-            <Image
-              src="/photos/illustration-rifle.png"
-              alt="Still drawing of a rifle. The file is a picture, not an animation."
-              width={996}
-              height={400}
-              quality={90}
-              sizes="240px"
-              className="relative z-10 h-auto w-40 sm:w-52"
-            />
-            <p className="relative z-10 max-w-sm pb-2 text-sm leading-6 text-muted-foreground">
-              Still drawing from the supplied files.
-            </p>
-          </div>
         </div>
       </section>
 
