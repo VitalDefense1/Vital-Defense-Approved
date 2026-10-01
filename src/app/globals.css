@@ -207,6 +207,16 @@ html[data-age="ok"] [data-age-gate] {
   text-decoration-color: var(--gold);
 }
 
+.vd-product-card {
+  text-underline-offset: 0.22em;
+}
+
+.vd-product-card:hover .vd-product-title,
+.vd-product-card:focus-visible .vd-product-title {
+  text-decoration-line: underline;
+  text-decoration-color: var(--gold);
+}
+
 a:focus-visible,
 button:focus-visible,
 summary:focus-visible {

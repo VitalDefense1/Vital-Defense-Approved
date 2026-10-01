@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { CatalogCategoryView } from "@/components/catalog-category-view"
-import { DepartmentView } from "@/components/department-view"
+import { CategoryListing } from "@/components/category-listing"
 import { catalog, departments, getCatalogCategory, getDepartment } from "@/lib/navigation"
+import { getProductsByCategory } from "@/lib/sample-products"
 
 export function generateStaticParams() {
   return [
@@ -38,8 +38,8 @@ export default async function DepartmentPage({
 }) {
   const { department: slug } = await params
   const department = getDepartment(slug)
-  if (department) return <DepartmentView department={department} />
   const category = getCatalogCategory(slug)
-  if (!category) notFound()
-  return <CatalogCategoryView category={category} />
+  const title = department?.label ?? category?.label
+  if (!title) notFound()
+  return <CategoryListing title={title} products={getProductsByCategory(slug)} />
 }

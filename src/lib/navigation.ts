@@ -11,107 +11,105 @@ export type Department = {
   groups: NavGroup[]
 }
 
-const noListings = "Product listings, prices, and stock are not part of this preview."
-
 export const departments: Department[] = [
   {
     slug: "rifles",
     label: "Rifles",
-    summary: `Rifles at Vital Defense, grouped by action. The current site’s separate “AR Style Rifles” label is not used here. Those rifles belong under Semi Auto Rifles. ${noListings}`,
+    summary: `Rifles at Vital Defense, grouped by action. The current site’s separate “AR Style Rifles” label is not used here. Those rifles belong under Semi Auto Rifles.`,
     groups: [
       {
         slug: "semi-auto",
         label: "Semi Auto Rifles",
-        summary: `Semi-automatic rifles, including rifles the current navigation lists separately as AR-style. ${noListings}`,
+        summary: `Semi-automatic rifles, including rifles the current navigation lists separately as AR-style.`,
       },
       {
         slug: "bolt-action",
         label: "Bolt Action Rifles",
-        summary: `Bolt-action rifles. ${noListings}`,
+        summary: `Bolt-action rifles.`,
       },
       {
         slug: "lever-action",
         label: "Lever Action Rifles",
-        summary: `Lever-action rifles. ${noListings}`,
+        summary: `Lever-action rifles.`,
       },
       {
         slug: "pump-action",
         label: "Pump Action Rifles",
-        summary: `Pump-action rifles. ${noListings}`,
+        summary: `Pump-action rifles.`,
       },
       {
         slug: "single-shot",
         label: "Single Shot Rifles",
-        summary: `Single-shot rifles. ${noListings}`,
+        summary: `Single-shot rifles.`,
       },
     ],
   },
   {
     slug: "handguns",
     label: "Handguns",
-    summary: `Handguns at Vital Defense, grouped by type. ${noListings}`,
+    summary: `Handguns at Vital Defense, grouped by type.`,
     groups: [
       {
         slug: "semi-auto",
         label: "Semi Auto Handguns",
-        summary: `Semi-automatic handguns. ${noListings}`,
+        summary: `Semi-automatic handguns.`,
       },
       {
         slug: "revolvers",
         label: "Revolvers",
-        summary: `Revolvers. ${noListings}`,
+        summary: `Revolvers.`,
       },
       {
         slug: "single-shot",
         label: "Single Shot Handguns",
-        summary: `Single-shot handguns. ${noListings}`,
+        summary: `Single-shot handguns.`,
       },
       {
         slug: "derringers",
         label: "Derringers",
-        summary: `Derringers. ${noListings}`,
+        summary: `Derringers.`,
       },
       {
         slug: "other",
         label: "Other Handguns",
-        summary: `Handguns that do not fit the other handgun labels. ${noListings}`,
+        summary: `Handguns that do not fit the other handgun labels.`,
       },
     ],
   },
   {
     slug: "shotguns",
     label: "Shotguns",
-    summary: `Shotguns at Vital Defense, grouped by action. ${noListings}`,
+    summary: `Shotguns at Vital Defense, grouped by action.`,
     groups: [
       {
         slug: "semi-auto",
         label: "Semi-Auto Shotguns",
-        summary: `Semi-automatic shotguns. ${noListings}`,
+        summary: `Semi-automatic shotguns.`,
       },
       {
         slug: "pump-action",
         label: "Pump Action Shotguns",
-        summary: `Pump-action shotguns. ${noListings}`,
+        summary: `Pump-action shotguns.`,
       },
       {
         slug: "side-by-side",
         label: "Side By Side Shotguns",
-        summary: `Side-by-side shotguns. ${noListings}`,
+        summary: `Side-by-side shotguns.`,
       },
       {
         slug: "over-under",
         label: "Over Under Shotguns",
-        summary: `Over-under shotguns. ${noListings}`,
+        summary: `Over-under shotguns.`,
       },
       {
         slug: "lever-action",
         label: "Lever Action Shotguns",
-        summary: `Lever-action shotguns. ${noListings}`,
+        summary: `Lever-action shotguns.`,
       },
       {
         slug: "single-shot",
         label: "Single Shot Shotguns",
-        summary: `Single-shot shotguns. ${noListings}`,
+        summary: `Single-shot shotguns.`,
       },
     ],
   },
@@ -128,7 +126,7 @@ export function getGroup(departmentSlug: string, groupSlug: string) {
   return { department, group }
 }
 
-/** Shop categories that do not have pages yet. Names only — no destinations. */
+/** Shop categories besides rifles, handguns, and shotguns. */
 export type CatalogNode = {
   label: string
   children?: CatalogNode[]

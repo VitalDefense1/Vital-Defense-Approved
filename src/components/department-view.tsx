@@ -85,35 +85,6 @@ function LayeredIntro({
   )
 }
 
-export function DepartmentView({ department }: { department: Department }) {
-  const photo = departmentPhotos[department.slug]
-
-  return (
-    <main>
-      <LayeredIntro
-        kicker="Vital Defense"
-        title={department.label}
-        summary={department.summary}
-        photo={photo}
-      />
-      <div className="relative z-20 mx-auto max-w-xl px-6 pt-8 pb-24">
-        <ul className="border-y border-border">
-          {department.groups.map((group) => (
-            <li key={group.slug} className="border-b border-border last:border-b-0">
-              <Link
-                href={`/${department.slug}/${group.slug}`}
-                className="vd-link flex py-5 font-semibold text-xl leading-snug tracking-[0.05em] sm:text-2xl"
-              >
-                {group.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </main>
-  )
-}
-
 export function GroupView({
   department,
   group,
