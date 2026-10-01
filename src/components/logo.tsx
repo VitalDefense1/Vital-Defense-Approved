@@ -25,7 +25,10 @@ export function Logo({
       height={mark ? 248 : 626}
       draggable={false}
       fetchPriority={priority ? "high" : undefined}
-      className={cn("block h-auto w-auto shrink-0 select-none", className)}
+      className={cn(
+        "block h-auto w-auto max-w-none shrink-0 object-contain select-none",
+        className,
+      )}
     />
   )
 }

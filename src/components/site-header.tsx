@@ -18,6 +18,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { formatPrice, useCart } from "@/components/cart-state"
 import { Logo } from "@/components/logo"
 import { departments } from "@/lib/navigation"
 import { cn } from "@/lib/utils"
@@ -39,7 +40,7 @@ const panels: Record<Panel, { title: string; body: string }> = {
   },
   cart: {
     title: "Cart",
-    body: "The cart does not hold items. Nothing can be purchased here.",
+    body: "Nothing is in the cart yet.",
   },
 }
 
@@ -56,6 +57,7 @@ export function SiteHeader() {
     setPanelOpen(true)
   }
 
+  const { items, count, subtotal, removeItem } = useCart()
   const active = panels[panel]
 
   return (
@@ -78,12 +80,12 @@ export function SiteHeader() {
           className="w-full gap-0 overflow-hidden bg-white p-0 sm:max-w-md"
           id="site-navigation"
         >
-          <SheetHeader className="border-b border-border px-6 py-6">
+          <SheetHeader className="items-start border-b border-border px-6 py-6">
             <SheetTitle className="sr-only">Browse Vital Defense</SheetTitle>
             <SheetDescription className="sr-only">
               Category links for the design preview.
             </SheetDescription>
-            <Logo className="h-16" />
+            <Logo mark className="h-20 w-auto max-w-none self-start" />
           </SheetHeader>
           <div className="flex-1 overflow-y-auto px-6 py-2">
             <nav aria-label="Categories">
@@ -185,8 +187,16 @@ export function SiteHeader() {
         >
           <User className={iconClass} strokeWidth={1.5} aria-hidden />
         </UtilityButton>
-        <UtilityButton label="Cart" onClick={() => openPanel("cart")}>
+        <UtilityButton
+          label={count > 0 ? `Cart, ${count} items` : "Cart"}
+          onClick={() => openPanel("cart")}
+        >
           <ShoppingBag className={iconClass} strokeWidth={1.5} aria-hidden />
+          {count > 0 ? (
+            <span className="absolute top-1 right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-1 text-[10px] leading-none text-white">
+              {count}
+            </span>
+          ) : null}
         </UtilityButton>
       </div>
 
@@ -197,9 +207,40 @@ export function SiteHeader() {
               {active.title}
             </DialogTitle>
             <DialogDescription className="text-base leading-6 text-muted-foreground">
-              {active.body}
+              {panel === "cart" && items.length > 0
+                ? "Checkout is not connected. These items stay in this browser for the preview."
+                : active.body}
             </DialogDescription>
           </DialogHeader>
+          {panel === "cart" && items.length > 0 ? (
+            <div className="mt-2">
+              <ul>
+                {items.map((item) => (
+                  <li
+                    key={item.id}
+                    className="flex items-start justify-between gap-4 border-b border-border py-3"
+                  >
+                    <div>
+                      <p className="font-heading text-base">{item.title}</p>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {formatPrice(item.price)} · {item.qty}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      className="text-sm text-gold"
+                      onClick={() => removeItem(item.id)}
+                    >
+                      Remove
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 font-heading text-lg">
+                Subtotal {formatPrice(subtotal)}
+              </p>
+            </div>
+          ) : null}
         </DialogContent>
       </Dialog>
     </header>
@@ -221,7 +262,7 @@ function UtilityButton({
     <button
       type="button"
       className={cn(
-        "inline-flex size-11 items-center justify-center rounded-full text-[#1A1917] hover:text-gold",
+        "relative inline-flex size-11 items-center justify-center rounded-full text-[#1A1917] hover:text-gold",
         className,
       )}
       aria-haspopup="dialog"

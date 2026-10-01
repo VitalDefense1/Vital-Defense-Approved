@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ContactPanel } from "@/components/contact-panel"
 import { FeatureVideo } from "@/components/feature-video"
+import { ProductShowcase } from "@/components/product-showcase"
 import { departments, proposedHome } from "@/lib/navigation"
 
 /**
@@ -77,10 +78,6 @@ export default function HomePage() {
           sizes="(min-width: 768px) 1100px, 175vw"
           className="pointer-events-none absolute top-1/2 left-0 z-[1] h-auto w-[175vw] max-w-none -translate-x-[39.5%] -translate-y-1/2 opacity-[0.16] md:w-[1100px]"
         />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute top-8 left-[8%] z-[1] hidden h-px w-16 bg-gold md:block"
-        />
         <div className="opening-copy relative z-20 mx-auto max-w-5xl text-center">
           <p className="text-sm tracking-wide text-gold">Lake City, Florida</p>
           <span className="mx-auto mt-6 block h-px w-12 bg-gold" aria-hidden="true" />
@@ -146,10 +143,6 @@ export default function HomePage() {
         </div>
 
         <div className="relative z-10 mx-auto mt-20 max-w-6xl md:mt-28">
-          <div
-            aria-hidden="true"
-            className="absolute top-[18%] left-[18%] h-px w-14 bg-gold md:left-[32%]"
-          />
           <Image
             src="/photos/pdw.png"
             alt="Black compact firearm with an optic, from the supplied photographs."
@@ -163,6 +156,7 @@ export default function HomePage() {
       </section>
 
       <ContactPanel titleAs="h2" />
+      <ProductShowcase />
     </main>
   )
 }

@@ -25,7 +25,6 @@ export function SiteFooter() {
       </div>
       <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-[1.3fr_1fr_1fr]">
         <div>
-          <div className="mb-6 h-px w-10 bg-gold" aria-hidden="true" />
           <Link href="/" className="inline-block rounded-sm">
             <Logo className="h-16" />
           </Link>

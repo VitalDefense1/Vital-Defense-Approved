@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Barlow } from "next/font/google"
+import { CartProvider } from "@/components/cart-state"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import "./globals.css"
@@ -38,11 +39,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <a className="skip-link" href="#content">
           Skip to content
         </a>
-        <SiteHeader />
-        <div id="content" className="flex-1">
-          {children}
-        </div>
-        <SiteFooter />
+        <CartProvider>
+          <SiteHeader />
+          <div id="content" className="flex-1">
+            {children}
+          </div>
+          <SiteFooter />
+        </CartProvider>
       </body>
     </html>
   )
