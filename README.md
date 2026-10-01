@@ -25,16 +25,29 @@ The homepage has the header, a still photograph directly under it, proposed head
 
 Proposed homepage headline, for your review: “Rifles, handguns, and shotguns.”
 
+## Layered composition
+
+This is a lasting requirement for the preview and for later revisions.
+
+Photographs, type, background panels, and short gold rules overlap on purpose. An image should extend past the panel behind it. A photograph may cross into the empty space of the next section. Scales and offsets differ so the page has depth. Shadows stay soft. The page stays light, with enough open space that headings remain easy to read.
+
+Main headings and introductory copy stay centered. Imagery is asymmetric. The header icons stay on the right. The opening frame stays directly under the header.
+
+The three-rifle photograph is the main picture and stays alone in its frame. Do not place two other photographs beside it. Do not redraw the logo, the firearms, or the accessories. On small screens, keep the overlap, keep every firearm fully visible, keep text off the pictures, and do not allow horizontal scrolling.
+
 ## Photographs
 
-The supplied pictures are in `public/photos/`. The homepage uses four of them:
+The supplied pictures are in `public/photos/`. White around the pictures used on the site was removed so they can overlap the page. The firearms and accessories were not redrawn.
 
 - `rifle-scoped.png` fills the opening frame until a real video exists. It is a still, not footage.
-- `pistol-optic.png` sits in the right margin on wide screens.
-- `three-rifles.png` is the only photograph in the three-firearm section.
-- `illustration-rifle.png` is the cartoon file. It is a still JPEG drawing, used once, small, on wide screens. It does not animate.
+- `pistol-optic.png` overlaps the opening section.
+- `pdw.png` overlaps the brands section and the space above the three-rifle heading.
+- `three-rifles.png` is the only photograph in the three-firearm frame.
+- `illustration-rifle.png` is the cartoon file. It is a still drawing, used once, overlapping the contact area. It does not animate.
+- `rifle-camo.png` overlaps the rifle pages.
+- `pistol-chevron.png` overlaps the handgun pages.
 
-White around those four pictures was removed so they can sit on the page color. The firearms themselves were not redrawn. The other supplied pictures are kept in the same folder and are not placed on the homepage, so the three-rifle photograph is not flanked by extra guns.
+There is no shotgun photograph in the supplied set, so the shotgun pages use the panel and gold rule only.
 
 Pass a video `src` into the opening section when footage is ready. Brand slots stay labeled as placeholders until the list is confirmed and logo files are authorized.
 

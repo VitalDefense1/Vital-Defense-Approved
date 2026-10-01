@@ -181,6 +181,10 @@ summary:focus-visible {
   animation: vd-ken 32s ease-in-out infinite alternate;
 }
 
+.vd-float {
+  filter: drop-shadow(0 18px 28px rgba(26, 25, 23, 0.16));
+}
+
 .vd-still-paused {
   animation-play-state: paused;
 }
