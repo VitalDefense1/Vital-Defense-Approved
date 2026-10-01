@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Outfit, Syne } from "next/font/google"
+import { Archivo, Outfit } from "next/font/google"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import "./globals.css"
@@ -11,10 +11,10 @@ const outfit = Outfit({
   display: "swap",
 })
 
-const syne = Syne({
+const archivo = Archivo({
   subsets: ["latin"],
-  weight: ["500", "600"],
-  variable: "--font-syne",
+  weight: ["400", "500", "600"],
+  variable: "--font-archivo",
   display: "swap",
 })
 
@@ -39,7 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${syne.variable} h-full antialiased`}
+      className={`${outfit.variable} ${archivo.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <a className="skip-link" href="#content">

@@ -37,7 +37,9 @@ The three-rifle photograph is the main picture and stays alone in its frame. Do 
 
 ## Photographs
 
-The supplied pictures are in `public/photos/`. White around the pictures used on the site was removed so they can overlap the page. The firearms and accessories were not redrawn.
+The supplied pictures are in `public/photos/`. White around the pictures used on the site was removed so they can overlap the page. The firearms and accessories were not redrawn. An earlier matte left colored noise in the shadow; that noise, plus a second CSS shadow, caused the patterns behind the guns. The current matte keeps the original firearm pixels and uses a neutral shadow only.
+
+The page ground is white, matching the header. Off-white blocks stay as the abstract shapes. Headings use Archivo at a moderate weight. Gold is limited to short rules, small labels, and hover states.
 
 - `rifle-scoped.png` fills the opening frame until a real video exists. It is a still, not footage.
 - `pistol-optic.png` overlaps the opening section.

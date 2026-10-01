@@ -5,9 +5,10 @@ import { site } from "@/lib/site"
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-gold bg-background">
+    <footer className="border-t border-border bg-white">
       <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-[1.3fr_1fr_1fr]">
         <div>
+          <div className="mb-6 h-px w-10 bg-gold" aria-hidden="true" />
           <Link href="/" className="inline-block rounded-sm">
             <Logo className="h-16" />
           </Link>

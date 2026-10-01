@@ -62,7 +62,7 @@ export function SiteHeader() {
     <header className="relative z-30 flex h-[4.75rem] items-center justify-between bg-white px-2 sm:h-28 sm:px-5 lg:h-36">
       <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
         <SheetTrigger
-          className="inline-flex size-11 items-center justify-center rounded-full text-[#1A1917]"
+          className="inline-flex size-11 items-center justify-center rounded-full text-[#1A1917] hover:text-gold"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
           aria-controls="site-navigation"
@@ -217,7 +217,7 @@ function UtilityButton({
     <button
       type="button"
       className={cn(
-        "inline-flex size-11 items-center justify-center rounded-full text-[#1A1917]",
+        "inline-flex size-11 items-center justify-center rounded-full text-[#1A1917] hover:text-gold",
         className,
       )}
       aria-haspopup="dialog"

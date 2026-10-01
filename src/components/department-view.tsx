@@ -9,15 +9,15 @@ const departmentPhotos: Record<
 > = {
   rifles: {
     src: "/photos/rifle-camo.png",
-    width: 1260,
-    height: 590,
+    width: 1197,
+    height: 575,
     alt: "Camouflage rifle with a sling, from the supplied photographs.",
     wide: true,
   },
   handguns: {
     src: "/photos/pistol-chevron.png",
-    width: 780,
-    height: 655,
+    width: 760,
+    height: 641,
     alt: "Black semi-automatic handgun with a red-dot sight, from the supplied photographs.",
     wide: false,
   },
@@ -50,14 +50,15 @@ function LayeredIntro({
           alt={photo.alt}
           width={photo.width}
           height={photo.height}
+          quality={90}
           sizes={photo.wide ? "340px" : "240px"}
-          className={`vd-float pointer-events-none absolute top-16 right-[6%] z-10 hidden h-auto min-[1280px]:block ${
+          className={`pointer-events-none absolute top-16 right-[6%] z-10 hidden h-auto min-[1280px]:block ${
             photo.wide ? "w-[280px] xl:w-[320px]" : "w-[200px] xl:w-[230px]"
           }`}
         />
       ) : null}
       <div className="relative z-20 mx-auto max-w-3xl text-center">
-        <p className="text-sm text-muted-foreground">{kicker}</p>
+        <p className="text-sm tracking-wide text-gold">{kicker}</p>
         <h1 className="mt-4 font-heading text-4xl leading-[1.05] md:text-6xl">{title}</h1>
         <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-muted-foreground">{summary}</p>
       </div>
@@ -72,8 +73,9 @@ function LayeredIntro({
             alt={photo.alt}
             width={photo.width}
             height={photo.height}
+            quality={90}
             sizes="(min-width: 768px) 640px, 100vw"
-            className="vd-float relative z-10 h-auto w-full"
+            className="relative z-10 h-auto w-full"
           />
         </div>
       ) : null}

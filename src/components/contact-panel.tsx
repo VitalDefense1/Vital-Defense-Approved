@@ -15,7 +15,7 @@ export function ContactPanel({ titleAs }: { titleAs: "h1" | "h2" }) {
     <section className="relative px-6 pt-24 pb-20 md:pt-36 md:pb-28">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-14 right-[8%] bottom-10 left-[8%] bg-white md:top-20 md:right-[14%] md:left-[16%]"
+        className="pointer-events-none absolute top-14 right-[8%] bottom-10 left-[8%] bg-[#ebe4d8] md:top-20 md:right-[14%] md:left-[16%]"
       />
       <div
         aria-hidden="true"

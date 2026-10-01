@@ -9,7 +9,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-outfit);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-syne);
+  --font-heading: var(--font-archivo);
   --color-gold: var(--gold);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -50,7 +50,7 @@
 }
 
 :root {
-  --background: #f4f1eb;
+  --background: #ffffff;
   --foreground: #1a1917;
   --card: #ffffff;
   --card-foreground: #1a1917;
@@ -133,8 +133,9 @@
   h1,
   h2,
   h3 {
-    font-family: var(--font-syne), ui-sans-serif, sans-serif;
+    font-family: var(--font-archivo), ui-sans-serif, sans-serif;
     font-weight: 500;
+    letter-spacing: -0.022em;
   }
   ::selection {
     background: rgba(140, 112, 68, 0.22);
@@ -173,16 +174,8 @@ summary:focus-visible {
   outline-offset: 3px;
 }
 
-.vd-stage {
-  background: #e6e0d6;
-}
-
 .vd-still {
   animation: vd-ken 32s ease-in-out infinite alternate;
-}
-
-.vd-float {
-  filter: drop-shadow(0 18px 28px rgba(26, 25, 23, 0.16));
 }
 
 .vd-still-paused {

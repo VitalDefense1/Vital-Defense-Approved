@@ -34,14 +34,15 @@ export function FeatureVideo({
   return (
     <section
       aria-label="Opening photograph"
-      className="relative w-full overflow-hidden border-b border-gold bg-[#e6e0d6]"
+      className="relative w-full overflow-hidden bg-white"
     >
       <div className={`vd-still px-3 pt-5 pb-16 sm:px-8 sm:pt-8 sm:pb-20${holding ? " vd-still-paused" : ""}`}>
         <Image
           src={poster}
           alt="Black scoped rifle with a camouflage sling, from the supplied photographs."
-          width={1243}
-          height={583}
+          width={1180}
+          height={563}
+          quality={90}
           priority
           sizes="(min-width: 1152px) 1152px, 100vw"
           className="mx-auto h-auto w-full max-w-6xl"
@@ -49,7 +50,7 @@ export function FeatureVideo({
       </div>
       {src ? (
         <video
-          className="absolute inset-0 h-full w-full bg-[#e6e0d6] object-contain"
+          className="absolute inset-0 h-full w-full bg-white object-contain"
           src={src}
           poster={poster}
           muted
@@ -59,7 +60,9 @@ export function FeatureVideo({
           preload="metadata"
         />
       ) : null}
-      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 px-4 py-4 sm:px-6">
+      <div className="absolute inset-x-0 bottom-0 px-4 py-4 sm:px-6">
+        <div className="mb-3 h-px w-10 bg-gold" aria-hidden="true" />
+        <div className="flex items-end justify-between gap-4">
         <p className="max-w-xs text-sm leading-5 text-[#1A1917]">
           Still photograph. Your video replaces this frame.
         </p>
@@ -83,6 +86,7 @@ export function FeatureVideo({
                 : "Pause motion"}
           </span>
         </button>
+        </div>
       </div>
     </section>
   )
