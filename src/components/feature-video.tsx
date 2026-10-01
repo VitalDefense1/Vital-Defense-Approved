@@ -3,7 +3,8 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { useAgeConfirmed } from "@/components/age-gate"
 import { useIntro } from "@/components/intro-state"
-import { logoBoxInHeader, placedFrame, type FrameBox } from "@/lib/intro-logo"
+import { logoBoxInHeader, MARK_FILE, MARK_VISIBLE, placedFrame, type FrameBox } from "@/lib/intro-logo"
+import { cn } from "@/lib/utils"
 
 /**
  * Plays the opening film once, after age confirmation.
@@ -16,6 +17,7 @@ export function FeatureVideo({ src }: { src: string }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [frame, setFrame] = useState<FrameBox | null>(null)
   const [ready, setReady] = useState(false)
+  const [band, setBand] = useState<{ top: number; bottom: number } | null>(null)
   const playing = phase === "playing" && ageConfirmed
 
   useLayoutEffect(() => {
@@ -27,10 +29,26 @@ export function FeatureVideo({ src }: { src: string }) {
       if (!header) return
       const stageRect = stage.getBoundingClientRect()
       const headerRect = header.getBoundingClientRect()
+      const sectionRect = stage.parentElement?.getBoundingClientRect()
       setFrame(
         placedFrame(stageRect.width, stageRect.height, headerRect.height, stageRect.top, headerRect.top),
       )
-      setLogoBox(logoBoxInHeader(stageRect, headerRect))
+      const logo = logoBoxInHeader(stageRect, headerRect)
+      setLogoBox(logo)
+      if (sectionRect) {
+        const visibleH = logo.height * (MARK_VISIBLE.height / MARK_FILE.height)
+        const visibleBottom =
+          headerRect.top +
+          logo.top +
+          (MARK_VISIBLE.y / MARK_FILE.height) * logo.height +
+          visibleH
+        const room = sectionRect.bottom - visibleBottom
+        const gap = Math.max(12, Math.min(36, room * 0.08))
+        setBand({
+          top: visibleBottom - sectionRect.top + gap,
+          bottom: gap,
+        })
+      }
     }
 
     measure()
@@ -120,6 +138,25 @@ export function FeatureVideo({ src }: { src: string }) {
           />
         ) : null}
       </div>
+      <div
+        data-intro-wordmark=""
+        className={cn(
+          "pointer-events-none absolute inset-x-0 z-[5] flex min-h-0 items-center justify-center px-5 sm:px-12",
+          "transition-opacity duration-700 ease-out motion-reduce:transition-none",
+          phase === "done" ? "opacity-100" : "opacity-0",
+        )}
+        style={band ? { top: band.top, bottom: band.bottom } : undefined}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/brand/vital-defense-stacked.png"
+          alt="Vital Defense"
+          width={1467}
+          height={824}
+          draggable={false}
+          className="max-h-full max-w-full object-contain"
+        />
+      </div>
       {playing ? (
         <button
           type="button"
@@ -129,7 +166,11 @@ export function FeatureVideo({ src }: { src: string }) {
           Skip intro
         </button>
       ) : null}
-      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 z-10 h-px bg-gold" />
+      <div
+        data-intro-gold=""
+        aria-hidden="true"
+        className="absolute bottom-0 left-1/2 z-10 h-px w-screen -translate-x-1/2 bg-gold"
+      />
     </section>
   )
 }

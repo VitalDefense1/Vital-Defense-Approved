@@ -66,7 +66,7 @@ const departmentLines: Record<string, string> = {
 export default function HomePage() {
   return (
     <main>
-      <FeatureVideo src="/video/opening.mp4?v=2" />
+      <FeatureVideo src="/video/opening.mp4?v=3" />
 
       <section className="relative overflow-x-clip px-6 pt-16 pb-8 md:pt-24 md:pb-14">
         <Image

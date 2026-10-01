@@ -5,7 +5,7 @@
  */
 export const INTRO_FRAME = { width: 1920, height: 1080 }
 
-export const INTRO_SHIELD = { x: 850, y: 46, width: 220, height: 185 }
+export const INTRO_SHIELD = { x: 832, y: 53, width: 254, height: 212 }
 
 export const MARK_FILE = { width: 293, height: 248 }
 
@@ -40,9 +40,11 @@ export function iconRowShift(
 ): number {
   const frame = containedFrame(stageWidth, stageHeight)
   const scale = frame.width / INTRO_FRAME.width
-  const shieldCenter =
-    stageTop + frame.top + (INTRO_SHIELD.y + INTRO_SHIELD.height / 2) * scale
-  return headerTop + headerHeight / 2 - shieldCenter
+  const shieldTop = stageTop + frame.top + INTRO_SHIELD.y * scale
+  const shieldCenter = shieldTop + (INTRO_SHIELD.height * scale) / 2
+  const desired = headerTop + headerHeight / 2 - shieldCenter
+  const maxLift = Math.max(0, shieldTop - (headerTop + 2))
+  return desired < 0 ? Math.max(desired, -maxLift) : desired
 }
 
 /** Contained film, shifted so the ending shield lines up with the icons. */
@@ -101,4 +103,4 @@ export function logoBoxInHeader(stage: DOMRect, header: DOMRect): LogoBox {
  * already played the intro, or when the visitor prefers reduced motion.
  * Does not touch attributes React hydrates.
  */
-export const introLogoBootScript = `(function(){try{if(location.pathname!=="/")return;var reduce=false;try{reduce=matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){}var seen=false;try{seen=sessionStorage.getItem("vd-intro-seen")==="1"}catch(e){}if(!seen&&!reduce)return;var w=document.documentElement.clientWidth||window.innerWidth;var header=w>=1024?144:w>=640?112:76;var padX=w>=640?32:12;var inner=Math.min(1152,w-padX*2);var section=(w>=640?32:20)+inner*(563/1180)+64;var stageW=w;var stageH=section+header;var scale=Math.min(stageW/1920,stageH/1080);var dispW=1920*scale;var dispH=1080*scale;var offsetX=(stageW-dispW)/2;var offsetY=(stageH-dispH)/2;var shieldW=220*scale;var shieldH=185*scale;var shieldLeft=offsetX+850*scale;var shieldTop=offsetY+46*scale;var imgW=shieldW*(293/288);var imgH=imgW*(248/293);var visibleW=imgW*(288/293);var visibleH=imgH*(241/248);var left=shieldLeft+(shieldW-visibleW)/2-(4/293)*imgW;var top=shieldTop+(shieldH-visibleH)/2-(3/248)*imgH;var shieldCenter=offsetY+(46+185/2)*scale;top=top+(header/2-shieldCenter);var css="[data-intro-logo]{opacity:1!important;pointer-events:auto!important;translate:none!important;transform:none!important;left:"+left+"px!important;top:"+top+"px!important;width:"+imgW+"px!important;height:"+imgH+"px!important}[data-intro-logo] img{width:100%!important;height:100%!important;max-width:none!important}";var s=document.createElement("style");s.id="vd-intro-pending";s.textContent=css;document.head.appendChild(s)}catch(e){}})();`
+export const introLogoBootScript = `(function(){try{if(location.pathname!=="/")return;var reduce=false;try{reduce=matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){}var seen=false;try{seen=sessionStorage.getItem("vd-intro-seen")==="1"}catch(e){}if(!seen&&!reduce)return;var w=document.documentElement.clientWidth||window.innerWidth;var header=w>=1024?144:w>=640?112:76;var padX=w>=640?32:12;var inner=Math.min(1152,w-padX*2);var section=(w>=640?32:20)+inner*(563/1180)+64;var stageW=w;var stageH=section+header;var scale=Math.min(stageW/1920,stageH/1080);var dispW=1920*scale;var dispH=1080*scale;var offsetX=(stageW-dispW)/2;var offsetY=(stageH-dispH)/2;var shieldW=254*scale;var shieldH=212*scale;var shieldLeft=offsetX+832*scale;var shieldTopPx=offsetY+53*scale;var imgW=shieldW*(293/288);var imgH=imgW*(248/293);var visibleW=imgW*(288/293);var visibleH=imgH*(241/248);var left=shieldLeft+(shieldW-visibleW)/2-(4/293)*imgW;var top=shieldTopPx+(shieldH-visibleH)/2-(3/248)*imgH;var shieldCenter=shieldTopPx+shieldH/2;var desired=header/2-shieldCenter;var maxLift=Math.max(0,shieldTopPx-2);var dy=desired<0?Math.max(desired,-maxLift):desired;top=top+dy;var visibleBottom=top+(3/248)*imgH+visibleH;var room=stageH-visibleBottom;var gap=Math.max(12,Math.min(36,room*0.08));var artTop=visibleBottom-header+gap;var css="[data-intro-logo]{opacity:1!important;pointer-events:auto!important;translate:none!important;transform:none!important;left:"+left+"px!important;top:"+top+"px!important;width:"+imgW+"px!important;height:"+imgH+"px!important}[data-intro-logo] img{width:100%!important;height:100%!important;max-width:none!important}[data-intro-wordmark]{opacity:1!important;top:"+artTop+"px!important;bottom:"+gap+"px!important}";var s=document.createElement("style");s.id="vd-intro-pending";s.textContent=css;document.head.appendChild(s)}catch(e){}})();`
