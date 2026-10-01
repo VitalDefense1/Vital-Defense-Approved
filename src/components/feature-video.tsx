@@ -3,7 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { useAgeConfirmed } from "@/components/age-gate"
 import { useIntro } from "@/components/intro-state"
-import { containedFrame, logoBoxInHeader, type FrameBox } from "@/lib/intro-logo"
+import { logoBoxInHeader, placedFrame, type FrameBox } from "@/lib/intro-logo"
 
 /**
  * Plays the opening film once, after age confirmation.
@@ -26,8 +26,11 @@ export function FeatureVideo({ src }: { src: string }) {
       const header = document.querySelector("[data-site-header]")
       if (!header) return
       const stageRect = stage.getBoundingClientRect()
-      setFrame(containedFrame(stageRect.width, stageRect.height))
-      setLogoBox(logoBoxInHeader(stageRect, header.getBoundingClientRect()))
+      const headerRect = header.getBoundingClientRect()
+      setFrame(
+        placedFrame(stageRect.width, stageRect.height, headerRect.height, stageRect.top, headerRect.top),
+      )
+      setLogoBox(logoBoxInHeader(stageRect, headerRect))
     }
 
     measure()
