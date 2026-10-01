@@ -4,11 +4,11 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import { Pause, Play } from "lucide-react"
 
-const DEFAULT_STILL = "/placeholders/hero-placeholder.jpg"
+const DEFAULT_STILL = "/photos/rifle-scoped.png"
 
 /**
- * The still image is a composition placeholder, not Vital Defense footage.
- * Pass `src` later to play a real muted, looping, inline video in this frame.
+ * The opening frame holds a supplied still. Pass `src` when there is real
+ * footage. Nothing here is a generated firearm video.
  */
 export function FeatureVideo({
   src,
@@ -33,22 +33,23 @@ export function FeatureVideo({
 
   return (
     <section
-      aria-label="Footage placeholder"
-      className="vd-stage relative w-full overflow-hidden border-b border-gold bg-[#e7e1d8]"
+      aria-label="Opening photograph"
+      className="relative w-full overflow-hidden border-b border-gold bg-[#e6e0d6]"
     >
-      <div className={holding ? "vd-still vd-still-paused" : "vd-still"}>
+      <div className={`vd-still px-3 pt-5 pb-16 sm:px-8 sm:pt-8 sm:pb-20${holding ? " vd-still-paused" : ""}`}>
         <Image
           src={poster}
-          alt="Placeholder photograph of a scoped rifle on a light surface. This is not a Vital Defense product photo."
-          fill
+          alt="Black scoped rifle with a camouflage sling, from the supplied photographs."
+          width={1243}
+          height={583}
           priority
-          sizes="100vw"
-          className="object-cover"
+          sizes="(min-width: 1152px) 1152px, 100vw"
+          className="mx-auto h-auto w-full max-w-6xl"
         />
       </div>
       {src ? (
         <video
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full bg-[#e6e0d6] object-contain"
           src={src}
           poster={poster}
           muted
@@ -58,14 +59,13 @@ export function FeatureVideo({
           preload="metadata"
         />
       ) : null}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/25 to-transparent" />
-      <div className="relative flex h-[min(78vw,720px)] items-end justify-between gap-4 px-4 py-4 sm:h-[min(52vw,760px)] sm:px-6 sm:py-6">
-        <p className="max-w-xs text-sm leading-5 text-white">
-          Placeholder photograph. Your video replaces this still.
+      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 px-4 py-4 sm:px-6">
+        <p className="max-w-xs text-sm leading-5 text-[#1A1917]">
+          Still photograph. Your video replaces this frame.
         </p>
         <button
           type="button"
-          className="pointer-events-auto inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-white text-[#1A1917] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-border bg-white text-[#1A1917] disabled:cursor-not-allowed disabled:opacity-70"
           aria-pressed={holding}
           disabled={motionOff}
           onClick={() => setPaused((value) => !value)}

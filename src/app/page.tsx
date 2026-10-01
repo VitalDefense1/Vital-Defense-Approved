@@ -17,16 +17,24 @@ export default function HomePage() {
     <main>
       <FeatureVideo />
 
-      <section className="relative overflow-x-clip px-6 pt-20 pb-8 md:pt-28 md:pb-12">
+      <section className="relative overflow-x-clip px-6 pt-16 pb-8 md:pt-24 md:pb-16">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-10 right-[6%] hidden h-80 w-[42%] bg-[#ebe4d8] md:block"
+          className="pointer-events-none absolute top-10 right-[4%] hidden h-[28rem] w-[34%] bg-[#ebe4d8] min-[1500px]:block"
         />
         <div
           aria-hidden="true"
           className="pointer-events-none absolute top-16 left-[9%] hidden h-px w-20 bg-gold md:block"
         />
-        <div className="opening-copy relative mx-auto max-w-5xl text-center">
+        <Image
+          src="/photos/pistol-optic.png"
+          alt="Black semi-automatic handgun with a red-dot sight, from the supplied photographs."
+          width={780}
+          height={709}
+          sizes="240px"
+          className="pointer-events-none absolute top-6 right-[2%] z-10 hidden h-auto w-[210px] min-[1500px]:block xl:w-[240px]"
+        />
+        <div className="opening-copy relative z-20 mx-auto max-w-5xl text-center">
           <p className="text-sm text-muted-foreground">Lake City, Florida</p>
           <span className="mx-auto mt-6 block h-px w-12 bg-gold" aria-hidden="true" />
           <h1 className="mt-7 font-heading text-[2.15rem] leading-[1.02] font-medium sm:text-6xl lg:text-[4.75rem] lg:leading-[0.96]">
@@ -102,38 +110,50 @@ export default function HomePage() {
             three firearms.
           </h2>
           <p className="mx-auto mt-5 max-w-md text-base leading-7 text-muted-foreground">
-            Your composite belongs in this one frame. It is not set beside other
-            photos.
+            Three rifles from the photographs supplied for this preview, kept in
+            a single frame.
           </p>
         </div>
 
         <div className="relative mx-auto mt-12 max-w-6xl md:mt-16">
           <div
             aria-hidden="true"
-            className="absolute top-8 right-3 bottom-16 left-3 bg-[#ebe4d8] md:top-14 md:right-[7%] md:bottom-10 md:left-[14%]"
+            className="absolute top-[6%] right-[5%] bottom-[12%] left-[8%] bg-[#ebe4d8] md:right-[8%] md:left-[18%]"
           />
           <div
             aria-hidden="true"
-            className="absolute top-8 left-3 h-px w-14 bg-gold md:top-14 md:left-[16%]"
+            className="absolute top-[6%] left-[10%] h-px w-14 bg-gold md:left-[20%]"
           />
-          <figure className="showcase-frame relative z-10 -mx-5 pt-16 md:mx-0 md:ml-[4%] md:w-[94%] md:pt-24">
+          <figure className="showcase-frame relative z-10 -mx-5 md:mx-0 md:ml-[4%] md:w-[94%]">
             <Image
-              src="/placeholders/composite-placeholder.jpg"
-              alt="Placeholder photograph of a rifle, a handgun, and a shotgun together. This is not Vital Defense’s own composite."
-              width={1280}
-              height={720}
+              src="/photos/three-rifles.png"
+              alt="Three black rifles in one photograph. The top rifle has a scope and a camouflage sling."
+              width={1402}
+              height={1580}
               sizes="(min-width: 1152px) 1080px, 100vw"
               loading="eager"
-              className="h-auto w-full shadow-[0_22px_44px_-26px_rgba(26,25,23,0.55)]"
+              className="h-auto w-full"
             />
             <figcaption className="mt-5 flex flex-col gap-1 px-5 text-left text-sm leading-6 text-muted-foreground md:px-0 sm:flex-row sm:items-baseline sm:justify-between">
-              <span className="text-[#1A1917]">Placeholder</span>
+              <span className="text-[#1A1917]">Supplied photograph</span>
               <span className="max-w-md">
-                Your three-firearm photograph replaces this image. Proportions stay
-                as supplied.
+                Shown together, in the proportions of the original picture.
               </span>
             </figcaption>
           </figure>
+        </div>
+        <div className="mx-auto mt-14 flex max-w-6xl flex-col items-start gap-4 sm:flex-row sm:items-end md:ml-[8%] md:mt-16">
+          <Image
+            src="/photos/illustration-rifle.png"
+            alt="Still drawing of a rifle. The file is a picture, not an animation."
+            width={1010}
+            height={420}
+            sizes="220px"
+            className="h-auto w-40 -rotate-2 sm:w-52"
+          />
+          <p className="max-w-sm pb-2 text-sm leading-6 text-muted-foreground">
+            Still drawing from the supplied files.
+          </p>
         </div>
       </section>
 

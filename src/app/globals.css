@@ -178,8 +178,6 @@ summary:focus-visible {
 }
 
 .vd-still {
-  position: absolute;
-  inset: 0;
   animation: vd-ken 32s ease-in-out infinite alternate;
 }
 

@@ -21,18 +21,22 @@ To reopen it later, start the same command again and use the same address. Leave
 
 ## What you are looking at
 
-The homepage has the header, a footage placeholder directly under it, proposed headline copy, featured-brand placeholders, a frame for the three-firearm composite, a contact area, and a footer. The menu links to rifle, handgun, and shotgun pages. “AR Style Rifles” is not a separate label. Those rifles are under Semi Auto Rifles.
+The homepage has the header, a still photograph directly under it, proposed headline copy, featured-brand placeholders, the three-rifle photograph, a contact area, and a footer. The menu links to rifle, handgun, and shotgun pages. “AR Style Rifles” is not a separate label. Those rifles are under Semi Auto Rifles.
 
 Proposed homepage headline, for your review: “Rifles, handguns, and shotguns.”
 
-## Placeholders
+## Photographs
 
-The homepage uses two stand-in photographs so the layout can be judged before your files arrive:
+The supplied pictures are in `public/photos/`. The homepage uses four of them:
 
-- `public/placeholders/hero-placeholder.jpg` fills the video area. It is not your footage.
-- `public/placeholders/composite-placeholder.jpg` fills the three-firearm frame. It is not your composite.
+- `rifle-scoped.png` fills the opening frame until a real video exists. It is a still, not footage.
+- `pistol-optic.png` sits in the right margin on wide screens.
+- `three-rifles.png` is the only photograph in the three-firearm section.
+- `illustration-rifle.png` is the cartoon file. It is a still JPEG drawing, used once, small, on wide screens. It does not animate.
 
-Replace those files, or pass your video into the video section, when you have the real assets. Individual firearm photos and the sticker image are still unused. Brand slots stay labeled as placeholders until you confirm the list and send logo files.
+White around those four pictures was removed so they can sit on the page color. The firearms themselves were not redrawn. The other supplied pictures are kept in the same folder and are not placed on the homepage, so the three-rifle photograph is not flanked by extra guns.
+
+Pass a video `src` into the opening section when footage is ready. Brand slots stay labeled as placeholders until the list is confirmed and logo files are authorized.
 
 The logo on the site is `public/brand/vital-defense-logo.png`. White was removed from your original file and the empty margin was cropped. The shield, skull, and lettering were not redrawn. The original upload is still at `public/brand/vital-defense-logo.jpg`.
 
