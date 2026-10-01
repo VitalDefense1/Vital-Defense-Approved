@@ -1,6 +1,6 @@
 "use client"
 
-import { useLayoutEffect, useRef, useState, type MouseEvent, type ReactNode } from "react"
+import { useLayoutEffect, useRef, useState, useSyncExternalStore, type MouseEvent, type ReactNode } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Heart, Search, ShoppingBag, User } from "lucide-react"
@@ -24,6 +24,7 @@ import { FavoritesOverlay } from "@/components/favorites-overlay"
 import { useIntro } from "@/components/intro-state"
 import { Logo } from "@/components/logo"
 import { CatalogMenu } from "@/components/catalog-nav"
+import { settledHeaderLogo } from "@/lib/intro-logo"
 import { departments } from "@/lib/navigation"
 import { cn } from "@/lib/utils"
 
@@ -44,6 +45,17 @@ const panels: Record<Panel, { title: string; body: string }> = {
   },
 }
 
+function useViewportWidth() {
+  return useSyncExternalStore(
+    (onChange) => {
+      window.addEventListener("resize", onChange)
+      return () => window.removeEventListener("resize", onChange)
+    },
+    () => document.documentElement.clientWidth,
+    () => 0,
+  )
+}
+
 const iconClass = "size-[22px]"
 const iconHalo =
   "[filter:drop-shadow(0_0_2px_rgb(255_255_255))_drop-shadow(0_0_12px_rgb(255_255_255/0.92))]"
@@ -58,15 +70,24 @@ export function SiteHeader() {
   const pathname = usePathname()
   const { phase, logoBox } = useIntro()
   const home = pathname === "/"
+  const viewportWidth = useViewportWidth()
   // Keep the mark at its final rectangle during playback so the handoff
   // only changes opacity. It stays invisible until the intro is finished.
   const placed = home && logoBox ? logoBox : null
+  // Other pages copy the homepage's settled box. `placed` is unchanged on `/`.
+  const matched = !home && viewportWidth > 0 ? settledHeaderLogo(viewportWidth) : null
+  const frame = home ? placed : matched
   const shown = !home || phase === "done"
 
   useLayoutEffect(() => {
     if (!shown || !placed) return
     document.getElementById("vd-intro-pending")?.remove()
   }, [shown, placed])
+
+  useLayoutEffect(() => {
+    if (!home && viewportWidth <= 0) return
+    document.getElementById("vd-header-logo-pending")?.remove()
+  }, [home, viewportWidth])
 
   function openPanel(next: Panel) {
     setMenuOpen(false)
@@ -209,15 +230,15 @@ export function SiteHeader() {
         className={cn(
           "absolute rounded-sm transition-none",
           !shown && "pointer-events-none opacity-0",
-          !placed && "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+          !frame && "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
         )}
         style={
-          placed
+          frame
             ? {
-                left: placed.left,
-                top: placed.top,
-                width: placed.width,
-                height: placed.height,
+                left: frame.left,
+                top: frame.top,
+                width: frame.width,
+                height: frame.height,
               }
             : undefined
         }
@@ -225,7 +246,7 @@ export function SiteHeader() {
         <Logo
           mark
           priority
-          className={placed ? "h-full w-full" : "h-16 sm:h-24 lg:h-[7.5rem]"}
+          className={frame ? "h-full w-full" : "h-16 sm:h-24 lg:h-[7.5rem]"}
         />
       </Link>
 

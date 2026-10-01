@@ -7,7 +7,7 @@ import { FavoritesProvider } from "@/components/favorites-state"
 import { IntroProvider } from "@/components/intro-state"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
-import { introLogoBootScript } from "@/lib/intro-logo"
+import { introLogoBootScript, otherPageLogoBootScript } from "@/lib/intro-logo"
 import "./globals.css"
 
 const oswald = Oswald({
@@ -53,6 +53,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </Script>
         <Script id="vd-intro-session" strategy="beforeInteractive">
           {introLogoBootScript}
+        </Script>
+        <Script id="vd-other-page-logo" strategy="beforeInteractive">
+          {otherPageLogoBootScript}
         </Script>
         <AgeGate>
           <IntroProvider>
