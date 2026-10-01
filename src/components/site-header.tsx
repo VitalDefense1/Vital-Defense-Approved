@@ -179,7 +179,7 @@ export function SiteHeader() {
               <div className="mt-5 flex flex-col items-start gap-1 min-[480px]:hidden">
                 <button
                   type="button"
-                  className="py-2 text-sm"
+                  className="vd-text-link py-2 text-sm"
                   aria-haspopup="dialog"
                   aria-expanded={favoritesOpen}
                   aria-controls={favoritesOpen ? "favorites-overlay" : undefined}
@@ -189,7 +189,7 @@ export function SiteHeader() {
                 </button>
                 <button
                   type="button"
-                  className="py-2 text-sm"
+                  className="vd-text-link py-2 text-sm"
                   onClick={() => openPanel("account")}
                 >
                   Account
@@ -207,7 +207,7 @@ export function SiteHeader() {
         aria-hidden={!shown && home ? true : undefined}
         tabIndex={!shown && home ? -1 : undefined}
         className={cn(
-          "absolute rounded-sm transition-none",
+          "vd-mark-link absolute rounded-sm transition-none",
           !shown && "pointer-events-none opacity-0",
           !placed && "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
         )}
@@ -300,7 +300,7 @@ export function SiteHeader() {
                     </div>
                     <button
                       type="button"
-                      className="text-sm text-gold"
+                      className="vd-text-link text-sm text-gold"
                       onClick={() => removeItem(item.id)}
                     >
                       Remove

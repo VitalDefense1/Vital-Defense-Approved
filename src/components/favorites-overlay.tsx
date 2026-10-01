@@ -139,7 +139,7 @@ function FavoriteItem({
         className="vd-product-card flex h-full min-h-0 flex-col"
         onClick={onOpen}
       >
-        <span className="relative block h-[6.25rem] shrink-0 bg-[#f7f5f1]">
+        <span className="vd-product-media relative block h-[6.25rem] shrink-0 bg-[#f7f5f1]">
           <Image
             src={product.image.src}
             alt=""
@@ -150,7 +150,7 @@ function FavoriteItem({
           />
         </span>
         <span className="flex min-h-0 flex-1 flex-col px-3 pt-2 pb-3">
-          <span className="line-clamp-2 font-heading text-sm leading-tight font-bold">
+          <span className="vd-product-title line-clamp-2 font-heading text-sm leading-tight font-bold">
             {product.title}
           </span>
           <span className="mt-auto pt-1 text-sm font-semibold tracking-wide text-gold">

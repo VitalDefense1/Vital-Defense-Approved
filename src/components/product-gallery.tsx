@@ -39,7 +39,7 @@ export function ProductGallery({
             <button
               key={`${frame.src}-${frameIndex}`}
               type="button"
-              className={`flex size-16 items-center justify-center bg-[#f7f5f1] p-1 ${
+              className={`vd-thumb flex size-16 items-center justify-center bg-[#f7f5f1] p-1 ${
                 frameIndex === index ? "outline outline-1 outline-gold" : ""
               }`}
               aria-label={`Image ${frameIndex + 1} of ${frames.length}`}

@@ -98,7 +98,7 @@ export function ProductInformation({
               aria-controls={`${productId}-panel-${tab.id}`}
               aria-selected={isSelected}
               tabIndex={isSelected ? 0 : -1}
-              className="relative z-10 min-w-0 flex-1 px-1 pb-3 text-center text-[0.62rem] leading-tight font-semibold tracking-[0.03em] whitespace-nowrap text-muted-foreground aria-selected:text-foreground min-[380px]:text-xs sm:text-sm sm:tracking-[0.06em]"
+              className="vd-text-link relative z-10 min-w-0 flex-1 px-1 pb-3 text-center text-[0.62rem] leading-tight font-semibold tracking-[0.03em] whitespace-nowrap text-muted-foreground aria-selected:text-foreground min-[380px]:text-xs sm:text-sm sm:tracking-[0.06em]"
               onClick={() => setSelected(tab.id)}
               onKeyDown={onKeyDown}
             >

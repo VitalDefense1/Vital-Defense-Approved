@@ -212,9 +212,109 @@ html[data-age="ok"] [data-age-gate] {
 }
 
 .vd-product-card:hover .vd-product-title,
-.vd-product-card:focus-visible .vd-product-title {
+.vd-product-card:focus-visible .vd-product-title,
+.vd-product-card:active .vd-product-title {
   text-decoration-line: underline;
   text-decoration-color: var(--gold);
+}
+
+.vd-product-media {
+  box-shadow: inset 0 0 0 0 transparent;
+  transition: box-shadow 160ms ease;
+}
+
+.vd-product-card:focus-visible .vd-product-media,
+.vd-product-card:active .vd-product-media {
+  box-shadow: inset 0 0 0 1px var(--gold);
+}
+
+/* Same underline as .vd-link, for text controls that are not the category strip. */
+.vd-text-link {
+  text-underline-offset: 0.22em;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 160ms ease;
+}
+
+.vd-text-link:focus-visible,
+.vd-text-link:active {
+  text-decoration-color: var(--gold);
+}
+
+.vd-text-link:active {
+  transition-duration: 80ms;
+}
+
+.vd-thumb {
+  box-shadow: inset 0 0 0 0 transparent;
+  transition: box-shadow 160ms ease;
+}
+
+.vd-thumb:focus-visible,
+.vd-thumb:active {
+  box-shadow: inset 0 0 0 1px var(--gold);
+}
+
+.vd-mark-link {
+  transition: box-shadow 160ms ease;
+}
+
+.vd-mark-link:active {
+  box-shadow: inset 0 -1px 0 var(--gold);
+}
+
+.vd-disclosure > summary .vd-plus {
+  border-radius: 999px;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease;
+}
+
+.vd-disclosure > summary:focus-visible .vd-plus,
+.vd-disclosure > summary:active .vd-plus {
+  background-color: rgba(140, 112, 68, 0.14);
+}
+
+.vd-disclosure > summary:focus-visible > span:not(.vd-plus),
+.vd-disclosure > summary:active > span:not(.vd-plus) {
+  text-decoration-line: underline;
+  text-decoration-color: var(--gold);
+  text-underline-offset: 0.22em;
+}
+
+@media (hover: hover) {
+  .vd-product-card:hover .vd-product-media {
+    box-shadow: inset 0 0 0 1px var(--gold);
+  }
+
+  .vd-text-link:hover {
+    text-decoration-color: var(--gold);
+  }
+
+  .vd-thumb:hover {
+    box-shadow: inset 0 0 0 1px var(--gold);
+  }
+
+  .vd-mark-link:hover {
+    box-shadow: inset 0 -1px 0 var(--gold);
+  }
+
+  .vd-disclosure > summary:hover .vd-plus {
+    background-color: rgba(140, 112, 68, 0.14);
+  }
+
+  .vd-disclosure > summary:hover > span:not(.vd-plus) {
+    text-decoration-line: underline;
+    text-decoration-color: var(--gold);
+    text-underline-offset: 0.22em;
+  }
+}
+
+.vd-text-link:disabled,
+.vd-text-link:disabled:hover,
+.vd-text-link:disabled:focus-visible,
+.vd-text-link:disabled:active {
+  text-decoration-color: transparent;
 }
 
 a:focus-visible,
@@ -297,7 +397,12 @@ summary:focus-visible {
   }
 
   .vd-favorites-panel,
-  .vd-favorites-overlay {
+  .vd-favorites-overlay,
+  .vd-product-media,
+  .vd-text-link,
+  .vd-thumb,
+  .vd-mark-link,
+  .vd-disclosure > summary .vd-plus {
     animation: none;
     transition: none;
   }

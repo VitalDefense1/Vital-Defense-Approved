@@ -98,7 +98,7 @@ function ProductGrid({
               className="absolute top-1 right-1 z-10"
             />
             <Link href={productPath(product.id)} className="vd-product-card flex h-full flex-col">
-              <div className="flex aspect-[4/3] items-center justify-center bg-[#f7f5f1] p-3 sm:p-4">
+              <div className="vd-product-media flex aspect-[4/3] items-center justify-center bg-[#f7f5f1] p-3 sm:p-4">
                 <Image
                   src={product.image.src}
                   alt=""
@@ -157,7 +157,7 @@ function ListingPagination({
       <nav aria-label="Pagination" className="flex flex-wrap items-center justify-center gap-1">
         <button
           type="button"
-          className="h-11 px-3 text-sm disabled:opacity-40"
+          className="vd-text-link h-11 px-3 text-sm disabled:opacity-40"
           onClick={() => onSelect(current - 1)}
           disabled={current === 1}
         >
@@ -173,7 +173,9 @@ function ListingPagination({
               key={entry}
               type="button"
               className={`h-11 min-w-11 px-2 text-sm ${
-                entry === current ? "text-gold underline decoration-gold underline-offset-4" : ""
+                entry === current
+                  ? "text-gold underline decoration-gold underline-offset-4"
+                  : "vd-text-link"
               }`}
               aria-label={`Page ${entry}`}
               aria-current={entry === current ? "page" : undefined}
@@ -185,7 +187,7 @@ function ListingPagination({
         )}
         <button
           type="button"
-          className="h-11 px-3 text-sm disabled:opacity-40"
+          className="vd-text-link h-11 px-3 text-sm disabled:opacity-40"
           onClick={() => onSelect(current + 1)}
           disabled={current === pageCount}
         >
