@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, type MouseEvent, type RefObject } from "react"
+import { useEffect, useRef, type MouseEvent, type RefObject } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog"
@@ -29,6 +29,20 @@ export function FavoritesOverlay({
   const { ids } = useFavorites()
   const closeRef = useRef<HTMLButtonElement>(null)
   const restoreOpener = useRef(true)
+
+  useEffect(() => {
+    if (!open) return
+    const html = document.documentElement
+    const previous = html.style.overflowY
+    const x = window.scrollX
+    const y = window.scrollY
+    html.style.overflowY = "hidden"
+    if (window.scrollX !== x || window.scrollY !== y) window.scrollTo(x, y)
+    return () => {
+      html.style.overflowY = previous
+      window.scrollTo(x, y)
+    }
+  }, [open])
   const products = ids.flatMap((id) => {
     const product = getSampleProduct(id)
     return product ? [product] : []

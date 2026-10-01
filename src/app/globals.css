@@ -254,6 +254,10 @@ summary:focus-visible {
     width 220ms ease;
 }
 
+.vd-favorites-overlay {
+  backdrop-filter: none !important;
+}
+
 .vd-favorites-grid {
   --vd-fav-row: 11.5rem;
   --vd-fav-gap: 0.75rem;
