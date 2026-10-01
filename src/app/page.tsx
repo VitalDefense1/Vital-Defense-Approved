@@ -34,15 +34,6 @@ export default function HomePage() {
           aria-hidden="true"
           className="pointer-events-none absolute top-8 left-[8%] hidden h-px w-16 bg-gold md:block"
         />
-        <Image
-          src="/photos/pistol-optic.png"
-          alt="Black semi-automatic handgun with a red-dot sight, from the supplied photographs."
-          width={760}
-          height={695}
-          quality={90}
-          sizes="250px"
-          className="pointer-events-none absolute top-6 right-10 z-10 hidden h-auto w-[200px] min-[1500px]:block xl:w-[240px]"
-        />
         <div className="opening-copy relative z-20 mx-auto max-w-5xl text-center">
           <p className="text-sm tracking-wide text-gold">Lake City, Florida</p>
           <span className="mx-auto mt-6 block h-px w-12 bg-gold" aria-hidden="true" />
@@ -73,21 +64,6 @@ export default function HomePage() {
             ))}
           </ul>
         </div>
-        <div className="relative z-10 mx-auto mt-16 max-w-lg min-[1500px]:hidden">
-          <div
-            aria-hidden="true"
-            className="absolute top-5 right-[8%] bottom-4 left-[18%] bg-[#ebe4d8]"
-          />
-          <Image
-            src="/photos/pistol-optic.png"
-            alt="Black semi-automatic handgun with a red-dot sight, from the supplied photographs."
-            width={760}
-            height={695}
-            quality={90}
-            sizes="(min-width: 768px) 420px, 86vw"
-            className="relative z-10 ml-auto h-auto w-[84%]"
-          />
-        </div>
       </section>
 
       <section className="relative px-0 pt-8 md:px-8 md:pt-14" aria-label="Shield and rifle">
@@ -98,7 +74,7 @@ export default function HomePage() {
           height={1024}
           quality={90}
           sizes="(min-width: 1280px) 1152px, 100vw"
-          className="mx-auto h-auto w-full max-w-6xl"
+          className="mx-auto h-auto w-full max-w-6xl opacity-60"
         />
       </section>
 
