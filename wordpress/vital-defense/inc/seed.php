@@ -27,7 +27,7 @@ function vd_sync_catalog() {
 	}
 	flush_rewrite_rules( false );
 	update_option( 'vd_catalog_ver', '4' );
-	update_option( 'vd_rewrite_ver', '4' );
+	update_option( 'vd_rewrite_ver', '5' );
 	delete_transient( 'vd_catalog_index' );
 }
 
@@ -72,7 +72,7 @@ function vd_sample_admin_page() {
 	if ( isset( $_POST['vd_install_samples'] ) && check_admin_referer( 'vd_install_samples' ) ) {
 		vd_install_sample_content();
 		update_option( 'vd_catalog_ver', '4' );
-		update_option( 'vd_rewrite_ver', '4' );
+		update_option( 'vd_rewrite_ver', '5' );
 		delete_transient( 'vd_catalog_index' );
 		echo '<div class="notice notice-success"><p>Sample categories and products are in place. Existing pages, Customizer text, and products you added yourself stay in place. Built-in sample products are refreshed.</p></div>';
 	}

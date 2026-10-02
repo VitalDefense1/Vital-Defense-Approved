@@ -18,7 +18,7 @@
 			</ul>
 		</nav>
 		<div>
-			<p class="vd-footer-label">Published contact</p>
+			<p class="vd-footer-label">Contact information</p>
 			<ul>
 				<li><a class="vd-link" href="<?php echo esc_url( vd_phone_href() ); ?>"><?php echo esc_html( vd_mod( 'phone_display' ) ); ?></a></li>
 				<li><a class="vd-link" href="<?php echo esc_url( 'mailto:' . vd_mod( 'email' ) ); ?>"><?php echo esc_html( vd_mod( 'email' ) ); ?></a></li>

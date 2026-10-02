@@ -98,6 +98,26 @@ function vd_catalog_request( $vars ) {
 }
 add_filter( 'request', 'vd_catalog_request' );
 
+function vd_product_request( $vars ) {
+	if ( ! empty( $vars['vd_product'] ) || ! empty( $vars['p'] ) ) {
+		return $vars;
+	}
+	$parts = explode( '/', vd_request_path() );
+	if ( count( $parts ) !== 2 || 'products' !== $parts[0] || '' === $parts[1] ) {
+		return $vars;
+	}
+	$slug = sanitize_title( $parts[1] );
+	if ( '' === $slug ) {
+		return $vars;
+	}
+	$vars['post_type']  = 'vd_product';
+	$vars['vd_product'] = $slug;
+	$vars['name']       = $slug;
+	unset( $vars['error'], $vars['pagename'], $vars['page'], $vars['attachment'] );
+	return $vars;
+}
+add_filter( 'request', 'vd_product_request' );
+
 function vd_relative_product_link( $url, $post ) {
 	if ( ! $post instanceof WP_Post || 'vd_product' !== $post->post_type ) {
 		return $url;
@@ -114,18 +134,20 @@ function vd_query_vars( $vars ) {
 }
 
 function vd_flush_catalog_rewrites() {
-	if ( '4' === get_option( 'vd_rewrite_ver' ) ) {
+	if ( '5' === get_option( 'vd_rewrite_ver' ) ) {
 		return;
 	}
 	flush_rewrite_rules( false );
-	update_option( 'vd_rewrite_ver', '4' );
+	update_option( 'vd_rewrite_ver', '5' );
 }
 
 function vd_catalog_is_not_404() {
-	if ( ! get_query_var( 'vd_catalog' ) || ! vd_resolve_catalog_term() ) {
+	global $wp_query;
+	$catalog = get_query_var( 'vd_catalog' ) && vd_resolve_catalog_term();
+	$product = $wp_query instanceof WP_Query && $wp_query->is_singular( 'vd_product' );
+	if ( ! $catalog && ! $product ) {
 		return;
 	}
-	global $wp_query;
 	if ( $wp_query instanceof WP_Query ) {
 		$wp_query->is_404 = false;
 	}
@@ -221,8 +243,8 @@ function vd_assets() {
 		array(),
 		null
 	);
-	wp_enqueue_style( 'vd-theme', vd_public_url( get_template_directory_uri() . '/assets/css/theme.css' ), array( 'vd-fonts' ), '1.1.4' );
-	wp_enqueue_script( 'vd-theme', vd_public_url( get_template_directory_uri() . '/assets/js/theme.js' ), array(), '1.1.4', true );
+	wp_enqueue_style( 'vd-theme', vd_public_url( get_template_directory_uri() . '/assets/css/theme.css' ), array( 'vd-fonts' ), '1.1.5' );
+	wp_enqueue_script( 'vd-theme', vd_public_url( get_template_directory_uri() . '/assets/js/theme.js' ), array(), '1.1.5', true );
 	wp_localize_script(
 		'vd-theme',
 		'vdPreview',

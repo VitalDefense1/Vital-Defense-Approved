@@ -60,7 +60,9 @@ function vd_render_product_grid( $products, $class ) {
 		echo '<span class="vd-product-title">' . esc_html( $title ) . '</span>';
 		echo '<span class="vd-product-desc">' . esc_html( wp_strip_all_tags( $post->post_content ) ) . '</span>';
 		echo '<span class="vd-price">' . esc_html( vd_format_price( $price ) ) . '</span>';
-		echo '</a></li>';
+		echo '</a>';
+		echo '<button type="button" class="vd-button vd-card-cart" data-add-cart data-id="' . esc_attr( $post->post_name ) . '" data-title="' . esc_attr( $title ) . '" data-price="' . esc_attr( (string) $price ) . '">Add to cart</button>';
+		echo '</li>';
 	}
 	echo '</ul>';
 	echo '<div class="vd-pagination" data-pagination>';
