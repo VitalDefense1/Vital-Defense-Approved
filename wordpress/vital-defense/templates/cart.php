@@ -37,7 +37,7 @@ get_header();
 				</form>
 				<button type="button" class="vd-button vd-button-block" data-checkout>Proceed to checkout</button>
 				<p class="vd-form-note" data-checkout-note role="status" hidden></p>
-				<p class="vd-continue"><a class="vd-text-link" href="<?php echo esc_url( home_url( '/' ) ); ?>">Continue shopping</a></p>
+				<p class="vd-continue"><a class="vd-text-link" href="<?php echo esc_url( vd_internal_url() ); ?>">Continue shopping</a></p>
 			</aside>
 		</div>
 	</div>

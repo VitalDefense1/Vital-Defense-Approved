@@ -17,12 +17,82 @@ function vd_after_switch() {
 add_action( 'after_switch_theme', 'vd_after_switch' );
 
 function vd_sync_catalog() {
-	if ( '3' === get_option( 'vd_catalog_ver' ) ) {
+	if ( '4' === get_option( 'vd_catalog_ver' ) ) {
 		return;
 	}
 	vd_seed_catalog();
-	update_option( 'vd_catalog_ver', '3' );
+	$products = wp_count_posts( 'vd_product' );
+	if ( empty( $products->publish ) ) {
+		vd_seed_products();
+	}
+	flush_rewrite_rules( false );
+	update_option( 'vd_catalog_ver', '4' );
+	update_option( 'vd_rewrite_ver', '4' );
 	delete_transient( 'vd_catalog_index' );
+}
+
+function vd_install_sample_content() {
+	vd_seed_catalog();
+	vd_seed_products();
+	vd_ensure_page( 'Home', 'home' );
+	vd_ensure_page( 'Contact', 'contact' );
+	vd_ensure_page( 'Cart', 'cart' );
+	flush_rewrite_rules( false );
+}
+
+function vd_sample_content_counts() {
+	$terms = get_terms(
+		array(
+			'taxonomy'   => 'vd_catalog',
+			'hide_empty' => false,
+		)
+	);
+	$products = wp_count_posts( 'vd_product' );
+	return array(
+		'categories' => is_wp_error( $terms ) ? 0 : count( $terms ),
+		'products'   => isset( $products->publish ) ? (int) $products->publish : 0,
+	);
+}
+
+function vd_sample_admin_menu() {
+	add_management_page(
+		'Vital Defense samples',
+		'Vital Defense samples',
+		'manage_options',
+		'vd-sample-content',
+		'vd_sample_admin_page'
+	);
+}
+add_action( 'admin_menu', 'vd_sample_admin_menu' );
+
+function vd_sample_admin_page() {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+	if ( isset( $_POST['vd_install_samples'] ) && check_admin_referer( 'vd_install_samples' ) ) {
+		vd_install_sample_content();
+		update_option( 'vd_catalog_ver', '4' );
+		update_option( 'vd_rewrite_ver', '4' );
+		delete_transient( 'vd_catalog_index' );
+		echo '<div class="notice notice-success"><p>Sample categories and products are in place. Existing pages, Customizer text, and products you added yourself stay in place. Built-in sample products are refreshed.</p></div>';
+	}
+	$counts = vd_sample_content_counts();
+	$permalinks = get_option( 'permalink_structure' );
+	echo '<div class="wrap">';
+	echo '<h1>Vital Defense samples</h1>';
+	echo '<p>These listings are sample content for the staging site. They are not the shop inventory and they are not connected to FFL Cockpit. The button below creates missing categories and refreshes the built-in sample products. It does not delete pages, Customizer text, or products you added yourself.</p>';
+	echo '<p>This theme does not use WooCommerce categories. Menu, footer, and homepage links go to addresses such as <code>/rifles/</code> and <code>/rifles/semi-auto/</code> on this site. WooCommerce can stay installed; it does not supply these listings.</p>';
+	if ( class_exists( 'WooCommerce' ) ) {
+		echo '<p>WooCommerce is active. Leave it active only if something else on this site needs it. These category pages still come from Vital Defense catalog categories.</p>';
+	}
+	echo '<p><strong>' . esc_html( (string) $counts['categories'] ) . '</strong> catalog categories and <strong>' . esc_html( (string) $counts['products'] ) . '</strong> published sample products are stored right now.</p>';
+	if ( '/%postname%/' !== $permalinks ) {
+		echo '<div class="notice notice-warning"><p>Permalinks are not set to Post name. Open Settings → Permalinks, choose Post name, and click Save Changes. This theme still opens catalog paths such as /rifles/ when those rules have not been saved, as long as the category exists.</p></div>';
+	}
+	echo '<form method="post">';
+	wp_nonce_field( 'vd_install_samples' );
+	submit_button( 'Create sample categories and products', 'primary', 'vd_install_samples' );
+	echo '</form></div>';
 }
 add_action( 'init', 'vd_sync_catalog', 20 );
 
@@ -106,6 +176,7 @@ function vd_seed_products() {
 		}
 		update_post_meta( $post_id, '_vd_price', (float) $product['price'] );
 		update_post_meta( $post_id, '_vd_image', $product['image']['src'] ?? '' );
+		update_post_meta( $post_id, '_vd_sample', '1' );
 		$term = vd_find_top( $product['category'] );
 		if ( $term ) {
 			wp_set_object_terms( $post_id, array( (int) $term->term_id ), 'vd_catalog' );

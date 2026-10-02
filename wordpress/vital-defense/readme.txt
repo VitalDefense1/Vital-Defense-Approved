@@ -1,6 +1,21 @@
 Vital Defense staging theme
 ===========================
 
+Theme 1.1.3. The intro film reveals on the first visit after the age question, including when the file was already buffered. Category addresses such as /rifles/ are resolved by the theme even if rewrite rules were not saved yet. Links are paths on the current site, not the local preview address.
+
+Replacing an installed copy
+---------------------------
+
+Uploading this ZIP does not delete pages, categories, products, or Customizer text. Keep the folder name vital-defense.
+
+1. In WordPress, go to Appearance → Themes → Add New → Upload Theme and choose the new ZIP.
+2. If WordPress says the destination folder already exists, do not delete products or pages. Use the host file manager or SFTP to replace wp-content/themes/vital-defense with the folder inside the ZIP. Leave the folder name as vital-defense.
+3. Open the site homepage once, then go to Settings → Permalinks, choose Post name, and click Save Changes.
+4. If a category still says Page not found, open Tools → Vital Defense samples and click “Create sample categories and products.” That button writes sample categories and sample products. It does not connect FFL Cockpit.
+5. If the host caches pages, purge that cache so the new theme script loads. The script address ends in ver=1.1.3.
+
+Sample products are for testing until a real product feed is connected. Subcategories with no products show an empty listing, not a missing page. WooCommerce is not required. This theme’s categories are separate from WooCommerce product categories.
+
 This file ships inside the theme. It explains how to install the approved WordPress design on a new hosted staging site.
 
 This package does not purchase hosting, point vitaldefenseco.com at the new site, change DNS or Cloudflare, or edit the current live website. Leave FFL Cockpit credentials and any live shop integration untouched.
@@ -19,7 +34,7 @@ The local preview that matches tag approved-wordpress-design-v1 was:
 
 That SQLite plugin was only for the local preview. A normal host gives you MySQL or MariaDB. Do not install the SQLite plugin on the host unless the host has no MySQL database.
 
-The theme file says it needs WordPress 6.4 or newer and PHP 8.0 or newer, and that it was checked through WordPress 7.1. Only WordPress 7.1.2 and PHP 8.3.6 were exercised for this package. It was not installed on a public host during packaging.
+The theme file says it needs WordPress 6.4 or newer and PHP 8.0 or newer, and that it was checked through WordPress 7.1. Only WordPress 7.1.2 and PHP 8.3.6 were exercised for this package, on the local preview. Theme 1.1.3 was checked there for the first-visit intro and for category listings. It was not installed on the Convesio test site during packaging.
 
 Required plugins: none.
 
@@ -83,7 +98,7 @@ Use the host’s temporary address, such as a staging subdomain the host assigns
 
 2. Before you send the address to anyone, turn on the host’s password protection for the site. Hosting panels call this Directory Privacy, Password Protect, Coming Soon, or a staging lock. Pick a password for visitors. That password is separate from the WordPress administrator login. WordPress itself does not lock the whole site.
 
-3. In WordPress, go to Appearance → Themes → Add New → Upload Theme. Choose vital-defense-1.1.2.zip and install it, then click Activate.
+3. In WordPress, go to Appearance → Themes → Add New → Upload Theme. Choose vital-defense-1.1.3.zip and install it, then click Activate.
 
    The ZIP is about 15 MB because the opening video is inside it. If the host refuses the upload, the limit is usually smaller than the file. Use the host’s file manager or SFTP instead: unzip the package and place the vital-defense folder in wp-content/themes/. Then use Appearance → Themes and activate Vital Defense. Do not rename the folder.
 
@@ -135,5 +150,5 @@ These items are layout only. They were reviewed in the local preview and they ar
 - The theme asks search engines not to index every page. Discourage search engines in Reading settings as well. Neither one is a password. A later public launch has to remove that noindex behavior on purpose. Do not do that for this staging site.
 - Fonts are loaded from fonts.googleapis.com. If the host blocks that connection, the browser uses a fallback font and the layout can look different.
 - A caching or security plugin was not part of the test. If the header looks like an older copy, clear the host cache.
-- Category links 404 when permalinks were not saved. Settings → Permalinks → Post name → Save Changes fixes that on a normal Apache or nginx host.
+- Theme 1.1.3 opens catalog paths such as /rifles/ even when rewrite rules were stale. Settings → Permalinks → Post name → Save Changes is still the right step on a normal Apache or nginx host. If the category itself is missing, Tools → Vital Defense samples creates the sample categories and sample products. Uploading the ZIP does not do that by itself when sample content was already stored.
 - This package was not run through a commercial host’s installer, WordPress.com, or a host that disables custom permalink rules. If the menu links 404 after saving permalinks, the host’s support needs to allow WordPress rewrite rules. Do not point the live domain at the site to test that.

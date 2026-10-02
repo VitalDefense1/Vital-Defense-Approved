@@ -1,7 +1,22 @@
 <?php
 
+function vd_public_url( $url ) {
+	$url   = (string) $url;
+	$parts = wp_parse_url( $url );
+	if ( empty( $parts['path'] ) ) {
+		return $url;
+	}
+	$host  = $parts['host'] ?? '';
+	$local = in_array( $host, array( '127.0.0.1', 'localhost', '0.0.0.0' ), true );
+	if ( $host && ! $local ) {
+		return $url;
+	}
+	$query = isset( $parts['query'] ) ? '?' . $parts['query'] : '';
+	return $parts['path'] . $query;
+}
+
 function vd_asset( $path ) {
-	return get_template_directory_uri() . '/assets' . $path;
+	return vd_public_url( get_template_directory_uri() . '/assets' . $path );
 }
 
 function vd_default( $key ) {
@@ -53,7 +68,7 @@ function vd_video_url() {
 	if ( $id ) {
 		$url = wp_get_attachment_url( $id );
 		if ( $url ) {
-			return $url;
+			return vd_public_url( $url );
 		}
 	}
 	return vd_asset( '/video/opening.mp4' );
@@ -69,7 +84,7 @@ function vd_product_image_url( $post_id ) {
 		return '';
 	}
 	if ( str_starts_with( $path, 'http://' ) || str_starts_with( $path, 'https://' ) ) {
-		return $path;
+		return vd_public_url( $path );
 	}
 	return vd_asset( $path );
 }
@@ -147,9 +162,19 @@ function vd_top_terms() {
 	return vd_term_children( 0 );
 }
 
+function vd_internal_url( $path = '' ) {
+	$path = trim( (string) $path, '/' );
+	$base = wp_parse_url( home_url( '/' ) );
+	$prefix = isset( $base['path'] ) ? rtrim( (string) $base['path'], '/' ) : '';
+	if ( '' === $path ) {
+		return $prefix . '/';
+	}
+	return $prefix . '/' . $path . '/';
+}
+
 function vd_term_url( $term ) {
 	if ( ! $term || is_wp_error( $term ) ) {
-		return home_url( '/' );
+		return vd_internal_url();
 	}
 	$segments = array();
 	$guard    = 0;
@@ -166,5 +191,5 @@ function vd_term_url( $term ) {
 		$current = get_term( (int) $current->parent, 'vd_catalog' );
 		$guard++;
 	}
-	return home_url( '/' . implode( '/', $segments ) . '/' );
+	return vd_internal_url( implode( '/', $segments ) );
 }

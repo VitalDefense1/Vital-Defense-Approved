@@ -22,7 +22,7 @@ while ( have_posts() ) :
 			</div>
 			<div>
 				<?php if ( $term && $path ) : ?>
-					<a class="vd-link vd-kicker" href="<?php echo esc_url( home_url( '/' . $path . '/' ) ); ?>"><?php echo esc_html( $term->name ); ?></a>
+					<a class="vd-link vd-kicker" href="<?php echo esc_url( vd_term_url( $term ) ); ?>"><?php echo esc_html( $term->name ); ?></a>
 				<?php endif; ?>
 				<h1><?php the_title(); ?></h1>
 				<p class="vd-blurb" data-product-summary><?php echo esc_html( $text ); ?></p>

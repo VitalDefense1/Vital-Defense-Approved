@@ -2,7 +2,7 @@
 	<button type="button" class="vd-icon-button" data-open-menu aria-label="Open menu" aria-expanded="false" aria-controls="site-navigation">
 		<span class="vd-burger" aria-hidden="true"><span></span><span></span><span></span></span>
 	</button>
-	<a class="vd-logo-link" data-intro-logo href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="Vital Defense">
+	<a class="vd-logo-link" data-intro-logo href="<?php echo esc_url( vd_internal_url() ); ?>" aria-label="Vital Defense">
 		<img src="<?php echo esc_url( vd_asset( '/brand/shield-symbol.png' ) ); ?>" alt="" width="293" height="248" draggable="false">
 	</a>
 	<div class="vd-utilities">

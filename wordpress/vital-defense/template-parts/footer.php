@@ -4,7 +4,7 @@
 	</div>
 	<div class="vd-footer-grid">
 		<div>
-			<a class="vd-mark-link" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+			<a class="vd-mark-link" href="<?php echo esc_url( vd_internal_url() ); ?>">
 				<img src="<?php echo esc_url( vd_asset( '/brand/vital-defense-logo.png' ) ); ?>" alt="Vital Defense" width="736" height="626">
 			</a>
 			<p class="vd-footer-place"><?php echo esc_html( vd_mod( 'site_name' ) ); ?><br><?php echo esc_html( vd_mod( 'place' ) ); ?></p>

@@ -48,7 +48,7 @@ $line2 = vd_mod( 'headline_2' );
 	<?php get_template_part( 'template-parts/showcase' ); ?>
 	<?php vd_render_category_strip(); ?>
 	<div class="vd-home-contact">
-		<a class="vd-button" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php echo esc_html( vd_mod( 'contact_button' ) ); ?></a>
+		<a class="vd-button" href="<?php echo esc_url( vd_internal_url( 'contact' ) ); ?>"><?php echo esc_html( vd_mod( 'contact_button' ) ); ?></a>
 	</div>
 </main>
 <?php

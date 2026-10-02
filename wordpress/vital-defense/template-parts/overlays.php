@@ -10,7 +10,7 @@
 				<?php vd_render_catalog_menu(); ?>
 			</nav>
 			<div class="vd-sheet-contact">
-				<a class="vd-link vd-nav-top" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Contact</a>
+				<a class="vd-link vd-nav-top" href="<?php echo esc_url( vd_internal_url( 'contact' ) ); ?>">Contact</a>
 				<div class="vd-sheet-mini">
 					<button type="button" class="vd-text-link" data-open-dialog="favorites">Favorites</button>
 					<button type="button" class="vd-text-link" data-open-dialog="account">Account</button>
@@ -45,7 +45,7 @@
 		<h2 id="vd-cart-title">Cart</h2>
 		<p data-cart-dialog-copy>Nothing is in the cart yet.</p>
 		<div data-cart-dialog-lines></div>
-		<p class="vd-view-cart"><a class="vd-text-link" href="<?php echo esc_url( home_url( '/cart/' ) ); ?>">View cart</a></p>
+		<p class="vd-view-cart"><a class="vd-text-link" href="<?php echo esc_url( vd_internal_url( 'cart' ) ); ?>">View cart</a></p>
 	</div>
 </div>
 

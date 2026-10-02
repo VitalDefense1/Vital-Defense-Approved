@@ -51,13 +51,61 @@ function vd_register_types() {
 }
 add_action( 'init', 'vd_register_types' );
 
+function vd_catalog_top_slugs() {
+	$slugs = array();
+	foreach ( vd_catalog_tree() as $node ) {
+		if ( ! empty( $node['path'] ) ) {
+			$slugs[] = $node['path'];
+		}
+	}
+	return $slugs;
+}
+
 function vd_rewrite_rules() {
-	$tops = array( 'rifles', 'handguns', 'shotguns', 'optics', 'accessories', 'parts', 'ammo', 'services', 'merch', 'extras' );
-	$top  = implode( '|', $tops );
+	$top = implode( '|', vd_catalog_top_slugs() );
 	add_rewrite_rule( '^(' . $top . ')/(.+)/?$', 'index.php?vd_catalog=$matches[1]&vd_trail=$matches[2]', 'top' );
 	add_rewrite_rule( '^(' . $top . ')/?$', 'index.php?vd_catalog=$matches[1]', 'top' );
 }
 add_action( 'init', 'vd_rewrite_rules' );
+
+function vd_request_path() {
+	$home = trim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
+	$path = trim( (string) wp_parse_url( $_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH ), '/' );
+	if ( $home && ( $path === $home || str_starts_with( $path, $home . '/' ) ) ) {
+		$path = trim( substr( $path, strlen( $home ) ), '/' );
+	}
+	return $path;
+}
+
+function vd_catalog_request( $vars ) {
+	if ( ! empty( $vars['vd_catalog'] ) ) {
+		return $vars;
+	}
+	$path = vd_request_path();
+	if ( '' === $path ) {
+		return $vars;
+	}
+	$parts = explode( '/', $path );
+	if ( ! in_array( $parts[0], vd_catalog_top_slugs(), true ) ) {
+		return $vars;
+	}
+	$vars['vd_catalog'] = $parts[0];
+	if ( count( $parts ) > 1 ) {
+		$vars['vd_trail'] = implode( '/', array_slice( $parts, 1 ) );
+	}
+	unset( $vars['error'], $vars['pagename'], $vars['name'], $vars['page'] );
+	return $vars;
+}
+add_filter( 'request', 'vd_catalog_request' );
+
+function vd_relative_product_link( $url, $post ) {
+	if ( ! $post instanceof WP_Post || 'vd_product' !== $post->post_type ) {
+		return $url;
+	}
+	$path = wp_parse_url( $url, PHP_URL_PATH );
+	return $path ? $path : $url;
+}
+add_filter( 'post_type_link', 'vd_relative_product_link', 10, 2 );
 
 function vd_query_vars( $vars ) {
 	$vars[] = 'vd_catalog';
@@ -66,12 +114,24 @@ function vd_query_vars( $vars ) {
 }
 
 function vd_flush_catalog_rewrites() {
-	if ( '3' === get_option( 'vd_rewrite_ver' ) ) {
+	if ( '4' === get_option( 'vd_rewrite_ver' ) ) {
 		return;
 	}
 	flush_rewrite_rules( false );
-	update_option( 'vd_rewrite_ver', '3' );
+	update_option( 'vd_rewrite_ver', '4' );
 }
+
+function vd_catalog_is_not_404() {
+	if ( ! get_query_var( 'vd_catalog' ) || ! vd_resolve_catalog_term() ) {
+		return;
+	}
+	global $wp_query;
+	if ( $wp_query instanceof WP_Query ) {
+		$wp_query->is_404 = false;
+	}
+	status_header( 200 );
+}
+add_action( 'template_redirect', 'vd_catalog_is_not_404', 0 );
 add_action( 'init', 'vd_flush_catalog_rewrites', 99 );
 add_filter( 'query_vars', 'vd_query_vars' );
 
@@ -93,8 +153,8 @@ function vd_assets() {
 		array(),
 		null
 	);
-	wp_enqueue_style( 'vd-theme', get_template_directory_uri() . '/assets/css/theme.css', array( 'vd-fonts' ), '1.1.2' );
-	wp_enqueue_script( 'vd-theme', get_template_directory_uri() . '/assets/js/theme.js', array(), '1.1.2', true );
+	wp_enqueue_style( 'vd-theme', vd_public_url( get_template_directory_uri() . '/assets/css/theme.css' ), array( 'vd-fonts' ), '1.1.3' );
+	wp_enqueue_script( 'vd-theme', vd_public_url( get_template_directory_uri() . '/assets/js/theme.js' ), array(), '1.1.3', true );
 	wp_localize_script(
 		'vd-theme',
 		'vdPreview',
@@ -104,6 +164,15 @@ function vd_assets() {
 	);
 }
 add_action( 'wp_enqueue_scripts', 'vd_assets' );
+
+function vd_keep_theme_assets_on_this_host( $src, $handle ) {
+	if ( 'vd-theme' !== $handle ) {
+		return $src;
+	}
+	return vd_public_url( $src );
+}
+add_filter( 'style_loader_src', 'vd_keep_theme_assets_on_this_host', 10, 2 );
+add_filter( 'script_loader_src', 'vd_keep_theme_assets_on_this_host', 10, 2 );
 
 function vd_robots( $robots ) {
 	$robots['noindex']  = true;
