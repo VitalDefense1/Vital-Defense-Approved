@@ -2,7 +2,7 @@
 
 This folder is the installable design theme for the approved Next.js preview. It is a separate local site. It does not change vitaldefenseco.com, DNS, or hosting, and it does not connect to FFL Cockpit or take payment.
 
-The theme lives in `vital-defense/`. Zip that folder, then in WordPress go to Appearance → Themes → Add New → Upload Theme.
+The theme lives in `vital-defense/`. The approved design checkpoint is the Git tag `approved-wordpress-design-v1`. Staging steps, including what the theme ZIP does not create by itself, are in `vital-defense/readme.txt`. Zip only the `vital-defense` folder, then in WordPress go to Appearance → Themes → Add New → Upload Theme. Do not upload the Next.js project as a theme.
 
 ## What you can edit
 
