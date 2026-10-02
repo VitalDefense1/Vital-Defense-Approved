@@ -7,7 +7,7 @@ $line2 = vd_mod( 'headline_2' );
 	<section class="vd-opening" aria-label="Opening" data-intro="unknown">
 		<div class="vd-opening-spacer" aria-hidden="true"><div></div></div>
 		<div class="vd-opening-stage" data-intro-stage>
-			<video class="vd-opening-video" muted playsinline preload="auto" aria-hidden="true" data-intro-video src="<?php echo esc_url( vd_video_url() ); ?>"></video>
+			<video class="vd-opening-video" muted playsinline webkit-playsinline preload="none" disablepictureinpicture aria-hidden="true" data-intro-video src="<?php echo esc_url( vd_video_url() ); ?>"></video>
 			<div class="vd-opening-feather" data-intro-feather aria-hidden="true"></div>
 		</div>
 		<div class="vd-wordmark" data-intro-wordmark>

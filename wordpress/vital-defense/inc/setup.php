@@ -146,6 +146,74 @@ function vd_template_include( $template ) {
 }
 add_filter( 'template_include', 'vd_template_include' );
 
+function vd_stream_opening_video() {
+	if ( ! isset( $_GET['vd-opening-video'] ) ) {
+		return;
+	}
+	$file = get_template_directory() . '/assets/video/opening.mp4';
+	if ( ! is_readable( $file ) ) {
+		status_header( 404 );
+		exit;
+	}
+	while ( ob_get_level() ) {
+		ob_end_clean();
+	}
+	$size  = filesize( $file );
+	$start = 0;
+	$end   = $size - 1;
+	if ( isset( $_SERVER['HTTP_RANGE'] ) && preg_match( '/bytes=(\d*)-(\d*)/', (string) $_SERVER['HTTP_RANGE'], $matches ) ) {
+		if ( '' === $matches[1] ) {
+			$suffix = (int) $matches[2];
+			$start  = max( 0, $size - $suffix );
+		} else {
+			$start = (int) $matches[1];
+			if ( '' !== $matches[2] ) {
+				$end = (int) $matches[2];
+			}
+		}
+		if ( $start > $end || $start >= $size ) {
+			header( 'Content-Range: bytes */' . $size );
+			status_header( 416 );
+			exit;
+		}
+		$end = min( $end, $size - 1 );
+		status_header( 206 );
+		header( 'Content-Range: bytes ' . $start . '-' . $end . '/' . $size );
+	} else {
+		status_header( 200 );
+	}
+	$length = $end - $start + 1;
+	header( 'Content-Type: video/mp4' );
+	header( 'Accept-Ranges: bytes' );
+	header( 'Content-Length: ' . $length );
+	header( 'Cache-Control: public, max-age=86400' );
+	header( 'X-Content-Type-Options: nosniff' );
+	if ( 'HEAD' === ( $_SERVER['REQUEST_METHOD'] ?? 'GET' ) ) {
+		exit;
+	}
+	$handle = fopen( $file, 'rb' );
+	if ( ! $handle ) {
+		status_header( 404 );
+		exit;
+	}
+	fseek( $handle, $start );
+	$left = $length;
+	while ( $left > 0 && ! feof( $handle ) ) {
+		$chunk = fread( $handle, (int) min( 8192, $left ) );
+		if ( false === $chunk || '' === $chunk ) {
+			break;
+		}
+		echo $chunk;
+		$left -= strlen( $chunk );
+		if ( connection_aborted() ) {
+			break;
+		}
+	}
+	fclose( $handle );
+	exit;
+}
+add_action( 'init', 'vd_stream_opening_video', 0 );
+
 function vd_assets() {
 	wp_enqueue_style(
 		'vd-fonts',
@@ -153,8 +221,8 @@ function vd_assets() {
 		array(),
 		null
 	);
-	wp_enqueue_style( 'vd-theme', vd_public_url( get_template_directory_uri() . '/assets/css/theme.css' ), array( 'vd-fonts' ), '1.1.3' );
-	wp_enqueue_script( 'vd-theme', vd_public_url( get_template_directory_uri() . '/assets/js/theme.js' ), array(), '1.1.3', true );
+	wp_enqueue_style( 'vd-theme', vd_public_url( get_template_directory_uri() . '/assets/css/theme.css' ), array( 'vd-fonts' ), '1.1.4' );
+	wp_enqueue_script( 'vd-theme', vd_public_url( get_template_directory_uri() . '/assets/js/theme.js' ), array(), '1.1.4', true );
 	wp_localize_script(
 		'vd-theme',
 		'vdPreview',

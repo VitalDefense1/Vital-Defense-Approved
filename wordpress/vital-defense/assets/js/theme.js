@@ -492,18 +492,28 @@
     if (skip) skip.hidden = false;
     var frame = measureLogo();
     placeVideo(frame);
-    video.muted = true;
-    video.defaultMuted = true;
-    video.playsInline = true;
-    video.setAttribute("muted", "");
-    video.setAttribute("playsinline", "");
-    video.setAttribute("webkit-playsinline", "");
-    function revealVideo() {
-      if (video.readyState >= 2) video.style.opacity = "1";
+    var source = video.currentSrc || video.getAttribute("src");
+    function armInlinePlayback() {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.playsInline = true;
+      video.autoplay = true;
+      video.setAttribute("muted", "");
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "");
+      video.setAttribute("autoplay", "");
     }
-    video.addEventListener("loadeddata", revealVideo);
-    video.addEventListener("canplay", revealVideo);
-    revealVideo();
+    armInlinePlayback();
+    video.addEventListener("error", function () {
+      if (!video.getAttribute("src") && !video.currentSrc) return;
+      if (!video.error || video.error.code === 1) return;
+      showSettledIntro();
+    });
+    if (source) {
+      video.src = source;
+      video.load();
+      armInlinePlayback();
+    }
     var leadMarked = false;
     video.addEventListener("timeupdate", function () {
       if (leadMarked || !isFinite(video.duration) || video.duration <= 1.8) return;
@@ -514,35 +524,20 @@
       }
     });
     video.addEventListener("ended", finishIntro);
-    function failIntro() {
-      if (!video.error) return;
+    if (skip) skip.addEventListener("click", finishIntro);
+    var playbackTries = 0;
+    function onPlayError(error) {
+      var name = error && error.name;
+      if (name === "AbortError" && playbackTries < 2) {
+        playbackTries += 1;
+        var again = video.play();
+        if (again && again.catch) again.catch(onPlayError);
+        return;
+      }
       showSettledIntro();
     }
-    video.addEventListener("error", failIntro);
-    if (video.error) failIntro();
-    if (skip) skip.addEventListener("click", finishIntro);
-    var playbackStarted = false;
-    var playbackTries = 0;
-    function beginPlayback() {
-      if (playbackStarted) return;
-      playbackStarted = true;
-      revealVideo();
-      var pending = video.play();
-      if (!pending || !pending.catch) return;
-      pending.catch(function (error) {
-        var name = error && error.name;
-        if (name === "AbortError" && playbackTries < 2) {
-          playbackTries += 1;
-          playbackStarted = false;
-          if (video.readyState >= 2) beginPlayback();
-          else video.addEventListener("canplay", beginPlayback, { once: true });
-          return;
-        }
-        showSettledIntro();
-      });
-    }
-    if (video.readyState >= 2) beginPlayback();
-    else video.addEventListener("canplay", beginPlayback, { once: true });
+    var pending = video.play();
+    if (pending && pending.catch) pending.catch(onPlayError);
   }
   function measureOtherPageLogo() {
     var logo = document.querySelector("[data-intro-logo]");

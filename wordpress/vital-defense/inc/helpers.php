@@ -63,6 +63,12 @@ function vd_phone_href() {
 	return 'tel:+13864665353';
 }
 
+function vd_opening_stream_url() {
+	$prefix = wp_parse_url( home_url( '/' ), PHP_URL_PATH );
+	$prefix = is_string( $prefix ) ? rtrim( $prefix, '/' ) : '';
+	return $prefix . '/?vd-opening-video=1';
+}
+
 function vd_video_url() {
 	$id = (int) get_theme_mod( 'vd_opening_video', 0 );
 	if ( $id ) {
@@ -71,7 +77,7 @@ function vd_video_url() {
 			return vd_public_url( $url );
 		}
 	}
-	return vd_asset( '/video/opening.mp4' );
+	return vd_opening_stream_url();
 }
 
 function vd_product_image_url( $post_id ) {
