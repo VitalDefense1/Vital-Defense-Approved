@@ -1,7 +1,7 @@
 Vital Defense staging theme
 ===========================
 
-Theme 1.1.5. Category cards keep a gap between the two phone columns, show an Add to cart button under the price, and open /products/… detail pages even when rewrite rules were not saved. The footer label reads Contact information. On a phone, the intro film starts inside the “I am over 21” tap, muted and inline, including when the file was not buffered yet. The film file is H.264 High profile level 4.0 with no audio track, and the theme sends it as video/mp4 with byte ranges. Category addresses such as /rifles/ are resolved by the theme even if rewrite rules were not saved yet. Links are paths on the current site, not the local preview address.
+Theme 1.1.6. Each category card holds its price and Add to cart button inside the card, with a clear gap before the next row. Category cards keep a gap between the two phone columns, show an Add to cart button under the price, and open /products/… detail pages even when rewrite rules were not saved. The footer label reads Contact information. On a phone, the intro film starts inside the “I am over 21” tap, muted and inline, including when the file was not buffered yet. The film file is H.264 High profile level 4.0 with no audio track, and the theme sends it as video/mp4 with byte ranges. Category addresses such as /rifles/ are resolved by the theme even if rewrite rules were not saved yet. Links are paths on the current site, not the local preview address.
 
 Replacing an installed copy
 ---------------------------
@@ -12,7 +12,7 @@ Uploading this ZIP does not delete pages, categories, products, or Customizer te
 2. If WordPress says the destination folder already exists, do not delete products or pages. Use the host file manager or SFTP to replace wp-content/themes/vital-defense with the folder inside the ZIP. Leave the folder name as vital-defense.
 3. Open the site homepage once, then go to Settings → Permalinks, choose Post name, and click Save Changes.
 4. If a category still says Page not found, open Tools → Vital Defense samples and click “Create sample categories and products.” That button writes sample categories and sample products. It does not connect FFL Cockpit.
-5. If the host caches pages, purge that cache so the new theme script loads. The script address ends in ver=1.1.5. On a phone, open the homepage in a private tab, accept the age question, and confirm the film plays. iPhone Reduce Motion skips the film and shows the finished homepage.
+5. If the host caches pages, purge that cache so the new theme script loads. The script address ends in ver=1.1.6. On a phone, open the homepage in a private tab, accept the age question, and confirm the film plays. iPhone Reduce Motion skips the film and shows the finished homepage.
 
 Sample products are for testing until a real product feed is connected. Subcategories with no products show an empty listing, not a missing page. WooCommerce is not required. This theme’s categories are separate from WooCommerce product categories.
 
@@ -98,7 +98,7 @@ Use the host’s temporary address, such as a staging subdomain the host assigns
 
 2. Before you send the address to anyone, turn on the host’s password protection for the site. Hosting panels call this Directory Privacy, Password Protect, Coming Soon, or a staging lock. Pick a password for visitors. That password is separate from the WordPress administrator login. WordPress itself does not lock the whole site.
 
-3. In WordPress, go to Appearance → Themes → Add New → Upload Theme. Choose vital-defense-1.1.5.zip and install it, then click Activate.
+3. In WordPress, go to Appearance → Themes → Add New → Upload Theme. Choose vital-defense-1.1.6.zip and install it, then click Activate.
 
    The ZIP is about 15 MB because the opening video is inside it. If the host refuses the upload, the limit is usually smaller than the file. Use the host’s file manager or SFTP instead: unzip the package and place the vital-defense folder in wp-content/themes/. Then use Appearance → Themes and activate Vital Defense. Do not rename the folder.
 
